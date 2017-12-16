@@ -1,0 +1,11 @@
+{
+    "lessThanMinuteAgo": "Less than a minute ago",
+    "minuteAgo": "minute ago",
+    "minutesAgo": "minutes ago",
+    "hourAgo": "hour ago",
+    "hoursAgo": "hours ago",
+    "dayAgo": "day ago",
+    "daysAgo": "days ago",
+    "yesterday": "Yesterday",
+    "days": ["Sunday", "Monday", "Tuesday", "Wensday", "Thursday", "Friday", "Saturday"]
+}

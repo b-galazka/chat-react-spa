@@ -1,0 +1,7 @@
+{
+    "apiBaseUrl": "",
+    "socketUrl": "",
+    "messagesPerRequest": 50,
+    "messagesPerFirstRequest": 100,
+    "socketReconnectionsAmount": 20
+}

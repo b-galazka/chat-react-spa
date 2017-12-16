@@ -1,0 +1,9 @@
+@import '../../shared/config';
+
+.page__loading-error {
+    color: $red;
+}
+
+.page__loader--authenticated {
+    background-color: #fff;
+}

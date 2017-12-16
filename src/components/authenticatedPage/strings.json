@@ -1,0 +1,4 @@
+{
+    "socketDisconnected": "You have been disconnected. Wait for reconnection.",
+    "socketReconnectionError": "Reconnection failed. Try to refresh the page later."
+}

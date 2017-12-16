@@ -1,0 +1,62 @@
+@import '../../shared/config';
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+    
+    &::selection {
+        background-color: $selectionColor;
+    }
+}
+
+html {
+    font-size: 15px;
+}
+
+a {
+    color: inherit;
+}
+
+input, textarea {
+    background-color: #fff;
+    border-radius: 0;
+}
+
+.button {
+    background-color: $blue;
+    color: #FFF;
+    cursor: pointer;
+    width: 100%;
+    transition-duration: 0.4s;
+    transition-property: background-color;
+    border: none;
+    border-radius: 0;
+    
+    &--disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        outline: 0;
+    }
+
+    &:not(&--disabled):hover {
+        background-color: $darkBlue;
+    }
+}
+
+.page {
+    display: flex;
+    height: 100vh;
+    min-height: 500px;
+    min-width: 600px;
+    
+    &__loader {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        padding: 10px;
+    }
+}
