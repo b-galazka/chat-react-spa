@@ -44,7 +44,7 @@ module.exports = {
     },
 
     devServer: {
-        contentBase: path.resolve(__dirname, 'src'),
+        contentBase: path.resolve(__dirname, 'dist'),
         inline: true,
         hot: true,
         port: 3000,
