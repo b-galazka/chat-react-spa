@@ -37,6 +37,7 @@ class Sidebar extends Component {
         };
 
         this.updateSearchFieldValue = this.updateSearchFieldValue.bind(this);
+        this.renderUser = this.renderUser.bind(this);
     }
 
     render() {
@@ -84,9 +85,7 @@ class Sidebar extends Component {
 
     renderUsers(users, sectionTitle) {
 
-        const usersListItems = users.map(user => (
-            <li key={user._id}>{user.username}</li>
-        ));
+        const usersListItems = users.map(this.renderUser);
 
         return (
             <section className="users__wrapper">
@@ -110,6 +109,45 @@ class Sidebar extends Component {
         );
     }
 
+    renderUser(user) {
+
+        const searchQuery = this.getSearchQuery();
+
+        const username = (
+            (searchQuery === '') ?
+                user.username :
+                this.renderUsername(user.username, searchQuery)
+        );
+
+        return <li key={user._id}>{username}</li>;
+    }
+
+    renderUsername(username, searchQuery) {
+
+        const searchQueryRegex = new RegExp(searchQuery, 'gi');
+        const splittedUsername = username.split(searchQueryRegex);
+        const searchQueryMatches = username.match(searchQueryRegex);
+
+        return splittedUsername.reduce((username, usernamePart, index) => {
+
+            const searchQueryMatch = searchQueryMatches[index];
+
+            username.push(usernamePart);
+
+            if (searchQueryMatch) {
+
+                username.push(
+                    <span className='users__search-query-match' key={index}>
+                        {searchQueryMatch}
+                    </span>
+                );
+            }
+
+            return username;
+
+        }, []);
+    }
+
     updateSearchFieldValue({target}) {
 
         const {value} = target;
@@ -122,13 +160,18 @@ class Sidebar extends Component {
     getUsers(connected) {
 
         const {users, username} = this.props;
-        const searchQuery = this.state.searchFieldValue.trim();
+        const searchQueryRegex = new RegExp(this.getSearchQuery(), 'gi');
 
         return users.filter(user => (
             user.connected === connected &&
-            user.username.includes(searchQuery) &&
+            user.username.search(searchQueryRegex) > -1 &&
             user.username !== username
         ));
+    }
+
+    getSearchQuery() {
+
+        return this.state.searchFieldValue.trim();
     }
 }
 

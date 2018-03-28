@@ -62,4 +62,9 @@
         margin-bottom: 15px;
         list-style-type: none;
     }
+
+    &__search-query-match {
+        font-weight: bold;
+        font-size: 1.05rem;
+    }
 }
