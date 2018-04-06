@@ -118,7 +118,7 @@ export default function messagesReducer(state = initialState, action) {
             const {sent, sending} = state;
 
             // prevents doubling messages sent during reconnection
-            const doesMessageExist = sent.some(message => message._id === payload._id);
+            const doesMessageExist = sent.some(message => message.id === payload.id);
 
             return {
                 ...state,
@@ -133,7 +133,7 @@ export default function messagesReducer(state = initialState, action) {
             const {sent, unreadMessages} = state;
 
             // prevents doubling messages received during reconnection
-            const doesMessageExist = sent.some(message => message._id === payload._id);
+            const doesMessageExist = sent.some(message => message.id === payload.id);
 
             if (doesMessageExist) {
 

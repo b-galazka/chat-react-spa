@@ -16,8 +16,8 @@ describe('Message component', () => {
     it('should render without crash', () => {
 
         const messageObject = {
-            _id: 'id',
-            author: 'author',
+            id: 'id',
+            author: { username: 'author' },
             content: 'content',
             date: new Date().toISOString()
         };

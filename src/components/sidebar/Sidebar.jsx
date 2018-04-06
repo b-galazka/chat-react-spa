@@ -119,7 +119,7 @@ class Sidebar extends Component {
                 this.renderUsername(user.username, searchQuery)
         );
 
-        return <li key={user._id}>{username}</li>;
+        return <li key={user.id}>{username}</li>;
     }
 
     renderUsername(username, searchQuery) {

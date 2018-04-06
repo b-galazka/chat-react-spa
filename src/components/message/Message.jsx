@@ -31,6 +31,8 @@ class Message extends Component {
             displayTimeHeader
         } = this.props;
 
+        const messageAuthor = message.author && message.author.username;
+
         return (
             <article className={
 
@@ -38,7 +40,7 @@ class Message extends Component {
                     message: true,
                     'message--sending': sending,
                     'message--sent': !sending,
-                    'message--my': (username === message.author || sending),
+                    'message--my': (username === messageAuthor || sending),
                     'message--with-time-header': displayTimeHeader
                 })
             }>
@@ -49,7 +51,7 @@ class Message extends Component {
 
                     {
                         displayAuthor &&
-                        <p className="message__author">{message.author}</p>
+                        <p className="message__author">{messageAuthor}</p>
                     }
 
                     <div className="message__data">
@@ -200,9 +202,13 @@ class Message extends Component {
 Message.propTypes = {
 
     message: propTypes.shape({
-        _id: propTypes.string,
-        author: propTypes.string,
-        content: propTypes.string,
+        id: propTypes.number,
+
+        author: propTypes.shape({
+            username: propTypes.string
+        }),
+
+        content: propTypes.string.isRequired,
         date: propTypes.string
     }).isRequired,
 

@@ -51,7 +51,7 @@ class Chat extends Component {
 
         const {sentMessages} = props;
 
-        this.firstFetchedMessageID = sentMessages[0] && sentMessages[0]._id;
+        this.firstFetchedMessageID = sentMessages[0] && sentMessages[0].id;
         this.scrollableAreaPrevScrollHeight = 0;
 
         this.fetchMoreMessages = this.fetchMoreMessages.bind(this);
@@ -114,7 +114,7 @@ class Chat extends Component {
         if (this.areOlderMessagesBeingFetched()) {
 
             this.scrollToTheLastPosition();
-            this.firstFetchedMessageID = this.props.sentMessages[0]._id;
+            this.firstFetchedMessageID = this.props.sentMessages[0].id;
 
             return;
         }
@@ -140,7 +140,7 @@ class Chat extends Component {
 
             return (
                 <Message
-                    key={message._id}
+                    key={message.id}
                     message={message}
                     displayAuthor={this.shouldDisplayAuthor(index, displayTimeHeader)}
                     displayTimeHeader={displayTimeHeader}
@@ -182,10 +182,12 @@ class Chat extends Component {
         const {username, sentMessages} = this.props;
         const message = sentMessages[messageIndex];
         const prevMessage = sentMessages[messageIndex - 1];
+        const messageAuthor = message.author.username;
+        const prevMessageAuthor = prevMessage && prevMessage.author.username;
 
         if (
-            (!prevMessage || message.author !== prevMessage.author || timeHeader) &&
-            username !== message.author
+            (!prevMessage || messageAuthor !== prevMessageAuthor || timeHeader) &&
+            username !== messageAuthor
         ) {
 
             return true;
@@ -229,7 +231,7 @@ class Chat extends Component {
             return;
         }
 
-        this.props.fetchMoreMessages(sentMessages[0]._id);
+        this.props.fetchMoreMessages(sentMessages[0].id);
     }
 
     areOlderMessagesBeingFetched(props = this.props) {
@@ -242,7 +244,7 @@ class Chat extends Component {
             return false;
         }
 
-        return (firstMessage._id !== firstFetchedMessageID);
+        return (firstMessage.id !== firstFetchedMessageID);
     }
 
     onOlderMessagesFetching(nextProps) {
