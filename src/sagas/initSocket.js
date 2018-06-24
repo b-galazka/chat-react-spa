@@ -31,7 +31,6 @@ function getSocketChannel(socket) {
             if (error === 'invalid token or no token provided') {
 
                 emit(logout());
-                emit(false);
                 emit(END);
             } else {
 
@@ -59,7 +58,6 @@ function getSocketChannel(socket) {
 
             if (reason === 'io client disconnect') {
 
-                emit(false);
                 emit(END);
             } else {
 
@@ -92,7 +90,10 @@ function getSocketChannel(socket) {
             emit(receiveMessage(message));
         });
 
-        return () => {};
+        return () => {
+
+            emit(false);
+        };
     });
 }
 
