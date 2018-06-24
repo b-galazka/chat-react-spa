@@ -6,9 +6,9 @@ import {
     FETCHING_FAILED,
     TYPING_STARTED,
     TYPING_FINISHED
-} from '../actionsTypes/users';
+} from '../actions/types/users';
 
-import {CLEAR_STORE} from '../actionsTypes/entireStore';
+import {CLEAR_STORE} from '../actions/types/entireStore';
 
 const initialState = {
 

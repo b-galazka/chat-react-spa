@@ -3,7 +3,7 @@ import {
     AUTH_SUCCEEDED,
     AUTH_FAILED,
     PUT_TOKEN
-} from '../actionsTypes/auth';
+} from './types/auth';
 
 export function putToken(token, tokenData) {
 

@@ -11,10 +11,10 @@ import {
     RECEIVED,
     TYPING_STARTED,
     TYPING_FINISHED
-} from '../actionsTypes/messages';
+} from '../actions/types/messages';
 
-import {CLEAR_STORE} from '../actionsTypes/entireStore';
-import {RECONNECTION_SUCCEEDED} from '../actionsTypes/socket';
+import {CLEAR_STORE} from '../actions/types/entireStore';
+import {RECONNECTION_SUCCEEDED} from '../actions/types/socket';
 
 import config from '../shared/config';
 

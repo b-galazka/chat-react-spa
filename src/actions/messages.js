@@ -12,7 +12,7 @@ import {
     TYPING_STARTED,
     TYPING_FINISHED,
     TYPING_FINISH_PROCESSING
-} from '../actionsTypes/messages';
+} from './types/messages';
 
 export function fetchMessages() {
 

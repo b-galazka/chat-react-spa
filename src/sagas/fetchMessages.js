@@ -4,7 +4,7 @@ import axios from '../shared/axios';
 
 import {logout} from '../actions/entireStore';
 import {fetchingSuccess, fetchingFailure} from '../actions/messages';
-import {FETCHING_REQUESTED} from '../actionsTypes/messages';
+import {FETCHING_REQUESTED} from '../actions/types/messages';
 import { tokenSelector } from './selectors/auth';
 
 import config from '../shared/config';

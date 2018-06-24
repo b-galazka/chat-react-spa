@@ -3,7 +3,7 @@ import {call, put, takeLatest} from 'redux-saga/effects';
 import axios from '../shared/axios';
 
 import {creationSuccess, creationFailure} from '../actions/users';
-import {CREATION_REQUESTED} from '../actionsTypes/users';
+import {CREATION_REQUESTED} from '../actions/types/users';
 
 function *createUser({username, password}) {
 

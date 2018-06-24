@@ -6,7 +6,7 @@ import {
     RECONNECTION_SUCCEEDED,
     RECONNECTION_FAILED,
     DISCONNECTION
-} from '../actionsTypes/socket';
+} from './types/socket';
 
 export function initSocket() {
 

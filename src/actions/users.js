@@ -6,7 +6,7 @@ import {
     FETCHING_SUCCEDED,
     TYPING_STARTED,
     TYPING_FINISHED
-} from '../actionsTypes/users';
+} from './types/users';
 
 export function createUser({username, password}) {
 

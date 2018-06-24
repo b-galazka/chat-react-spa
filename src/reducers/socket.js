@@ -5,9 +5,9 @@ import {
     CONNECTION_FAILED,
     RECONNECTION_SUCCEEDED,
     RECONNECTION_FAILED
-} from '../actionsTypes/socket';
+} from '../actions/types/socket';
 
-import {CLEAR_STORE} from '../actionsTypes/entireStore';
+import {CLEAR_STORE} from '../actions/types/entireStore';
 
 const initialState = {
     socket: null,

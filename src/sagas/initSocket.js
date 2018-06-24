@@ -20,7 +20,7 @@ import {
 
 import {logout} from '../actions/entireStore';
 import {fetchMessages, messageSaved, receiveMessage} from '../actions/messages';
-import {INIT} from '../actionsTypes/socket';
+import {INIT} from '../actions/types/socket';
 import { tokenSelector } from './selectors/auth';
 import { socketSelector } from './selectors/socket';
 
