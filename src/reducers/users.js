@@ -21,6 +21,9 @@ const initialState = {
 
 export default function usersReducer(state = initialState, action) {
 
+    const { payload } = action;
+    const { typingUsers } = state;
+
     switch (action.type) {
 
         case CREATION_REQUESTED: {
@@ -49,7 +52,7 @@ export default function usersReducer(state = initialState, action) {
                 ...state,
                 created: false,
                 creating: false,
-                creationError: action.payload
+                creationError: payload
             };
         }
             
@@ -59,7 +62,7 @@ export default function usersReducer(state = initialState, action) {
                 ...state,
                 fetched: true,
                 updatingError: false,
-                users: action.payload
+                users: payload
             };
         }       
 

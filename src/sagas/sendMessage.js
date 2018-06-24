@@ -7,7 +7,10 @@ function *sendMessage({payload}) {
 
     const socket = yield select(socketSelector);
 
-    socket.emit('message', payload);
+    if (socket && socket.emit) {
+
+        socket.emit('message', payload);
+    }
 }
 
 export default function *sendMessageWatcher() {

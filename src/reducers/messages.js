@@ -34,6 +34,8 @@ const initialState = {
 
 export default function messagesReducer(state = initialState, action) {
 
+    const { payload } = action;
+
     switch (action.type) {
 
         case FETCHING_REQUESTED: {
@@ -47,8 +49,6 @@ export default function messagesReducer(state = initialState, action) {
         }
             
         case FETCHING_SUCCEDED: {
-
-            const {payload} = action;
 
             return {
                 ...state,
@@ -66,7 +66,7 @@ export default function messagesReducer(state = initialState, action) {
                 ...state,
                 fetched: false,
                 fetching: false,
-                fetchingError: action.payload
+                fetchingError: payload
             };
         }
 
@@ -81,8 +81,6 @@ export default function messagesReducer(state = initialState, action) {
         }
 
         case FETCHING_MORE_SUCCEDED: {
-
-            const {payload} = action;
 
             return {
                 ...state,
@@ -100,7 +98,7 @@ export default function messagesReducer(state = initialState, action) {
                 ...state,
                 fetchedMore: false,
                 fetchingMore: false,
-                fetchingMoreError: action.payload
+                fetchingMoreError: payload
             };
         }
 
@@ -108,13 +106,13 @@ export default function messagesReducer(state = initialState, action) {
 
             return {
                 ...state,
-                sending: [...state.sending, action.payload]
+                sending: [...state.sending, payload]
             };
         }
 
         case SAVED: {
 
-            const {payload, tempID} = action;
+            const { tempID } = action;
             const {sent, sending} = state;
 
             // prevents doubling messages sent during reconnection
@@ -129,7 +127,6 @@ export default function messagesReducer(state = initialState, action) {
 
         case RECEIVED: {
 
-            const {payload} = action;
             const {sent, unreadMessages} = state;
 
             // prevents doubling messages received during reconnection

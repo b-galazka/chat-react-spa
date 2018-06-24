@@ -185,15 +185,10 @@ class Chat extends Component {
         const messageAuthor = message.author.username;
         const prevMessageAuthor = prevMessage && prevMessage.author.username;
 
-        if (
+        return Boolean(
             (!prevMessage || messageAuthor !== prevMessageAuthor || timeHeader) &&
             username !== messageAuthor
-        ) {
-
-            return true;
-        }
-
-        return false;
+        );
     }
 
     scrollDown() {

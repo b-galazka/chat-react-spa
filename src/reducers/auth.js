@@ -16,6 +16,8 @@ const initialState = {
 
 export default function authReducer(state = initialState, action) {
 
+    const { payload } = action;
+
     switch (action.type) {
 
         case AUTH_REQUESTED: {
@@ -32,13 +34,13 @@ export default function authReducer(state = initialState, action) {
             return {
                 ...state,
                 authenticating: false,
-                authError: action.payload
+                authError: payload
             };
         }
             
         case AUTH_SUCCEEDED: {
 
-            const {token, tokenData} = action.payload;
+            const {token, tokenData} = payload;
 
             return {
                 ...state,
@@ -51,7 +53,7 @@ export default function authReducer(state = initialState, action) {
 
         case PUT_TOKEN: {
 
-            const {token, tokenData} = action.payload;
+            const {token, tokenData} = payload;
 
             return {
                 ...state,
