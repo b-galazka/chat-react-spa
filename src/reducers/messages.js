@@ -8,7 +8,9 @@ import {
     SEND,
     SAVED,
     MARK_AS_READ,
-    RECEIVED
+    RECEIVED,
+    TYPING_STARTED,
+    TYPING_FINISHED
 } from '../actionsTypes/messages';
 
 import {CLEAR_STORE} from '../actionsTypes/entireStore';
@@ -29,7 +31,9 @@ const initialState = {
 
     sending: [],
     sent: [],
-    unreadMessages: 0
+    unreadMessages: 0,
+
+    typingMessage: false
 };
 
 export default function messagesReducer(state = initialState, action) {
@@ -168,6 +172,22 @@ export default function messagesReducer(state = initialState, action) {
 
             return {
                 ...initialState
+            };
+        }
+
+        case TYPING_STARTED: {
+
+            return {
+                ...state,
+                typingMessage: true
+            };
+        }
+
+        case TYPING_FINISHED: {
+
+            return {
+                ...state,
+                typingMessage: false
             };
         }
 

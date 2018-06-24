@@ -3,7 +3,9 @@ import {
     CREATION_FAILED,
     CREATION_SUCCEDDED,
     FETCHING_SUCCEDED,
-    FETCHING_FAILED
+    FETCHING_FAILED,
+    TYPING_STARTED,
+    TYPING_FINISHED
 } from '../actionsTypes/users';
 
 import {CLEAR_STORE} from '../actionsTypes/entireStore';
@@ -16,7 +18,9 @@ const initialState = {
 
     fetched: false,
     fetchingError: false,
-    users: []
+    users: [],
+
+    typingUsers: []
 };
 
 export default function usersReducer(state = initialState, action) {
@@ -78,6 +82,22 @@ export default function usersReducer(state = initialState, action) {
 
             return {
                 ...initialState
+            };
+        }
+
+        case TYPING_STARTED: {
+
+            return {
+                ...state,
+                typingUsers: [...typingUsers, payload]
+            };
+        };
+
+        case TYPING_FINISHED: {
+
+            return {
+                ...state,
+                typingUsers: typingUsers.filter(username => username !== payload)
             };
         }
 

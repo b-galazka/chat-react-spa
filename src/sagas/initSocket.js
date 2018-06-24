@@ -13,7 +13,9 @@ import {
 
 import {
     fetchingFailure as fetchingUsersFailure,
-    fetchingSuccess as fetchingUsersSuccess
+    fetchingSuccess as fetchingUsersSuccess,
+    typingStarted as userStartedTyping,
+    typingFinished as userFinishedTyping
 } from '../actions/users';
 
 import {logout} from '../actions/entireStore';
@@ -90,6 +92,16 @@ function getSocketChannel(socket) {
         socket.on('message', (message) => {
 
             emit(receiveMessage(message));
+        });
+
+        socket.on('typing started', (username) => {
+
+            emit(userStartedTyping(username));
+        });
+
+        socket.on('typing finished', (username) => {
+
+            emit(userFinishedTyping(username));
         });
 
         return () => {

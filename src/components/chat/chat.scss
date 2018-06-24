@@ -4,7 +4,7 @@
     display: flex;
     flex: 1 1 auto;
     flex-direction: column;
-
+    
     // Prevents stretching element horizontally when message contains very long word.
     // I also have no idea why it works.
     width: 0;
@@ -34,5 +34,13 @@
 
     &__fetching-more-messages-error {
         color: $red;
+    }
+
+    &__typing-users {
+        margin-bottom: 5px;
+        padding: 0 15px;
+        color: $textGrey;
+        max-height: 50px;
+        overflow: auto;
     }
 }

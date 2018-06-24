@@ -4,7 +4,7 @@ import {bindActionCreators} from 'redux';
 import classNames from 'classnames';
 import cuid from 'cuid';
 
-import {sendMessage} from '../../actions/messages';
+import { sendMessage, startTyping, finishTyping } from '../../actions/messages';
 
 import strings from './strings';
 
@@ -12,13 +12,17 @@ import './messageForm.scss';
 
 function mapStateToProps(state) {
 
-    return {};
+    const { typingMessage } = state.messages;
+
+    return { typingMessage };
 }
 
 function mapDispatchToProps(dispatch) {
 
     return {
-        sendMessage: bindActionCreators(sendMessage, dispatch)
+        sendMessage: bindActionCreators(sendMessage, dispatch),
+        startTyping: bindActionCreators(startTyping, dispatch),
+        finishTyping: bindActionCreators(finishTyping, dispatch)
     };
 }
 
@@ -34,7 +38,7 @@ class MessageForm extends Component {
 
         this.submitForm = this.submitForm.bind(this);
         this.updateMessageContent = this.updateMessageContent.bind(this);
-        this.handleEnterKey = this.handleEnterKey.bind(this);
+        this.onKeyDownHandler = this.onKeyDownHandler.bind(this);
     }
 
     render() {
@@ -46,7 +50,7 @@ class MessageForm extends Component {
                     value={this.state.messageContent}
                     placeholder={strings.messageTextareaPlaceholder}
                     onChange={this.updateMessageContent}
-                    onKeyDown={this.handleEnterKey}
+                    onKeyDown={this.onKeyDownHandler}
                     ref={(ref) => {this.textareaRef = ref;}}
                     autoFocus
                 ></textarea>
@@ -90,14 +94,26 @@ class MessageForm extends Component {
         });
     }
 
-    handleEnterKey(event) {
+    onKeyDownHandler(event) {
+
+        const { startTyping, finishTyping, typingMessage } = this.props;
 
         if (!event.shiftKey && event.key === 'Enter') {
 
             event.preventDefault();
 
+            finishTyping();
             this.submitForm();
+
+            return;
         }
+
+        if (!typingMessage) {
+
+            startTyping();
+        }
+
+        finishTyping(700);
     }
 
     submitForm(event) {

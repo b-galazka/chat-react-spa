@@ -3,7 +3,9 @@ import {
     CREATION_FAILED,
     CREATION_SUCCEDDED,
     FETCHING_FAILED,
-    FETCHING_SUCCEDED
+    FETCHING_SUCCEDED,
+    TYPING_STARTED,
+    TYPING_FINISHED
 } from '../actionsTypes/users';
 
 export function createUser({username, password}) {
@@ -43,4 +45,20 @@ export function fetchingFailure() {
     return {
         type: FETCHING_FAILED
     }
+}
+
+export function typingStarted(username) {
+
+    return {
+        type: TYPING_STARTED,
+        payload: username
+    };
+}
+
+export function typingFinished(username) {
+
+    return {
+        type: TYPING_FINISHED,
+        payload: username
+    };
 }

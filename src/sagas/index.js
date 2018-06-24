@@ -7,6 +7,8 @@ import fetchingMoreMessagesSaga from './fetchMoreMessages';
 import socketInitializationSaga from './initSocket';
 import loggingOutSaga from './logout';
 import sendingMessageSaga from './sendMessage';
+import startTypingSaga from './startTyping';
+import finishTypingSaga from './finishTyping';
 
 export default function *rootSaga() {
 
@@ -17,6 +19,8 @@ export default function *rootSaga() {
         fork(fetchingMoreMessagesSaga),
         fork(socketInitializationSaga),
         fork(loggingOutSaga),
-        fork(sendingMessageSaga)
+        fork(sendingMessageSaga),
+        fork(startTypingSaga),
+        fork(finishTypingSaga)
     ]);
 }

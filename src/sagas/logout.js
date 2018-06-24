@@ -9,8 +9,9 @@ export function *logout() {
 
     const socket = yield select(socketSelector);
 
-    if (socket && socket.disconnect) {
+    if (socket && socket.disconnect && socket.emit) {
 
+        socket.emit('typing finished');
         socket.disconnect();
     }
 

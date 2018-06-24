@@ -20,11 +20,11 @@ function mapStateToProps(state) {
         sent,
         fetchedAll,
         fetchingMore,
-        fetchingMoreError,
-        fetchedMore
+        fetchingMoreError
     } = state.messages;
 
     const {username} = state.auth.tokenData;
+    const { typingUsers } = state.users;
 
     return {
         sendingMessages: sending,
@@ -32,7 +32,8 @@ function mapStateToProps(state) {
         noMoreMessages: fetchedAll,
         fetchingMoreMessages: fetchingMore,
         fetchingMoreMessagesError: fetchingMoreError, 
-        username
+        username,
+        typingUsers
     };
 }
 
@@ -99,6 +100,8 @@ class Chat extends Component {
                     {this.renderSendingMessages()}
                 </section>
 
+                {this.renderTypingUsers()}
+
                 <MessageForm />
             </section>
         );
@@ -156,6 +159,36 @@ class Chat extends Component {
         return sendingMessages.map(message => (
             <Message key={message.tempID} message={message} sending />
         ));
+    }
+
+    renderTypingUsers() {
+
+        const { typingUsers } = this.props;
+
+        if (typingUsers.length === 0) {
+
+            return null;
+        }
+
+        const typingText = strings.typing[
+            (typingUsers.length > 1) ? 'multiplePersons' : 'singlePerson'
+        ];
+
+        const usernames = (
+
+            (typingUsers.length > 2) ?
+
+                typingUsers.slice(0, -1).join(', ') +
+                ` ${strings.and} ${typingUsers[typingUsers.length - 1]}` :
+
+                typingUsers.join(` ${strings.and} `)
+        );
+
+        return (
+            <p className="chat__typing-users">
+                {usernames} {typingText}...
+            </p>
+        );
     }
 
     shouldDisplayTimeHeader(messageIndex) {

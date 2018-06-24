@@ -8,7 +8,10 @@ import {
     SEND,
     SAVED,
     RECEIVED,
-    MARK_AS_READ
+    MARK_AS_READ,
+    TYPING_STARTED,
+    TYPING_FINISHED,
+    TYPING_FINISH_PROCESSING
 } from '../actionsTypes/messages';
 
 export function fetchMessages() {
@@ -87,5 +90,27 @@ export function markMessagesAsRead() {
 
     return {
         type: MARK_AS_READ
+    };
+}
+
+export function startTyping() {
+
+    return {
+        type: TYPING_STARTED
+    };
+}
+
+export function finishTyping(delayTime = 0) {
+
+    return {
+        type: TYPING_FINISH_PROCESSING,
+        delayTime
+    };
+}
+
+export function typingFinished() {
+
+    return {
+        type: TYPING_FINISHED
     };
 }
