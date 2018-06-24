@@ -4,7 +4,10 @@
     display: flex;
     flex: 1 1 auto;
     flex-direction: column;
-    width: 100%;
+
+    // Prevents stretching element horizontally when message contains very long word.
+    // I also have no idea why it works.
+    width: 0;
 
     &__messages-area {
         overflow-y: auto;

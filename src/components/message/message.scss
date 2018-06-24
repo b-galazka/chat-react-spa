@@ -117,11 +117,13 @@
         border-top-right-radius: 15px;
         border-bottom-right-radius: 15px;
         position: relative;
+
+        max-width: 100%;
     }
 
     &__content {
         white-space: pre-wrap;
-        word-break: break-word;
+        word-wrap: break-word;
     }
 
     &__data-wrapper {
