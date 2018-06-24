@@ -5,12 +5,13 @@ import axios from '../shared/axios';
 import {logout} from '../actions/entireStore';
 import {fetchingSuccess, fetchingFailure} from '../actions/messages';
 import {FETCHING_REQUESTED} from '../actionsTypes/messages';
+import { tokenSelector } from './selectors/auth';
 
 import config from '../shared/config';
 
-function *fetchMessages({lastMessageID}) {
+function *fetchMessages() {
 
-    const token = yield select(state => state.auth.token);
+    const token = yield select(tokenSelector);
 
     const requestConfig = {
 

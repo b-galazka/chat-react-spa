@@ -1,10 +1,11 @@
 import {takeEvery, select} from 'redux-saga/effects';
 
 import {SEND} from '../actionsTypes/messages';
+import { socketSelector } from './selectors/socket';
 
 function *sendMessage({payload}) {
 
-    const socket = yield select(state => state.socket.socket);
+    const socket = yield select(socketSelector);
 
     socket.emit('message', payload);
 }

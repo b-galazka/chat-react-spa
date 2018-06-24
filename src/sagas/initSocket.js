@@ -19,6 +19,8 @@ import {
 import {logout} from '../actions/entireStore';
 import {fetchMessages, messageSaved, receiveMessage} from '../actions/messages';
 import {INIT} from '../actionsTypes/socket';
+import { tokenSelector } from './selectors/auth';
+import { socketSelector } from './selectors/socket';
 
 import config from '../shared/config';
 
@@ -113,14 +115,14 @@ function *listenForSocketEvents(socket) {
 
 function *initSocket() {
 
-    let socket = yield select(state => state.socket.socket);
+    let socket = yield select(socketSelector);
 
     if (socket) {
 
         return;
     }
 
-    const token = yield select(state => state.auth.token);
+    const token = yield select(tokenSelector);
 
     const socketConfig = {
         query: {token},

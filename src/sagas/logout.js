@@ -3,10 +3,11 @@ import cookies from 'js-cookie';
 
 import {clearStore} from '../actions/entireStore';
 import {LOGOUT} from '../actionsTypes/entireStore';
+import { socketSelector } from './selectors/socket';
 
 export function *logout() {
 
-    const socket = yield select(state => state.socket.socket);
+    const socket = yield select(socketSelector);
 
     if (socket && socket.disconnect) {
 
