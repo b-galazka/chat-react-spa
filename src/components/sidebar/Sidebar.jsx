@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import propTypes from 'prop-types';
 
 import FormComponent from '../abstracts/FormComponent';
 
@@ -166,5 +167,23 @@ class Sidebar extends FormComponent {
         return this.state.searchFieldValue.trim();
     }
 }
+
+Sidebar.propTypes = {
+    // redux
+    username: propTypes.string.isRequired,
+    logout: propTypes.func.isRequired,
+
+    users: propTypes.arrayOf(
+        propTypes.shape({
+            username: propTypes.string.isRequired,
+            connected: propTypes.bool.isRequired
+        })
+    ).isRequired
+};
+
+Sidebar.defaultProps = {
+    // redux
+    userCreationError: null
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Sidebar);
