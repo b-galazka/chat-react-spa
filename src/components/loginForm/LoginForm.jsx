@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import classNames from 'classnames';
+import propTypes from 'prop-types';
 
 import FormComponent from '../abstracts/FormComponent';
 
@@ -168,5 +169,16 @@ class LoginForm extends FormComponent {
         this.props.authenticate(username, password);
     }
 }
+
+LoginForm.propTypes = {
+    // redux
+    authenticate: propTypes.func.isRequired,
+    authError: propTypes.instanceOf(Error)
+};
+
+LoginForm.defaultProps = {
+    // redux
+    authError: null
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);
