@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import propTypes from 'prop-types';
 
 import LoadingAnimation from '../loadingAnimation/LoadingAnimation';
 
@@ -40,5 +41,17 @@ function AuthenticatedPageLoader(props) {
         </div>
     );
 }
+
+AuthenticatedPageLoader.propTypes = {
+    // redux
+    usersFetchingError: propTypes.bool.isRequired,
+    socketConnectionError: propTypes.bool.isRequired,
+    messagesFetchingError: propTypes.instanceOf(Error)
+};
+
+AuthenticatedPageLoader.defaultProps = {
+    // redux
+    messagesFetchingError: null
+};
 
 export default connect(mapStateToProps)(AuthenticatedPageLoader);
