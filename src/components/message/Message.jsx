@@ -196,13 +196,21 @@ Message.propTypes = {
 
     message: propTypes.shape({
         id: propTypes.number,
+        content: propTypes.string.isRequired,
 
         author: propTypes.shape({
             username: propTypes.string
         }),
 
-        content: propTypes.string.isRequired,
-        date: propTypes.string
+        date(props, propName) {
+
+            const propValue = props[propName];
+
+            if (propValue && new Date(propValue).toString() === 'Invalid Date') {
+
+                return new Error('sentMessages[].date validation error');
+            }
+        }
     }).isRequired,
 
     displayAuthor: propTypes.bool,
