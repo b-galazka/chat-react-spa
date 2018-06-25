@@ -81,9 +81,9 @@ class MessageContent extends Component {
 MessageContent.propTypes = {
 
     children: propTypes.oneOfType([
-            propTypes.string,
-            propTypes.arrayOf(propTypes.string)
-        ]).isRequired
+        propTypes.string,
+        propTypes.arrayOf(propTypes.string)
+    ]).isRequired
 };
 
 export default MessageContent;
