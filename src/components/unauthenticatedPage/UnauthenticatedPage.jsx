@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import propTypes from 'prop-types';
 
 import AuthLoader from '../authLoader/AuthLoader';
 import LoginForm from '../loginForm/LoginForm';
@@ -52,5 +53,11 @@ class UnauthenticatedPage extends Component {
         document.title = `${baseStrings.basePageTitle} | ${strings.pageTitle}`;
     }
 }
+
+UnauthenticatedPage.propTypes = {
+    // redux
+    authenticating: propTypes.bool.isRequired,
+    creatingUser: propTypes.bool.isRequired
+};
 
 export default connect(mapStateToProps)(UnauthenticatedPage);
