@@ -2,6 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import propTypes from 'prop-types';
 
 import FormComponent from '../abstracts/FormComponent';
 import LoadingAnimation from '../loadingAnimation/LoadingAnimation';
@@ -508,5 +509,17 @@ class RegistrationForm extends FormComponent {
         }
     }
 }
+
+RegistrationForm.propTypes = {
+    // redux
+    userCreated: propTypes.bool.isRequired,
+    createUser: propTypes.func.isRequired,
+    userCreationError: propTypes.instanceOf(Error)
+};
+
+RegistrationForm.defaultProps = {
+    // redux
+    userCreationError: null
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(RegistrationForm);
