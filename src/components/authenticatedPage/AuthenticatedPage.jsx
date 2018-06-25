@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import propTypes from 'prop-types';
 
 import AuthenticatedPageLoader from '../authenticatedPageLoader/AuthenticatedPageLoader';
 import Sidebar from '../sidebar/Sidebar';
@@ -124,5 +125,14 @@ class AuthenticatedPage extends Component {
         }
     }
 }
+
+AuthenticatedPage.propTypes = {
+    // redux
+    usersFetched: propTypes.bool.isRequired,
+    messagesFetched: propTypes.bool.isRequired,
+    socketConnected: propTypes.bool.isRequired,
+    socketConnectionError: propTypes.bool.isRequired,
+    unreadMessages: propTypes.number.isRequired
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(AuthenticatedPage);
