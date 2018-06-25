@@ -207,7 +207,10 @@ Message.propTypes = {
 
     displayAuthor: propTypes.bool,
     displayTimeHeader: propTypes.bool,
-    sending: propTypes.bool
+    sending: propTypes.bool,
+
+    // redux
+    username: propTypes.string.isRequired
 };
 
 Message.defaultProps = {
