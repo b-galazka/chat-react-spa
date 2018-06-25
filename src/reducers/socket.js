@@ -12,7 +12,7 @@ import { CLEAR_STORE } from '../actions/types/entireStore';
 const initialState = {
     socket: null,
     connected: false,
-    connectionError: null
+    connectionError: false
 };
 
 export default function socketReducer(state = initialState, action) {
