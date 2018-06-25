@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import classNames from 'classnames';
 import cuid from 'cuid';
+import propTypes from 'prop-types';
 
 import FormComponent from '../abstracts/FormComponent';
 
@@ -129,5 +130,13 @@ class MessageForm extends FormComponent {
         this.textareaRef.focus();
     }
 }
+
+MessageForm.propTypes = {
+    // redux
+    typingMessage: propTypes.bool.isRequired,
+    sendMessage: propTypes.func.isRequired,
+    startTyping: propTypes.func.isRequired,
+    finishTyping: propTypes.func.isRequired
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(MessageForm);
