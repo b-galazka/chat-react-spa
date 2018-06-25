@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import propTypes from 'prop-types';
 
 import MessageForm from '../messageForm/MessageForm';
 import Message from '../message/Message';
@@ -294,5 +295,48 @@ class Chat extends Component {
         }
     }
 }
+
+Chat.propTypes = {
+    // redux
+    fetchMoreMessages: propTypes.func.isRequired,
+    noMoreMessages: propTypes.bool.isRequired,
+    fetchingMoreMessages: propTypes.bool.isRequired,
+    username: propTypes.string.isRequired,
+    typingUsers: propTypes.arrayOf(propTypes.string).isRequired,
+    fetchingMoreMessagesError: propTypes.instanceOf(Error),
+
+    sendingMessages: propTypes.arrayOf(
+        propTypes.shape({
+            content: propTypes.string.isRequired,
+            tempID: propTypes.string.isRequired
+        })
+    ).isRequired,
+
+    sentMessages: propTypes.arrayOf(
+        propTypes.shape({
+            id: propTypes.number.isRequired,
+            content: propTypes.string.isRequired,
+
+            date(props, propName) {
+
+                const propValue = props[propName];
+
+                if (new Date(propValue).toString() === 'Invalid Date') {
+
+                    return new Error('sentMessages[].date validation error');
+                }
+            },
+
+            author: propTypes.shape({
+                username: propTypes.string.isRequired
+            }).isRequired,
+        })
+    ).isRequired
+};
+
+Chat.defaultProps = {
+    // redux
+    fetchingMoreMessagesError: null
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Chat);
