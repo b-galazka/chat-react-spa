@@ -56,3 +56,7 @@ typings/
 
 # dotenv environment variables file
 .env
+
+# compiled JS and CSS
+dist/css/style.css
+dist/js/app.js
