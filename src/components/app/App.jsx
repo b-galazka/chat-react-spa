@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import jwtDecode from 'jwt-decode';
 import cookies from 'js-cookie';
+import propTypes from 'prop-types';
 
 import UnauthenticatedPage from '../unauthenticatedPage/UnauthenticatedPage';
 import AuthenticatedPage from '../authenticatedPage/AuthenticatedPage';
@@ -87,5 +88,16 @@ class App extends Component {
         }
     }
 }
+
+App.propTypes = {
+    // redux
+    putToken: propTypes.func.isRequired,
+    token: propTypes.string
+};
+
+App.defaultProps = {
+    // redux
+    token: null
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
