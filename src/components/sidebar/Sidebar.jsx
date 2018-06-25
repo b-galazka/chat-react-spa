@@ -1,6 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+
+import FormComponent from '../abstracts/FormComponent';
 
 import { logout } from '../../actions/entireStore';
 
@@ -26,7 +28,7 @@ function mapDispatchToProps(dispatch) {
     };
 }
 
-class Sidebar extends Component {
+class Sidebar extends FormComponent {
 
     constructor() {
 
@@ -36,7 +38,6 @@ class Sidebar extends Component {
             searchFieldValue: ''
         };
 
-        this.updateSearchFieldValue = this.updateSearchFieldValue.bind(this);
         this.renderUser = this.renderUser.bind(this);
     }
 
@@ -76,7 +77,7 @@ class Sidebar extends Component {
                     type="text"
                     className="sidebar__search-field"
                     value={this.state.searchFieldValue}
-                    onChange={this.updateSearchFieldValue}
+                    onChange={this.updateInputValue('searchFieldValue')}
                     placeholder={strings.searchFieldPlaceholder}
                 />
             </header>
@@ -146,15 +147,6 @@ class Sidebar extends Component {
             return username;
 
         }, []);
-    }
-
-    updateSearchFieldValue({ target }) {
-
-        const { value } = target;
-
-        this.setState({
-            searchFieldValue: value
-        });
     }
 
     getUsers(connected) {

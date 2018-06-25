@@ -1,7 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import classNames from 'classnames';
+
+import FormComponent from '../abstracts/FormComponent';
 
 import { authenticate } from '../../actions/auth';
 
@@ -22,7 +24,7 @@ function mapDispatchToProps(dispatch) {
     };
 }
 
-class LoginForm extends Component {
+class LoginForm extends FormComponent {
 
     constructor() {
 
@@ -33,8 +35,6 @@ class LoginForm extends Component {
             password: ''
         };
 
-        this.updateUsername = this.updateUsername.bind(this);
-        this.updatePassword = this.updatePassword.bind(this);
         this.submitForm = this.submitForm.bind(this);
     }
 
@@ -101,7 +101,7 @@ class LoginForm extends Component {
                 type="text"
                 className="auth-input"
                 value={this.state.username}
-                onChange={this.updateUsername}
+                onChange={this.updateInputValue('username')}
                 autoFocus
             />
         );
@@ -114,7 +114,7 @@ class LoginForm extends Component {
                 type="password"
                 className="auth-input"
                 value={this.state.password}
-                onChange={this.updatePassword}
+                onChange={this.updateInputValue('password')}
             />
         );
     }
@@ -145,24 +145,6 @@ class LoginForm extends Component {
                 password: ''
             });
         }
-    }
-
-    updateUsername({ target }) {
-
-        const { value } = target;
-
-        this.setState({
-            username: value
-        });
-    }
-
-    updatePassword({ target }) {
-
-        const { value } = target;
-
-        this.setState({
-            password: value
-        });
     }
 
     isInvalidDataProvided() {

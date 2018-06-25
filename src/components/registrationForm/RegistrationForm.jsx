@@ -1,8 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 import classNames from 'classnames';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
+import FormComponent from '../abstracts/FormComponent';
 import LoadingAnimation from '../loadingAnimation/LoadingAnimation';
 
 import axios from '../../shared/axios';
@@ -30,7 +31,7 @@ function mapDispatchToProps(dispatch) {
     };
 }
 
-class RegistrationForm extends Component {
+class RegistrationForm extends FormComponent {
 
     constructor() {
 
@@ -275,18 +276,6 @@ class RegistrationForm extends Component {
                 }
             />
         );
-    }
-
-    updateInputValue(inputName) {
-
-        return ({ target }) => {
-
-            const { value } = target;
-
-        this.setState({
-                [inputName]: value
-        });
-        };
     }
 
     updateUsernameAvailabilityStatus(usernameAvailability) {

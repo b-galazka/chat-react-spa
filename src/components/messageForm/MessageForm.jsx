@@ -1,8 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import classNames from 'classnames';
 import cuid from 'cuid';
+
+import FormComponent from '../abstracts/FormComponent';
 
 import { sendMessage, startTyping, finishTyping } from '../../actions/messages';
 
@@ -26,7 +28,7 @@ function mapDispatchToProps(dispatch) {
     };
 }
 
-class MessageForm extends Component {
+class MessageForm extends FormComponent {
 
     constructor() {
 
@@ -37,7 +39,6 @@ class MessageForm extends Component {
         };
 
         this.submitForm = this.submitForm.bind(this);
-        this.updateMessageContent = this.updateMessageContent.bind(this);
         this.onKeyDownHandler = this.onKeyDownHandler.bind(this);
     }
 
@@ -49,7 +50,7 @@ class MessageForm extends Component {
                     className="message-form__textarea"
                     value={this.state.messageContent}
                     placeholder={strings.messageTextareaPlaceholder}
-                    onChange={this.updateMessageContent}
+                    onChange={this.updateInputValue('messageContent')}
                     onKeyDown={this.onKeyDownHandler}
                     ref={(ref) => { this.textareaRef = ref; }}
                     autoFocus
@@ -76,15 +77,6 @@ class MessageForm extends Component {
         const { messageContent } = this.state;
 
         return (messageContent.trim().length === 0);
-    }
-
-    updateMessageContent({ target }) {
-
-        const { value } = target;
-
-        this.setState({
-            messageContent: value
-        });
     }
 
     resetMessageContent() {
