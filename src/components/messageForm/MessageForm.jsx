@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import classNames from 'classnames';
 import cuid from 'cuid';
 
@@ -51,7 +51,7 @@ class MessageForm extends Component {
                     placeholder={strings.messageTextareaPlaceholder}
                     onChange={this.updateMessageContent}
                     onKeyDown={this.onKeyDownHandler}
-                    ref={(ref) => {this.textareaRef = ref;}}
+                    ref={(ref) => { this.textareaRef = ref; }}
                     autoFocus
                 ></textarea>
 
@@ -73,14 +73,14 @@ class MessageForm extends Component {
 
     isMessageEmpty() {
 
-        const {messageContent} = this.state;
+        const { messageContent } = this.state;
 
         return (messageContent.trim().length === 0);
     }
 
-    updateMessageContent({target}) {
+    updateMessageContent({ target }) {
 
-        const {value} = target;
+        const { value } = target;
 
         this.setState({
             messageContent: value

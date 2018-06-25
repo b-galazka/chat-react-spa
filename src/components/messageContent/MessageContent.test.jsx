@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM, {render} from 'react-dom';
+import { render } from 'react-dom';
 import ShallowRenderer from 'react-test-renderer/shallow';
 
 import MessageContent from './MessageContent';

@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import AuthLoader from '../authLoader/AuthLoader';
 import LoginForm from '../loginForm/LoginForm';
@@ -12,7 +12,7 @@ import './unauthenticatedPage.scss';
 
 function mapStateToProps(state) {
 
-    const {authenticating} = state.auth;
+    const { authenticating } = state.auth;
 
     return {
         authenticating,
@@ -24,7 +24,7 @@ class UnauthenticatedPage extends Component {
 
     render() {
 
-        const {authenticating, creatingUser} = this.props;
+        const { authenticating, creatingUser } = this.props;
 
         return (
             <div className="page page--unauthenticated">

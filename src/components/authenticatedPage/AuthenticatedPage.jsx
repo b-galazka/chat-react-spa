@@ -1,13 +1,13 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 import AuthenticatedPageLoader from '../authenticatedPageLoader/AuthenticatedPageLoader';
 import Sidebar from '../sidebar/Sidebar';
 import Chat from '../chat/Chat';
 
-import {fetchMessages, markMessagesAsRead} from '../../actions/messages';
-import {initSocket} from '../../actions/socket';
+import { fetchMessages, markMessagesAsRead } from '../../actions/messages';
+import { initSocket } from '../../actions/socket';
 
 import baseStrings from '../../shared/baseStrings';
 import strings from './strings';
@@ -16,7 +16,7 @@ import './authenticatedPage.scss';
 
 function mapStateToProps(state) {
 
-    const {users, messages, socket} = state;
+    const { users, messages, socket } = state;
 
     return {
         usersFetched: users.fetched,
@@ -110,7 +110,7 @@ class AuthenticatedPage extends Component {
 
     updatePageTitle(props = this.props) {
 
-        const {unreadMessages} = props;
+        const { unreadMessages } = props;
         const notification = (unreadMessages > 0) ? `(${unreadMessages}) ` : '';
 
         document.title = notification + baseStrings.basePageTitle;

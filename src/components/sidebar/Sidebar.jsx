@@ -1,8 +1,8 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
-import {logout} from '../../actions/entireStore';
+import { logout } from '../../actions/entireStore';
 
 import strings from './strings';
 
@@ -10,8 +10,8 @@ import './sidebar.scss';
 
 function mapStateToProps(state) {
 
-    const {users} = state.users;
-    const {tokenData} = state.auth;
+    const { users } = state.users;
+    const { tokenData } = state.auth;
 
     return {
         users,
@@ -42,7 +42,7 @@ class Sidebar extends Component {
 
     render() {
 
-        const {onlineUsersSectionTitle, offlineUsersSectionTitle} = strings;
+        const { onlineUsersSectionTitle, offlineUsersSectionTitle } = strings;
         
         const onlineUsers = this.getUsers(true);
         const offlineUsers = this.getUsers(false);
@@ -148,9 +148,9 @@ class Sidebar extends Component {
         }, []);
     }
 
-    updateSearchFieldValue({target}) {
+    updateSearchFieldValue({ target }) {
 
-        const {value} = target;
+        const { value } = target;
 
         this.setState({
             searchFieldValue: value
@@ -159,7 +159,7 @@ class Sidebar extends Component {
 
     getUsers(connected) {
 
-        const {users, username} = this.props;
+        const { users, username } = this.props;
         const searchQueryRegex = new RegExp(this.getSearchQuery(), 'gi');
 
         return users.filter(user => (

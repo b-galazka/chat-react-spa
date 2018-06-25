@@ -1,20 +1,18 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import classNames from 'classnames';
 
-import {authenticate} from '../../actions/auth';
+import { authenticate } from '../../actions/auth';
 
 import strings from './strings';
 import unauthPageStrings from '../unauthenticatedPage/strings';
 
 function mapStateToProps(state) {
 
-    const {authError} = state.auth;
+    const { authError } = state.auth;
 
-    return {
-        authError
-    };
+    return { authError };
 }
 
 function mapDispatchToProps(dispatch) {
@@ -79,14 +77,14 @@ class LoginForm extends Component {
 
     renderAuthError() {
 
-        const {authError} = this.props;
+        const { authError } = this.props;
 
         if (!authError.response) {
 
             return unauthPageStrings.unknownError;
         } 
         
-        const {status} = authError.response;
+        const { status } = authError.response;
         
         if (status === 403) {
 
@@ -149,18 +147,18 @@ class LoginForm extends Component {
         }
     }
 
-    updateUsername({target}) {
+    updateUsername({ target }) {
 
-        const {value} = target;
+        const { value } = target;
 
         this.setState({
             username: value
         });
     }
 
-    updatePassword({target}) {
+    updatePassword({ target }) {
 
-        const {value} = target;
+        const { value } = target;
 
         this.setState({
             password: value
@@ -169,7 +167,7 @@ class LoginForm extends Component {
 
     isInvalidDataProvided() {
 
-        const {username, password} = this.state;
+        const { username, password } = this.state;
 
         return (username.trim().length === 0 || password.length === 0);
     }
@@ -183,7 +181,7 @@ class LoginForm extends Component {
             return;
         }
 
-        const {username, password} = this.state;
+        const { username, password } = this.state;
 
         this.props.authenticate(username, password);
     }

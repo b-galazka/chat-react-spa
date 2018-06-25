@@ -13,8 +13,8 @@ import {
     TYPING_FINISHED
 } from '../actions/types/messages';
 
-import {CLEAR_STORE} from '../actions/types/entireStore';
-import {RECONNECTION_SUCCEEDED} from '../actions/types/socket';
+import { CLEAR_STORE } from '../actions/types/entireStore';
+import { RECONNECTION_SUCCEEDED } from '../actions/types/socket';
 
 import config from '../shared/config';
 
@@ -117,7 +117,7 @@ export default function messagesReducer(state = initialState, action) {
         case SAVED: {
 
             const { tempID } = action;
-            const {sent, sending} = state;
+            const { sent, sending } = state;
 
             // prevents doubling messages sent during reconnection
             const doesMessageExist = sent.some(message => message.id === payload.id);
@@ -131,7 +131,7 @@ export default function messagesReducer(state = initialState, action) {
 
         case RECEIVED: {
 
-            const {sent, unreadMessages} = state;
+            const { sent, unreadMessages } = state;
 
             // prevents doubling messages received during reconnection
             const doesMessageExist = sent.some(message => message.id === payload.id);
@@ -160,7 +160,7 @@ export default function messagesReducer(state = initialState, action) {
 
         case RECONNECTION_SUCCEEDED: {
 
-            const {sending, ...newState} = initialState;
+            const { sending, ...newState } = initialState;
 
             return {
                 ...state,

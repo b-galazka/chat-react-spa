@@ -1,15 +1,15 @@
-import {call, put, takeLatest, select} from 'redux-saga/effects';
+import { call, put, takeLatest, select } from 'redux-saga/effects';
 
 import axios from '../shared/axios';
 
-import {logout} from '../actions/entireStore';
-import {fetchingMoreSuccess, fetchingMoreFailure} from '../actions/messages';
-import {FETCHING_MORE_REQUESTED} from '../actions/types/messages';
+import { logout } from '../actions/entireStore';
+import { fetchingMoreSuccess, fetchingMoreFailure } from '../actions/messages';
+import { FETCHING_MORE_REQUESTED } from '../actions/types/messages';
 import { tokenSelector } from './selectors/auth';
 
 import config from '../shared/config';
 
-function *fetchMoreMessages({lastMessageID}) {
+function *fetchMoreMessages({ lastMessageID }) {
 
     const token = yield select(tokenSelector);
 
@@ -32,7 +32,7 @@ function *fetchMoreMessages({lastMessageID}) {
         yield put(fetchingMoreSuccess(response.data));
     } catch (err) {
 
-        const {response} = err;
+        const { response } = err;
 
         yield put(fetchingMoreFailure(err));
 

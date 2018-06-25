@@ -1,9 +1,9 @@
-import {takeEvery, select} from 'redux-saga/effects';
+import { takeEvery, select } from 'redux-saga/effects';
 
-import {SEND} from '../actions/types/messages';
+import { SEND } from '../actions/types/messages';
 import { socketSelector } from './selectors/socket';
 
-function *sendMessage({payload}) {
+function *sendMessage({ payload }) {
 
     const socket = yield select(socketSelector);
 

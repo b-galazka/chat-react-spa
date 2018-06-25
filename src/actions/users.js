@@ -8,7 +8,7 @@ import {
     TYPING_FINISHED
 } from './types/users';
 
-export function createUser({username, password}) {
+export function createUser({ username, password }) {
 
     return {
         type: CREATION_REQUESTED,

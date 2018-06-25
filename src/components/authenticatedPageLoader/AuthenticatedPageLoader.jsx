@@ -1,5 +1,5 @@
 import React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
 import LoadingAnimation from '../loadingAnimation/LoadingAnimation';
 
@@ -9,7 +9,7 @@ import './authenticatedPageLoader.scss';
 
 function mapStateToProps(state) {
 
-    const {users, messages, socket} = state;
+    const { users, messages, socket } = state;
 
     return {
         usersFetchingError: users.fetchingError,

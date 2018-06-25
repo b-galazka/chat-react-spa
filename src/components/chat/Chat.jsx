@@ -1,12 +1,12 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 import MessageForm from '../messageForm/MessageForm';
 import Message from '../message/Message';
 import LoadingAnimation from '../loadingAnimation/LoadingAnimation';
 
-import {fetchMoreMessages} from '../../actions/messages';
+import { fetchMoreMessages } from '../../actions/messages';
 
 import strings from './strings';
 import timeUnits from '../../shared/timeUnitsInMs';
@@ -23,7 +23,7 @@ function mapStateToProps(state) {
         fetchingMoreError
     } = state.messages;
 
-    const {username} = state.auth.tokenData;
+    const { username } = state.auth.tokenData;
     const { typingUsers } = state.users;
 
     return {
@@ -50,7 +50,7 @@ class Chat extends Component {
 
         super();
 
-        const {sentMessages} = props;
+        const { sentMessages } = props;
 
         this.firstFetchedMessageID = sentMessages[0] && sentMessages[0].id;
         this.scrollableAreaPrevScrollHeight = 0;
@@ -71,7 +71,7 @@ class Chat extends Component {
             <section className="chat">
                 <section
                     className="chat__messages-area" 
-                    ref={(ref) => {this.scrollableArea = ref}}
+                    ref={(ref) => { this.scrollableArea = ref; }}
                     onScroll={this.fetchMoreMessages}
                 >
 
@@ -135,7 +135,7 @@ class Chat extends Component {
 
     renderSentMessages() {
 
-        const {sentMessages} = this.props;
+        const { sentMessages } = this.props;
 
         return sentMessages.map((message, index) => {
 
@@ -154,7 +154,7 @@ class Chat extends Component {
 
     renderSendingMessages() {
 
-        const {sendingMessages} = this.props;
+        const { sendingMessages } = this.props;
 
         return sendingMessages.map(message => (
             <Message key={message.tempID} message={message} sending />
@@ -193,8 +193,8 @@ class Chat extends Component {
 
     shouldDisplayTimeHeader(messageIndex) {
 
-        const {hour} = timeUnits;
-        const {sentMessages} = this.props;
+        const { hour } = timeUnits;
+        const { sentMessages } = this.props;
         const message = sentMessages[messageIndex];
         const prevMessage = sentMessages[messageIndex - 1];
 
@@ -212,7 +212,7 @@ class Chat extends Component {
 
     shouldDisplayAuthor(messageIndex, timeHeader) {
 
-        const {username, sentMessages} = this.props;
+        const { username, sentMessages } = this.props;
         const message = sentMessages[messageIndex];
         const prevMessage = sentMessages[messageIndex - 1];
         const messageAuthor = message.author.username;
@@ -226,14 +226,14 @@ class Chat extends Component {
 
     scrollDown() {
 
-        const {scrollableArea} = this;
+        const { scrollableArea } = this;
 
         scrollableArea.scrollTop = scrollableArea.scrollHeight;
     }
 
     shouldScrollDown() {
 
-        const {scrollHeight, scrollTop, clientHeight} = this.scrollableArea;
+        const { scrollHeight, scrollTop, clientHeight } = this.scrollableArea;
         const scrollBottom = scrollHeight - scrollTop - clientHeight;
 
         return (scrollBottom <= 200);
@@ -265,7 +265,7 @@ class Chat extends Component {
     areOlderMessagesBeingFetched(props = this.props) {
 
         const firstMessage = props.sentMessages[0];
-        const {firstFetchedMessageID} = this;
+        const { firstFetchedMessageID } = this;
 
         if (!firstMessage) {
 
@@ -285,7 +285,7 @@ class Chat extends Component {
 
     scrollToTheLastPosition() {
 
-        const {scrollableArea} = this;
+        const { scrollableArea } = this;
         const newScrollTop = scrollableArea.scrollHeight - this.scrollableAreaPrevScrollHeight;
 
         if (scrollableArea.scrollTop < newScrollTop) {

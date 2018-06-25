@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import propTypes from 'prop-types';
 
 class MessageContent extends Component {
@@ -10,7 +10,7 @@ class MessageContent extends Component {
 
     render() {
 
-        const {children} = this.props;
+        const { children } = this.props;
         const messageContent = (Array.isArray(children)) ? children.join('') : children;
 
         if (!MessageContent.containsUrls(messageContent)) {

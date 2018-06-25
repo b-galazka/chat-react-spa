@@ -5,7 +5,7 @@ import { socketSelector } from './selectors/socket';
 import { typingFinished } from '../actions/messages';
 import { TYPING_FINISH_PROCESSING } from '../actions/types/messages';
 
-export function* finishTyping({ delayTime }) {
+export function *finishTyping({ delayTime }) {
 
     yield delay(delayTime);
 
@@ -19,7 +19,7 @@ export function* finishTyping({ delayTime }) {
     yield put(typingFinished());
 }
 
-export default function* finishTypingWatcher() {
+export default function *finishTypingWatcher() {
 
     yield takeLatest(TYPING_FINISH_PROCESSING, finishTyping);
 }

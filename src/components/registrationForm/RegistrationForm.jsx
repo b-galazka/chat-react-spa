@@ -1,12 +1,12 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import classNames from 'classnames';
-import {bindActionCreators} from 'redux';
-import {connect} from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 
 import LoadingAnimation from '../loadingAnimation/LoadingAnimation';
 
 import axios from '../../shared/axios';
-import {createUser} from '../../actions/users';
+import { createUser } from '../../actions/users';
 
 import strings from './strings';
 import unauthPageStrings from '../unauthenticatedPage/strings';
@@ -15,7 +15,7 @@ import './registrationForm.scss';
 
 function mapStateToProps(state) {
 
-    const {users} = state;
+    const { users } = state;
 
     return {
         userCreated: users.created,
@@ -62,7 +62,7 @@ class RegistrationForm extends Component {
             usernameErrors
         } = this.state;
 
-        const {userCreationError, userCreated} = this.props;
+        const { userCreationError, userCreated } = this.props;
 
         return (
             <section className="page__auth-section page__auth-section--registration">
@@ -128,9 +128,6 @@ class RegistrationForm extends Component {
 
     bindMethodsToThis() {
 
-        this.updateUsername = this.updateUsername.bind(this);
-        this.updatePassword = this.updatePassword.bind(this);
-        this.updateRepeatedPassword = this.updateRepeatedPassword.bind(this);
         this.validateUsername = this.validateUsername.bind(this);
         this.validatePassword = this.validatePassword.bind(this);
         this.validateRepeatedPassword = this.validateRepeatedPassword.bind(this);
@@ -139,14 +136,14 @@ class RegistrationForm extends Component {
 
     renderUserCreationError() {
 
-        const {userCreationError} = this.props;
+        const { userCreationError } = this.props;
 
         if (!userCreationError.responose) {
 
             return unauthPageStrings.unknownError;
         }
 
-        const {status} = userCreationError.responose;
+        const { status } = userCreationError.responose;
 
         if (status === 409) {
 
@@ -161,7 +158,7 @@ class RegistrationForm extends Component {
 
     renderUsernameField() {
 
-        const {usernameErrors, usernameAvailabilityChecking} = this.state;
+        const { usernameErrors, usernameAvailabilityChecking } = this.state;
 
         return (
             <div className="auth-input__wrapper">
@@ -177,7 +174,7 @@ class RegistrationForm extends Component {
 
                     disabled={usernameAvailabilityChecking}
                     value={this.state.username}
-                    onChange={this.updateUsername}
+                    onChange={this.updateInputValue('username')}
                     onBlur={this.validateUsername}
                 />
 
@@ -198,7 +195,7 @@ class RegistrationForm extends Component {
 
     renderPasswordField() {
 
-        const {passwordErrors, fieldsDisabled} = this.state;
+        const { passwordErrors, fieldsDisabled } = this.state;
 
         return (
             <input
@@ -213,7 +210,7 @@ class RegistrationForm extends Component {
 
                 disabled={fieldsDisabled}
                 value={this.state.password}
-                onChange={this.updatePassword}
+                onChange={this.updateInputValue('password')}
                 onBlur={this.validatePassword}
             />
         );
@@ -221,7 +218,7 @@ class RegistrationForm extends Component {
 
     renderRepeatedPasswordField() {
 
-        const {repeatedPasswordErrors, fieldsDisabled} = this.state;
+        const { repeatedPasswordErrors, fieldsDisabled } = this.state;
 
         return (
             <input
@@ -236,7 +233,7 @@ class RegistrationForm extends Component {
 
                 disabled={fieldsDisabled}
                 value={this.state.repeatedPassword}
-                onChange={this.updateRepeatedPassword}
+                onChange={this.updateInputValue('repeatedPassword')}
                 onBlur={this.validateRepeatedPassword}
             />
         );
@@ -262,7 +259,7 @@ class RegistrationForm extends Component {
 
     renderSubmitButton() {
 
-        const {usernameAvailabilityChecking} = this.state;
+        const { usernameAvailabilityChecking } = this.state;
 
         return (
             <input
@@ -280,31 +277,16 @@ class RegistrationForm extends Component {
         );
     }
 
-    updateUsername({target}) {
+    updateInputValue(inputName) {
 
-        const {value} = target;
+        return ({ target }) => {
 
-        this.setState({
-            username: value
-        });
-    }
-
-    updatePassword({target}) {
-
-        const {value} = target;
+            const { value } = target;
 
         this.setState({
-            password: value
+                [inputName]: value
         });
-    }
-
-    updateRepeatedPassword({target}) {
-
-        const {value} = target;
-
-        this.setState({
-            repeatedPassword: value
-        });
+        };
     }
 
     updateUsernameAvailabilityStatus(usernameAvailability) {
@@ -323,7 +305,7 @@ class RegistrationForm extends Component {
 
     validateUsername() {
 
-        const {username, usernameErrors} = this.state;
+        const { username, usernameErrors } = this.state;
 
         if (
             this.lastValidatedUsername === username &&
@@ -355,7 +337,7 @@ class RegistrationForm extends Component {
     validateUsernameSync() {
 
         const errors = [];
-        const {username} = this.state;
+        const { username } = this.state;
 
         if (username.length < 3 || username.length > 16) {
 
@@ -372,7 +354,7 @@ class RegistrationForm extends Component {
 
     checkUsernameAvailability() {
 
-        const {username} = this.state;
+        const { username } = this.state;
 
         this.checkingUsernameAvailabilityRequested();
 
@@ -380,7 +362,7 @@ class RegistrationForm extends Component {
 
             try {
 
-                const {data} = await axios.post('/users/username-availability', {username});
+                const { data } = await axios.post('/users/username-availability', { username });
 
                 this.updateUsernameAvailabilityStatus(data);
                 this.checkingUsernameAvailabilitySucceeded(data);
@@ -422,7 +404,7 @@ class RegistrationForm extends Component {
     validatePassword() {
 
         const errors = [];
-        const {password} = this.state;
+        const { password } = this.state;
 
         if (password.length < 8 || password.length > 32) {
 
@@ -443,7 +425,7 @@ class RegistrationForm extends Component {
 
     passwordContainsRequiredCharacters() {
 
-        const {password} = this.state;
+        const { password } = this.state;
 
         return (
             /\d/.test(password) &&
@@ -456,7 +438,7 @@ class RegistrationForm extends Component {
     validateRepeatedPassword() {
 
         const errors = [];
-        const {password, repeatedPassword} = this.state;
+        const { password, repeatedPassword } = this.state;
 
         if (password !== repeatedPassword) {
 
@@ -481,7 +463,7 @@ class RegistrationForm extends Component {
 
         this.disableFormFields();
 
-        const {username, password} = this.state;
+        const { username, password } = this.state;
         const usernameAvailability = await this.usernameAvailabilityCheckingPromise;
 
         if (usernameAvailability && !usernameAvailability.free) {
@@ -489,7 +471,7 @@ class RegistrationForm extends Component {
             return;
         }
 
-        this.props.createUser({username, password});
+        this.props.createUser({ username, password });
     }
 
     disableFormFields() {

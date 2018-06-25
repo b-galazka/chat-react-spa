@@ -7,7 +7,7 @@ import {
     RECONNECTION_FAILED
 } from '../actions/types/socket';
 
-import {CLEAR_STORE} from '../actions/types/entireStore';
+import { CLEAR_STORE } from '../actions/types/entireStore';
 
 const initialState = {
     socket: null,

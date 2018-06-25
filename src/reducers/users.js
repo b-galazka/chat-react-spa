@@ -8,7 +8,7 @@ import {
     TYPING_FINISHED
 } from '../actions/types/users';
 
-import {CLEAR_STORE} from '../actions/types/entireStore';
+import { CLEAR_STORE } from '../actions/types/entireStore';
 
 const initialState = {
 

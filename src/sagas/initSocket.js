@@ -1,5 +1,5 @@
-import {eventChannel, END} from 'redux-saga';
-import {put, takeLatest, select, take, call} from 'redux-saga/effects';
+import { eventChannel, END } from 'redux-saga';
+import { put, takeLatest, select, take, call } from 'redux-saga/effects';
 import io from 'socket.io-client';
 
 import {
@@ -18,9 +18,9 @@ import {
     typingFinished as userFinishedTyping
 } from '../actions/users';
 
-import {logout} from '../actions/entireStore';
-import {fetchMessages, messageSaved, receiveMessage} from '../actions/messages';
-import {INIT} from '../actions/types/socket';
+import { logout } from '../actions/entireStore';
+import { fetchMessages, messageSaved, receiveMessage } from '../actions/messages';
+import { INIT } from '../actions/types/socket';
 import { tokenSelector } from './selectors/auth';
 import { socketSelector } from './selectors/socket';
 
@@ -84,7 +84,7 @@ function getSocketChannel(socket) {
             emit(logout());
         });
 
-        socket.on('message saved', ({message, tempID}) => {
+        socket.on('message saved', ({ message, tempID }) => {
             
             emit(messageSaved(message, tempID));
         });
@@ -137,7 +137,7 @@ function *initSocket() {
     const token = yield select(tokenSelector);
 
     const socketConfig = {
-        query: {token},
+        query: { token },
         reconnectionAttempts: config.socketReconnectionsAmount
     };
 

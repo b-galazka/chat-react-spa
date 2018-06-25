@@ -1,7 +1,7 @@
-import React, {Component} from 'react';
-import {BrowserRouter, Switch, Route} from 'react-router-dom';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
+import React, { Component } from 'react';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import jwtDecode from 'jwt-decode';
 import cookies from 'js-cookie';
 
@@ -9,17 +9,15 @@ import UnauthenticatedPage from '../unauthenticatedPage/UnauthenticatedPage';
 import AuthenticatedPage from '../authenticatedPage/AuthenticatedPage';
 import NotFound from '../notFound/NotFound';
 
-import {putToken} from '../../actions/auth';
+import { putToken } from '../../actions/auth';
 
 import './app.scss';
 
 function mapStateToProps(state) {
 
-    const {token} = state.auth;
+    const { token } = state.auth;
 
-    return {
-        token
-    };
+    return { token };
 }
 
 function mapDispatchToProps(dispatch) {
@@ -59,7 +57,7 @@ class App extends Component {
 
     isUserAuthenticated() {
 
-        const {token} = this.props;
+        const { token } = this.props;
 
         if (token) {
 

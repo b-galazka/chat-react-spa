@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import propTypes from 'prop-types';
 import classNames from 'classnames';
 
@@ -12,11 +12,9 @@ import './message.scss';
 
 function mapStateToProps(state) {
 
-    const {username} = state.auth.tokenData;
+    const { username } = state.auth.tokenData;
 
-    return {
-        username
-    };
+    return { username };
 }
 
 class Message extends Component {
@@ -78,7 +76,7 @@ class Message extends Component {
 
     renderTimeHeader() {
 
-        const {displayTimeHeader} = this.props;
+        const { displayTimeHeader } = this.props;
 
         if (!displayTimeHeader) {
 
@@ -94,8 +92,8 @@ class Message extends Component {
 
     renderTimeHeaderText() {
 
-        const {message} = this.props;
-        const {minute, hour, day} = timeUnits;
+        const { message } = this.props;
+        const { minute, hour, day } = timeUnits;
 
         const messageDate = new Date(message.date);
         const messageTime = messageDate.getTime();
@@ -130,7 +128,7 @@ class Message extends Component {
 
     renderMessageTime() {
 
-        const {sending, message} = this.props;
+        const { sending } = this.props;
 
         if (sending) {
 
@@ -146,8 +144,8 @@ class Message extends Component {
 
     renderMessageTimeText() {
 
-        const {message} = this.props;
-        const {day} = timeUnits;
+        const { message } = this.props;
+        const { day } = timeUnits;
 
         const messageDate = new Date(message.date);
         const messageTime = messageDate.getTime();
@@ -170,15 +168,10 @@ class Message extends Component {
         }
     }
 
-    shouldSetRefreshingInterval() {
-
-        
-    }
-
     setRefreshingInterval() {
 
-        const {day, minute} = timeUnits;
-        const {displayTimeHeader, message} = this.props;
+        const { day, minute } = timeUnits;
+        const { displayTimeHeader, message } = this.props;
         const messageTime = new Date(message.date).getTime();
         const timeDiff = Date.now() - messageTime;
 
