@@ -3,7 +3,7 @@ import { select, takeLatest, put } from 'redux-saga/effects';
 
 import { socketSelector } from './selectors/socket';
 import { typingFinished } from '../actions/messages';
-import { TYPING_FINISH_PROCESSING } from '../actions/types/messages';
+import { TYPING_FINISH_REQUESTED } from '../actions/types/messages';
 
 export function *finishTyping({ delayTime }) {
 
@@ -21,5 +21,5 @@ export function *finishTyping({ delayTime }) {
 
 export default function *finishTypingWatcher() {
 
-    yield takeLatest(TYPING_FINISH_PROCESSING, finishTyping);
+    yield takeLatest(TYPING_FINISH_REQUESTED, finishTyping);
 }

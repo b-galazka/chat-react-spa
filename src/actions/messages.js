@@ -11,7 +11,7 @@ import {
     MARK_AS_READ,
     TYPING_STARTED,
     TYPING_FINISHED,
-    TYPING_FINISH_PROCESSING
+    TYPING_FINISH_REQUESTED,
 } from './types/messages';
 
 export function fetchMessages() {
@@ -103,7 +103,7 @@ export function startTyping() {
 export function finishTyping(delayTime = 0) {
 
     return {
-        type: TYPING_FINISH_PROCESSING,
+        type: TYPING_FINISH_REQUESTED,
         delayTime
     };
 }
