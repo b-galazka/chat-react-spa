@@ -116,7 +116,7 @@ export default function messagesReducer(state = initialState, action) {
 
         case SAVED: {
 
-            const { tempID } = action;
+            const { tempId } = action;
             const { sent, sending } = state;
 
             // prevents doubling messages sent during reconnection
@@ -124,7 +124,7 @@ export default function messagesReducer(state = initialState, action) {
 
             return {
                 ...state,
-                sending: sending.filter(message => message.tempID !== tempID),
+                sending: sending.filter(message => message.tempId !== tempId),
                 sent: (doesMessageExist) ? sent : [...sent, payload]
             };
         }

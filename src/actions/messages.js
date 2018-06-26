@@ -69,12 +69,12 @@ export function fetchingMoreFailure(error) {
     }
 }
 
-export function messageSaved(message, tempID) {
+export function messageSaved(message, tempId) {
 
     return {
         type: SAVED,
         payload: message,
-        tempID
+        tempId
     }
 }
 

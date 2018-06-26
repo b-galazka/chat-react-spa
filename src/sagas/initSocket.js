@@ -84,9 +84,9 @@ function getSocketChannel(socket) {
             emit(logout());
         });
 
-        socket.on('message saved', ({ message, tempID }) => {
+        socket.on('message saved', ({ message, tempId }) => {
             
-            emit(messageSaved(message, tempID));
+            emit(messageSaved(message, tempId));
         });
 
         socket.on('message', (message) => {

@@ -158,7 +158,7 @@ class Chat extends Component {
         const { sendingMessages } = this.props;
 
         return sendingMessages.map(message => (
-            <Message key={message.tempID} message={message} sending />
+            <Message key={message.tempId} message={message} sending />
         ));
     }
 
@@ -308,7 +308,7 @@ Chat.propTypes = {
     sendingMessages: propTypes.arrayOf(
         propTypes.shape({
             content: propTypes.string.isRequired,
-            tempID: propTypes.string.isRequired
+            tempId: propTypes.string.isRequired
         })
     ).isRequired,
 

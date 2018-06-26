@@ -123,7 +123,7 @@ class MessageForm extends FormComponent {
 
         this.props.sendMessage({
             content: this.state.messageContent.trim(),
-            tempID: cuid()
+            tempId: cuid()
         });
 
         this.resetMessageContent();
