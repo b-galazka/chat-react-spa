@@ -41,35 +41,75 @@ class MessageForm extends FormComponent {
 
         this.submitForm = this.submitForm.bind(this);
         this.onKeyDownHandler = this.onKeyDownHandler.bind(this);
+        this.uploadFiles = this.uploadFiles.bind(this);
     }
 
     render() {
 
         return (
             <form className="message-form" onSubmit={this.submitForm}>
-                <textarea
-                    className="message-form__textarea"
-                    value={this.state.messageContent}
-                    placeholder={strings.messageTextareaPlaceholder}
-                    onChange={this.updateInputValue('messageContent')}
-                    onKeyDown={this.onKeyDownHandler}
-                    ref={(ref) => { this.textareaRef = ref; }}
-                    autoFocus
-                ></textarea>
-
-                <button
-                    className={
-
-                        classNames({
-                            'button': true,
-                            'message-form__submit-button': true,
-                            'button--disabled': this.isMessageEmpty()
-                        })
-                    }
-                >
-                    {strings.submitButtonText}
-                </button>
+                {this.renderTextarea()}
+                {this.renderFileUploadButton()}
+                {this.renderSendMessageButton()}
             </form>
+        );
+    }
+
+    renderTextarea() {
+
+        return (
+            <textarea
+                className="message-form__textarea"
+                value={this.state.messageContent}
+                placeholder={strings.messageTextareaPlaceholder}
+                onChange={this.updateInputValue('messageContent')}
+                onKeyDown={this.onKeyDownHandler}
+                ref={(ref) => { this.textareaRef = ref; }}
+                autoFocus
+            ></textarea>
+        );
+    }
+
+    renderFileUploadButton() {
+
+        return (
+            <div className="message-form__file-upload-wrapper">
+                <input
+                    type="file"
+                    id="fileUpload"
+                    multiple
+                    onChange={this.uploadFiles}
+                />
+
+                <label
+                    htmlFor="fileUpload"
+                    className="message-form__file-upload-button"
+                >
+                    <img
+                        src="/img/file-icon.png"
+                        alt="file icon"
+                        className="message-form__file-upload-icon"
+                    />
+                </label>
+            </div>
+        );
+    }
+
+    renderSendMessageButton() {
+
+        return (
+            <button
+                className={
+
+                    classNames({
+                        'button': true,
+                        'message-form__submit-button': true,
+                        'button--disabled': this.isMessageEmpty()
+                    })
+                }
+            >
+                {strings.submitButtonText}
+            </button>
         );
     }
 
@@ -128,6 +168,11 @@ class MessageForm extends FormComponent {
 
         this.resetMessageContent();
         this.textareaRef.focus();
+    }
+
+    uploadFiles({ target }) {
+
+        console.log(target.files);
     }
 }
 

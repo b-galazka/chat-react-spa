@@ -24,4 +24,28 @@
         flex: 0 0 auto;
         width: auto!important;
     }
+
+    &__file-upload-wrapper {
+        border-left: 1px solid $blue;
+        width: 70px;
+    }
+
+    &__file-upload-button {
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 10px;
+        height: 100%;
+    }
+
+    &__file-upload-icon {
+        max-height: 75%;
+        max-width: 75%;
+        flex: 0 0 auto;
+    }
+}
+
+#fileUpload {
+    display: none;
 }
