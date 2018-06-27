@@ -91,11 +91,7 @@ class MessageForm extends FormComponent {
                     htmlFor="fileUpload"
                     className="message-form__file-upload-button"
                 >
-                    <img
-                        src="/img/file-icon.png"
-                        alt="file icon"
-                        className="message-form__file-upload-icon"
-                    />
+                    <figure className="message-form__file-upload-icon"></figure>
                 </label>
             </div>
         );

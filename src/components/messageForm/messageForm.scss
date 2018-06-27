@@ -40,9 +40,12 @@
     }
 
     &__file-upload-icon {
-        max-height: 75%;
-        max-width: 75%;
-        flex: 0 0 auto;
+        height: 75%;
+        width: 75%;
+        background-image: url('/img/file-icon.png');
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: center;
     }
 }
 
