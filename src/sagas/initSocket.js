@@ -18,8 +18,16 @@ import {
     typingFinished as userFinishedTyping
 } from '../actions/users';
 
+import {
+    fetchMessages,
+    messageSaved,
+    receiveMessage,
+    fileUploadedStarted,
+    filePartUploaded,
+    fileUploaded
+} from '../actions/messages';
+
 import { logout } from '../actions/entireStore';
-import { fetchMessages, messageSaved, receiveMessage } from '../actions/messages';
 import { INIT } from '../actions/types/socket';
 import { tokenSelector } from './selectors/auth';
 import { socketSelector } from './selectors/socket';
@@ -94,6 +102,11 @@ function getSocketChannel(socket) {
             emit(receiveMessage(message));
         });
 
+        socket.on('message sending error', ({ tempId }) => {
+
+            // TODO: handle message sending error
+        });
+
         socket.on('typing started', (username) => {
 
             emit(userStartedTyping(username));
@@ -102,6 +115,36 @@ function getSocketChannel(socket) {
         socket.on('typing finished', (username) => {
 
             emit(userFinishedTyping(username));
+        });
+
+        socket.on('file upload started', ({ tempId, uploadId }) => {
+
+            emit(fileUploadedStarted(tempId, uploadId));
+        });
+
+        socket.on('file part uploaded', ({ uploadId, uploadedBytes }) => {
+
+            emit(filePartUploaded(uploadId, uploadedBytes));
+        });
+
+        socket.on('file uploaded', ({ uploadId, message }) => {
+
+            emit(fileUploaded(uploadId, message));
+        });
+
+        socket.on('file info validation error', ({ tempId, message }) => {
+
+            // TODO: handle error
+        });
+
+        socket.on('file upload timeout', ({ tempId }) => {
+
+            // TODO: handle timeout
+        });
+
+        socket.on('uploading file error', ({ tempId, message }) => {
+
+            // TODO: handle timeout
         });
 
         return () => {

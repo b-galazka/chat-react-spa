@@ -142,6 +142,11 @@ class Chat extends Component {
 
             const displayTimeHeader = this.shouldDisplayTimeHeader(index);
 
+            if (message.attachment) {
+
+                return 'uploaded attachment component';
+            }
+
             return (
                 <Message
                     key={message.id}
@@ -158,7 +163,9 @@ class Chat extends Component {
         const { sendingMessages } = this.props;
 
         return sendingMessages.map(message => (
-            <Message key={message.tempId} message={message} sending />
+            message.attachment ?
+                `attachment component ${message.attachment.uploadedBytes}/${message.attachment.file.size}` :
+                <Message key={message.tempId} message={message} sending />
         ));
     }
 
@@ -307,15 +314,17 @@ Chat.propTypes = {
 
     sendingMessages: propTypes.arrayOf(
         propTypes.shape({
-            content: propTypes.string.isRequired,
-            tempId: propTypes.string.isRequired
+            tempId: propTypes.string.isRequired,
+            content: propTypes.string,
+            attachment: propTypes.object
         })
     ).isRequired,
 
     sentMessages: propTypes.arrayOf(
         propTypes.shape({
             id: propTypes.number.isRequired,
-            content: propTypes.string.isRequired,
+            content: propTypes.string,
+            attachment: propTypes.object,
 
             date(props, propName) {
 

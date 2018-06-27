@@ -7,7 +7,12 @@ import propTypes from 'prop-types';
 
 import FormComponent from '../abstracts/FormComponent';
 
-import { sendMessage, startTyping, finishTyping } from '../../actions/messages';
+import {
+    sendMessage,
+    startTyping,
+    finishTyping,
+    startFileUploading
+} from '../../actions/messages';
 
 import strings from './strings';
 
@@ -25,7 +30,8 @@ function mapDispatchToProps(dispatch) {
     return {
         sendMessage: bindActionCreators(sendMessage, dispatch),
         startTyping: bindActionCreators(startTyping, dispatch),
-        finishTyping: bindActionCreators(finishTyping, dispatch)
+        finishTyping: bindActionCreators(finishTyping, dispatch),
+        startFileUploading: bindActionCreators(startFileUploading, dispatch)
     };
 }
 
@@ -172,7 +178,12 @@ class MessageForm extends FormComponent {
 
     uploadFiles({ target }) {
 
-        console.log(target.files);
+        const { files } = target;
+
+        Array.prototype.forEach.call(files, (file) => {
+
+            this.props.startFileUploading(cuid(), file);
+        });
     }
 }
 
@@ -181,7 +192,8 @@ MessageForm.propTypes = {
     typingMessage: propTypes.bool.isRequired,
     sendMessage: propTypes.func.isRequired,
     startTyping: propTypes.func.isRequired,
-    finishTyping: propTypes.func.isRequired
+    finishTyping: propTypes.func.isRequired,
+    startFileUploading: propTypes.func.isRequired
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MessageForm);

@@ -1,7 +1,8 @@
 {
-    "apiBaseUrl": "",
-    "socketUrl": "",
+    "apiBaseUrl": "http://localhost:4000",
+    "socketUrl": "http://localhost:4000",
     "messagesPerRequest": 50,
     "messagesPerFirstRequest": 100,
-    "socketReconnectionsAmount": 20
+    "socketReconnectionsAmount": 20,
+    "uploadFilePartSize": 102400
 }

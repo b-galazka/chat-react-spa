@@ -10,7 +10,11 @@ import {
     MARK_AS_READ,
     RECEIVED,
     TYPING_STARTED,
-    TYPING_FINISHED
+    TYPING_FINISHED,
+    START_FILE_UPLOADING,
+    FILE_UPLOADING_STARTED,
+    FILE_PART_UPLOADED,
+    FILE_UPLOADED
 } from '../actions/types/messages';
 
 import { CLEAR_STORE } from '../actions/types/entireStore';
@@ -106,6 +110,7 @@ export default function messagesReducer(state = initialState, action) {
             };
         }
 
+        case START_FILE_UPLOADING:
         case SEND: {
 
             return {
@@ -138,9 +143,7 @@ export default function messagesReducer(state = initialState, action) {
 
             if (doesMessageExist) {
 
-                return {
-                    ...state
-                };
+                return state;
             }
 
             return {
@@ -188,6 +191,70 @@ export default function messagesReducer(state = initialState, action) {
             return {
                 ...state,
                 typingMessage: false
+            };
+        }
+
+        case FILE_UPLOADING_STARTED: {
+
+            const { tempId, uploadId } = payload;
+            const { sending } = state;
+
+            const sendingMessages = sending.map(message =>
+                (message.tempId === tempId) ?
+                    { ...message, uploadId } :
+                    message
+            );
+
+            return {
+                ...state,
+                sending: sendingMessages
+            };
+        }
+
+        case FILE_PART_UPLOADED: {
+
+            const { uploadId, uploadedBytes } = payload;
+            const { sending } = state;
+
+            const sendingMessages = sending.map((message) => {
+
+                if (message.uploadId !== uploadId) {
+
+                    return message;
+                }
+
+                const { attachment } = message;
+
+                return {
+                    ...message,
+
+                    attachment: {
+                        ...attachment,
+                        uploadedBytes
+                    }
+                };
+            });
+
+            return {
+                ...state,
+                sending: sendingMessages
+            };
+        }
+
+        case FILE_UPLOADED: {
+
+            const { uploadId, message } = payload;
+            const { sent, sending } = state;
+
+            // prevents doubling messages sent during reconnection
+            const doesMessageExist = sent.some(
+                existingMessage => existingMessage.id === message.id
+            );
+
+            return {
+                ...state,
+                sending: sending.filter(message => message.uploadId !== uploadId),
+                sent: (doesMessageExist) ? sent : [...sent, message]
             };
         }
 

@@ -9,6 +9,8 @@ import loggingOutSaga from './logout';
 import sendingMessageSaga from './sendMessage';
 import startTypingSaga from './startTyping';
 import finishTypingSaga from './finishTyping';
+import startFileUploadingSaga from './startFileUploading';
+import uploadFilePartSaga from './uploadFilePart';
 
 export default function *rootSaga() {
 
@@ -21,6 +23,8 @@ export default function *rootSaga() {
         fork(loggingOutSaga),
         fork(sendingMessageSaga),
         fork(startTypingSaga),
-        fork(finishTypingSaga)
+        fork(finishTypingSaga),
+        fork(startFileUploadingSaga),
+        fork(uploadFilePartSaga)
     ]);
 }
