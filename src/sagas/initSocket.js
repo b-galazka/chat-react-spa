@@ -21,6 +21,7 @@ import {
 import {
     fetchMessages,
     messageSaved,
+    messageSendingError,
     receiveMessage,
     fileUploadedStarted,
     filePartUploaded,
@@ -104,7 +105,7 @@ function getSocketChannel(socket) {
 
         socket.on('message sending error', ({ tempId }) => {
 
-            // TODO: handle message sending error
+            emit(messageSendingError(tempId));
         });
 
         socket.on('typing started', (username) => {

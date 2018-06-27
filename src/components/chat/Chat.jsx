@@ -165,7 +165,13 @@ class Chat extends Component {
         return sendingMessages.map(message => (
             message.attachment ?
                 `attachment component ${message.attachment.uploadedBytes}/${message.attachment.file.size}` :
-                <Message key={message.tempId} message={message} sending />
+
+                <Message
+                    key={message.tempId}
+                    message={message}
+                    sendingError={message.sendingError}
+                    sending
+                />
         ));
     }
 
@@ -315,7 +321,7 @@ Chat.propTypes = {
     sendingMessages: propTypes.arrayOf(
         propTypes.shape({
             tempId: propTypes.string.isRequired,
-            content: propTypes.string,
+            sendingError: propTypes.bool.isRequired,
             attachment: propTypes.object
         })
     ).isRequired,
@@ -323,7 +329,6 @@ Chat.propTypes = {
     sentMessages: propTypes.arrayOf(
         propTypes.shape({
             id: propTypes.number.isRequired,
-            content: propTypes.string,
             attachment: propTypes.object,
 
             date(props, propName) {

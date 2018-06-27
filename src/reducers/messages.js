@@ -6,7 +6,9 @@ import {
     FETCHING_MORE_SUCCEDED,
     FETCHING_MORE_FAILED,
     SEND,
+    SEND_AGAIN,
     SAVED,
+    SENDING_ERROR,
     MARK_AS_READ,
     RECEIVED,
     TYPING_STARTED,
@@ -119,6 +121,23 @@ export default function messagesReducer(state = initialState, action) {
             };
         }
 
+        case SEND_AGAIN: {
+
+            const { sending } = state;
+            const { tempId } = payload;
+
+            const sendingMessages = sending.map(message =>
+                (message.tempId === tempId) ?
+                    { ...message, sendingError: false } :
+                    message
+            );
+
+            return {
+                ...state,
+                sending: sendingMessages
+            };
+        }
+
         case SAVED: {
 
             const { tempId } = action;
@@ -131,6 +150,22 @@ export default function messagesReducer(state = initialState, action) {
                 ...state,
                 sending: sending.filter(message => message.tempId !== tempId),
                 sent: (doesMessageExist) ? sent : [...sent, payload]
+            };
+        }
+
+        case SENDING_ERROR: {
+
+            const { sending } = state;
+
+            const sendingMessages = sending.map(message =>
+                (message.tempId === payload) ?
+                    { ...message, sendingError: true } :
+                    message
+            );
+
+            return {
+                ...state,
+                sending: sendingMessages
             };
         }
 

@@ -58,7 +58,7 @@
         }
     }
 
-    &--sending &__data-wrapper {
+    &--sending &__data {
         opacity: 0.5;
     }
 
@@ -117,7 +117,6 @@
         border-top-right-radius: 15px;
         border-bottom-right-radius: 15px;
         position: relative;
-
         max-width: 100%;
     }
 
@@ -128,5 +127,21 @@
 
     &__data-wrapper {
         max-width: 60%;
+    }
+
+    &__sending-error {
+        text-align: right;
+        color: $red;
+        font-size: 0.8rem;
+        cursor: pointer;
+        margin-top: 2px;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
+    &:not(:last-child) &__sending-error {
+        margin-bottom: 10px;
     }
 }

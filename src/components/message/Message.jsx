@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
 import classNames from 'classnames';
 
+import { sendMessageAgain } from '../../actions/messages';
 import MessageContent from '../messageContent/MessageContent';
 
 import strings from './strings';
@@ -17,7 +19,21 @@ function mapStateToProps(state) {
     return { username };
 }
 
+function mapDispatchToProps(dispatch) {
+
+    return {
+        sendMessageAgain: bindActionCreators(sendMessageAgain, dispatch)
+    };
+}
+
 class Message extends Component {
+
+    constructor() {
+
+        super();
+
+        this.sendMessage = this.sendMessage.bind(this);
+    }
 
     render() {
 
@@ -59,6 +75,8 @@ class Message extends Component {
 
                         {this.renderMessageTime()}
                     </div>
+
+                    {this.renderSendingError()}
                 </div>
             </article>
         );
@@ -168,6 +186,32 @@ class Message extends Component {
         }
     }
 
+    renderSendingError() {
+
+        const { sendingError } = this.props;
+
+        if (!sendingError) {
+
+            return null;
+        }
+
+        return (
+            <p
+                className="message__sending-error"
+                onClick={this.sendMessage}
+            >
+                {strings.sendingError}
+            </p>
+        );
+    }
+
+    sendMessage() {
+
+        const { message, sendMessageAgain } = this.props;
+
+        sendMessageAgain(message);
+    }
+
     setRefreshingInterval() {
 
         const { day, minute } = timeUnits;
@@ -195,8 +239,8 @@ class Message extends Component {
 Message.propTypes = {
 
     message: propTypes.shape({
-        id: propTypes.number,
         content: propTypes.string.isRequired,
+        tempId: propTypes.string,
 
         author: propTypes.shape({
             username: propTypes.string
@@ -213,12 +257,31 @@ Message.propTypes = {
         }
     }).isRequired,
 
+    sendingError(props, propName) {
+
+        const { sending } = props;
+        const sendingErrorValue = props[propName];
+
+        if (sending && Boolean(sendingErrorValue) !== sendingErrorValue) {
+
+            return new Error('props.sendingError validation error');
+        }
+
+        if (!sending && sendingErrorValue !== null && sendingErrorValue !== undefined) {
+
+            return new Error(
+                'props.sendingError can be provided only to message which is being sent'
+            );
+        }
+    },
+
     displayAuthor: propTypes.bool,
     displayTimeHeader: propTypes.bool,
     sending: propTypes.bool,
 
     // redux
-    username: propTypes.string.isRequired
+    username: propTypes.string.isRequired,
+    sendMessageAgain: propTypes.func.isRequired
 };
 
 Message.defaultProps = {
@@ -227,4 +290,4 @@ Message.defaultProps = {
     sending: false
 };
 
-export default connect(mapStateToProps)(Message);
+export default connect(mapStateToProps, mapDispatchToProps)(Message);

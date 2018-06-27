@@ -7,5 +7,6 @@
     "dayAgo": "day ago",
     "daysAgo": "days ago",
     "yesterday": "Yesterday",
-    "days": ["Sunday", "Monday", "Tuesday", "Wensday", "Thursday", "Friday", "Saturday"]
+    "days": ["Sunday", "Monday", "Tuesday", "Wensday", "Thursday", "Friday", "Saturday"],
+    "sendingError": "Message sending error. Click here send it again."
 }

@@ -6,7 +6,9 @@ import {
     FETCHING_MORE_SUCCEDED,
     FETCHING_MORE_FAILED,
     SEND,
+    SEND_AGAIN,
     SAVED,
+    SENDING_ERROR,
     RECEIVED,
     MARK_AS_READ,
     TYPING_STARTED,
@@ -37,8 +39,19 @@ export function sendMessage(message) {
 
     return {
         type: SEND,
-        payload: message
+        payload: {
+            ...message,
+            sendingError: false
+        }
     };
+}
+
+export function sendMessageAgain(message) {
+
+    return {
+        type: SEND_AGAIN,
+        payload: message
+    }
 }
 
 export function fetchingSuccess(messages) {
@@ -80,6 +93,14 @@ export function messageSaved(message, tempId) {
         payload: message,
         tempId
     }
+}
+
+export function messageSendingError(tempId) {
+
+    return {
+        type: SENDING_ERROR,
+        payload: tempId
+    };
 }
 
 export function receiveMessage(message) {
