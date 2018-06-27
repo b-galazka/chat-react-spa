@@ -321,7 +321,7 @@ Chat.propTypes = {
     sendingMessages: propTypes.arrayOf(
         propTypes.shape({
             tempId: propTypes.string.isRequired,
-            sendingError: propTypes.bool.isRequired,
+            sendingError: propTypes.bool,
             attachment: propTypes.object
         })
     ).isRequired,
