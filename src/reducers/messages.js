@@ -254,12 +254,12 @@ export default function messagesReducer(state = initialState, action) {
 
             const sendingMessages = sending.map((message) => {
 
-                if (message.uploadId !== uploadId) {
+                const { attachment } = message;
+
+                if (!attachment || message.uploadId !== uploadId) {
 
                     return message;
                 }
-
-                const { attachment } = message;
 
                 return {
                     ...message,
