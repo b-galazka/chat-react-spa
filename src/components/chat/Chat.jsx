@@ -321,8 +321,29 @@ Chat.propTypes = {
     sendingMessages: propTypes.arrayOf(
         propTypes.shape({
             tempId: propTypes.string.isRequired,
-            sendingError: propTypes.bool,
-            attachment: propTypes.object
+            attachment: propTypes.object,
+
+            sendingError(props, propName) {
+
+                const sendingError = props[propName];
+                const attachment = props.attachment;
+
+                if (attachment && sendingError !== undefined && sendingError !== null) {
+
+                    return new Error(
+                        'sendingMessages[].sendingError can be provided ' +
+                        'only to message without attachment'
+                    );
+                }
+
+                if (!attachment && Boolean(sendingError) !== sendingError) {
+
+                    return new Error(
+                        'each message without attachment, which is being sent' +
+                        'has to contain boolean sendingError prop'
+                    );
+                }
+            }
         })
     ).isRequired,
 

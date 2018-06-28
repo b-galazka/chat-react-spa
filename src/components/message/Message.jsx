@@ -260,14 +260,14 @@ Message.propTypes = {
     sendingError(props, propName) {
 
         const { sending } = props;
-        const sendingErrorValue = props[propName];
+        const sendingError = props[propName];
 
-        if (sending && Boolean(sendingErrorValue) !== sendingErrorValue) {
+        if (sending && Boolean(sendingError) !== sendingError) {
 
             return new Error('props.sendingError validation error');
         }
 
-        if (!sending && sendingErrorValue !== null && sendingErrorValue !== undefined) {
+        if (!sending && sendingError !== null && sendingError !== undefined) {
 
             return new Error(
                 'props.sendingError can be provided only to message which is being sent'
