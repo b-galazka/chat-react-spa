@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
+import renderText from '../../utils/renderText';
+
 import strings from './strings';
 import baseStrings from '../../shared/baseStrings';
 import './notFound.scss';
@@ -30,6 +32,8 @@ export default class NotFound extends Component {
 
     updatePageTitle() {
 
-        document.title = `${baseStrings.basePageTitle} | ${strings.pageTitle}`;
+        const { pageTitle } = strings;
+
+        document.title = renderText(baseStrings.pageTitle, { pageTitle });
     }
 }

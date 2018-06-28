@@ -9,6 +9,8 @@ import LoadingAnimation from '../loadingAnimation/LoadingAnimation';
 
 import { fetchMoreMessages } from '../../actions/messages';
 
+import renderText from '../../utils/renderText';
+
 import strings from './strings';
 import timeUnits from '../../shared/timeUnitsInMs';
 
@@ -164,7 +166,8 @@ class Chat extends Component {
 
         return sendingMessages.map(message => (
             message.attachment ?
-                `attachment component ${message.attachment.uploadedBytes}/${message.attachment.file.size}` :
+                `attachment component ${message.attachment.uploadedBytes}/${message.attachment.file.size} ` +
+                `${message.attachment.uploadingError}` :
 
                 <Message
                     key={message.tempId}
@@ -184,25 +187,19 @@ class Chat extends Component {
             return null;
         }
 
-        const typingText = strings.typing[
-            (typingUsers.length > 1) ? 'multiplePersons' : 'singlePerson'
-        ];
+        const text = (
 
-        const usernames = (
+            (typingUsers.length === 1) ?
 
-            (typingUsers.length > 2) ?
+            renderText(strings.typing.singlePerson, { username: typingUsers[0] }) :
 
-                typingUsers.slice(0, -1).join(', ') +
-                ` ${strings.and} ${typingUsers[typingUsers.length - 1]}` :
-
-                typingUsers.join(` ${strings.and} `)
+            renderText(strings.typing.multiplePersons, {
+                usernames: typingUsers.slice(0, -1).join(', '),
+                lastUsername: typingUsers[typingUsers.length - 1]
+            })
         );
 
-        return (
-            <p className="chat__typing-users">
-                {usernames} {typingText}...
-            </p>
-        );
+        return <p className="chat__typing-users">{text}</p>;
     }
 
     shouldDisplayTimeHeader(messageIndex) {

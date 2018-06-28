@@ -10,6 +10,8 @@ import Chat from '../chat/Chat';
 import { fetchMessages, markMessagesAsRead } from '../../actions/messages';
 import { initSocket } from '../../actions/socket';
 
+import renderText from '../../utils/renderText';
+
 import baseStrings from '../../shared/baseStrings';
 import strings from './strings';
 
@@ -112,9 +114,9 @@ class AuthenticatedPage extends Component {
     updatePageTitle(props = this.props) {
 
         const { unreadMessages } = props;
-        const notification = (unreadMessages > 0) ? `(${unreadMessages}) ` : '';
+        const title = baseStrings[(unreadMessages > 0) ? 'notificationTitle' : 'title'];
 
-        document.title = notification + baseStrings.basePageTitle;
+        document.title = renderText(title, { notification: unreadMessages });
     }
 
     markMessagesAsRead() {

@@ -7,6 +7,8 @@ import classNames from 'classnames';
 import { sendMessageAgain } from '../../actions/messages';
 import MessageContent from '../messageContent/MessageContent';
 
+import renderText from '../../utils/renderText';
+
 import strings from './strings';
 import timeUnits from '../../shared/timeUnitsInMs';
 
@@ -120,21 +122,34 @@ class Message extends Component {
         if (timeDiff < minute) {
 
             return strings.lessThanMinuteAgo;
+
         } else if (timeDiff < hour) {
 
             const diff = Math.floor(timeDiff / minute);
 
-            return `${diff} ${(diff > 1) ? strings.minutesAgo : strings.minuteAgo }`;
+            return renderText(
+                strings[(diff > 1) ? 'minutesAgo' : 'minuteAgo'],
+                { minutes: diff }
+            );
+
         } else if (timeDiff < day) {
 
             const diff = Math.floor(timeDiff / hour);
 
-            return `${diff} ${(diff > 1) ? strings.hoursAgo : strings.hourAgo}`;
+            return renderText(
+                strings[(diff > 1) ? 'hoursAgo' : 'hourAgo'],
+                { hours: diff }
+            );
+
         } else if (timeDiff < day * 7) {
 
             const diff = Math.floor(timeDiff / day);
 
-            return `${diff} ${(diff > 1) ? strings.daysAgo : strings.dayAgo}`;
+            return renderText(
+                strings[(diff > 1) ? 'daysAgo' : 'dayAgo'],
+                { days: diff }
+            )
+
         } else {
 
             const date = messageDate.toLocaleDateString();

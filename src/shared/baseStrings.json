@@ -1,3 +1,5 @@
 {
-    "basePageTitle": "Chat"
+    "title": "Chat",
+    "pageTitle": "Chat | {pageTitle}",
+    "notificationTitle": "({notification}) Chat"
 }

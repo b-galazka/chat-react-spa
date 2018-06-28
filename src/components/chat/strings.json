@@ -1,9 +1,9 @@
 {
     "noMessages": "No messages",
     "fetchingMoreMessagesError": "Something went wrong when fetching older messages. Refresh the page and try again.",
+
     "typing": {
-        "singlePerson": "is typing",
-        "multiplePersons": "are typing"
-    },
-    "and": "and"
+        "singlePerson": "{username} is typing...",
+        "multiplePersons": "{usernames} and {lastUsername} are typing..."
+    }
 }

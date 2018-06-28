@@ -6,6 +6,8 @@ import AuthLoader from '../authLoader/AuthLoader';
 import LoginForm from '../loginForm/LoginForm';
 import RegistrationForm from '../registrationForm/RegistrationForm';
 
+import renderText from '../../utils/renderText';
+
 import baseStrings from '../../shared/baseStrings';
 import strings from './strings';
 
@@ -50,7 +52,9 @@ class UnauthenticatedPage extends Component {
 
     updatePageTitle() {
 
-        document.title = `${baseStrings.basePageTitle} | ${strings.pageTitle}`;
+        const { pageTitle } = strings;
+
+        document.title = renderText(baseStrings.pageTitle, { pageTitle });
     }
 }
 
