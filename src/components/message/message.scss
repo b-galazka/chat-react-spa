@@ -43,13 +43,8 @@
             margin-left: 0;
 
             &::after {
-                content: '';
-                position: absolute;
                 right: auto;
                 left: 100%;
-                display: block;
-                top: 50%;
-                transform: translate(0, -50%);
                 border-right: none;
                 border-left: 10px solid $dark;
                 border-top: 5px solid transparent;
