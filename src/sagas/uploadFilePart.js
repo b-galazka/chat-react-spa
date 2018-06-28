@@ -1,6 +1,7 @@
-import { takeEvery, select, call } from 'redux-saga/effects';
+import { takeEvery, select, call, put } from 'redux-saga/effects';
 
 import { FILE_UPLOADING_STARTED, FILE_PART_UPLOADED } from '../actions/types/messages';
+import { fileUploadingError } from '../actions/messages';
 import { uploadingFileSelector } from './selectors/messages';
 import { socketSelector } from './selectors/socket';
 import getFileBinaryData from '../utils/getFileBinaryData';
@@ -8,9 +9,9 @@ import { uploadFilePartSize } from '../shared/config';
 
 function *uploadFilePart({ payload }) {
 
-    try {
+    const { uploadId, uploadedBytes } = payload;
 
-        const { uploadId, uploadedBytes } = payload;
+    try {
 
         const file = yield select(uploadingFileSelector(uploadId));
         const socket = yield select(socketSelector);
@@ -23,7 +24,7 @@ function *uploadFilePart({ payload }) {
 
     } catch (err) {
 
-        // TODO: emit error action
+        yield put(fileUploadingError({ uploadId, errorMessage: 'FileReader error' }));
     }
 }
 

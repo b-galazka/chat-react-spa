@@ -17,7 +17,8 @@ import {
     START_FILE_UPLOADING,
     FILE_UPLOADING_STARTED,
     FILE_PART_UPLOADED,
-    FILE_UPLOADED
+    FILE_UPLOADED,
+    FILE_UPLOADING_ERROR
 } from './types/messages';
 
 export function fetchMessages() {
@@ -152,6 +153,7 @@ export function startFileUploading(tempId, file) {
 
             attachment: {
                 file,
+                uploadingError: null,
                 uploadedBytes: 0
             }
         }
@@ -179,5 +181,13 @@ export function fileUploaded(uploadId, message) {
     return {
         type: FILE_UPLOADED,
         payload: { uploadId, message }
+    };
+}
+
+export function fileUploadingError(payload) {
+
+    return {
+        type: FILE_UPLOADING_ERROR,
+        payload
     };
 }

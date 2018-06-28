@@ -25,7 +25,8 @@ import {
     receiveMessage,
     fileUploadedStarted,
     filePartUploaded,
-    fileUploaded
+    fileUploaded,
+    fileUploadingError
 } from '../actions/messages';
 
 import { logout } from '../actions/entireStore';
@@ -135,17 +136,17 @@ function getSocketChannel(socket) {
 
         socket.on('file info validation error', ({ tempId, message }) => {
 
-            // TODO: handle error
+            emit(fileUploadingError({ tempId, errorMessage: message }));
         });
 
         socket.on('file upload timeout', ({ tempId }) => {
 
-            // TODO: handle timeout
+            emit(fileUploadingError({ tempId, errorMessage: 'timeout' }));
         });
 
-        socket.on('uploading file error', ({ tempId, message }) => {
+        socket.on('uploading file error', ({ uploadId, message }) => {
 
-            // TODO: handle timeout
+            emit(fileUploadingError({ uploadId, errorMessage: message }));
         });
 
         return () => {

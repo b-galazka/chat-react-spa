@@ -16,7 +16,8 @@ import {
     START_FILE_UPLOADING,
     FILE_UPLOADING_STARTED,
     FILE_PART_UPLOADED,
-    FILE_UPLOADED
+    FILE_UPLOADED,
+    FILE_UPLOADING_ERROR
 } from '../actions/types/messages';
 
 import { CLEAR_STORE } from '../actions/types/entireStore';
@@ -290,6 +291,40 @@ export default function messagesReducer(state = initialState, action) {
                 ...state,
                 sending: sending.filter(message => message.uploadId !== uploadId),
                 sent: (doesMessageExist) ? sent : [...sent, message]
+            };
+        }
+
+        case FILE_UPLOADING_ERROR: {
+
+            const { uploadId, tempId, errorMessage } = payload;
+            const { sending } = state;
+
+            const sendingMessages = sending.map((message) => {
+
+                const { attachment } = message;
+
+                if (
+                    !attachment ||
+                    uploadId && message.uploadId !== uploadId ||
+                    !uploadId && message.tempId !== tempId
+                ) {
+
+                    return message;
+                }
+
+                return {
+                    ...message,
+
+                    attachment: {
+                        ...attachment,
+                        uploadingError: errorMessage
+                    }
+                };
+            });
+
+            return {
+                ...state,
+                sending: sendingMessages
             };
         }
 
