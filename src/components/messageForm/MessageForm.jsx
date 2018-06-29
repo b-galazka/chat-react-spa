@@ -85,6 +85,7 @@ class MessageForm extends FormComponent {
                     id="fileUpload"
                     multiple
                     onChange={this.uploadFiles}
+                    ref={(ref) => { this.fileInputRef = ref; }}
                 />
 
                 <label
@@ -181,6 +182,8 @@ class MessageForm extends FormComponent {
 
             this.props.startFileUploading(cuid(), file);
         });
+
+        this.fileInputRef.value = '';
     }
 }
 
