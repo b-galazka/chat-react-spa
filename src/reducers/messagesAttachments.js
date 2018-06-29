@@ -3,7 +3,8 @@ import {
     ATTACHMENT_UPLOADING_STARTED,
     ATTACHMENT_PART_UPLOADED,
     ATTACHMENT_UPLOADED,
-    ATTACHMENT_UPLOADING_ERROR
+    ATTACHMENT_UPLOADING_ERROR,
+    UPLOAD_ATTACHMENT_AGAIN
 } from '../actions/types/messagesAttachments';
 
 export default function messagesAttachmentsReducer(state, action) {
@@ -108,6 +109,37 @@ export default function messagesAttachmentsReducer(state, action) {
                     attachment: {
                         ...attachment,
                         uploadingError: errorMessage
+                    }
+                };
+            });
+
+            return {
+                ...state,
+                sending: sendingMessages
+            };
+        }
+
+        case UPLOAD_ATTACHMENT_AGAIN: {
+
+            const { tempId } = payload;
+            const { sending } = state;
+
+            const sendingMessages = sending.map((message) => {
+
+                const { attachment } = message;
+
+                if (!attachment || message.tempId !== tempId) {
+
+                    return message;
+                }
+
+                return {
+                    ...message,
+
+                    attachment: {
+                        ...attachment,
+                        uploadedBytes: 0,
+                        uploadingError: null
                     }
                 };
             });

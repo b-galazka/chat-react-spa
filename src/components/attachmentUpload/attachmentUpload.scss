@@ -74,19 +74,22 @@
         max-width: 60%;
     }
 
-    &__sending-error {
+    &__uploading-error {
         text-align: right;
         color: $red;
         font-size: 0.8rem;
-        cursor: pointer;
         margin-top: 2px;
 
-        &:hover {
-            text-decoration: underline;
+        &--clickable {
+            cursor: pointer;
+
+            &:hover {
+                text-decoration: underline;
+            }
         }
     }
 
-    &:not(:last-child) &__sending-error {
+    &:not(:last-child) &__uploading-error {
         margin-bottom: 10px;
     }
 }

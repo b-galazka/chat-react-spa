@@ -3,7 +3,8 @@ import {
     ATTACHMENT_UPLOADING_STARTED,
     ATTACHMENT_PART_UPLOADED,
     ATTACHMENT_UPLOADED,
-    ATTACHMENT_UPLOADING_ERROR
+    ATTACHMENT_UPLOADING_ERROR,
+    UPLOAD_ATTACHMENT_AGAIN
 } from './types/messagesAttachments';
 
 export function startAttachmentUploading(tempId, file) {
@@ -54,5 +55,14 @@ export function attachmentUploadingError(payload) {
     return {
         type: ATTACHMENT_UPLOADING_ERROR,
         payload
+    };
+}
+
+export function uploadAttachmentAgain(tempId, file) {
+
+    return {
+
+        type: UPLOAD_ATTACHMENT_AGAIN,
+        payload: { tempId, file }
     };
 }

@@ -1,3 +1,8 @@
 {
-    "description": "Uploading {fileName}... Uploaded {uploadedSize} of {totalSize}"
+    "description": "Uploading {fileName}... Uploaded {uploadedSize} of {totalSize}",
+    "fileNameLengthError": "File name cannot be longer than 255 characters",
+    "fileTypeError": "Unsupported file type",
+    "fileSizeMaxError": "File size cannot be larger than 10 MB",
+    "fileSizeMinError": "File size must be at larger than 0 bytes",
+    "unknownError": "Error has occured. Click here to upload it again."
 }
