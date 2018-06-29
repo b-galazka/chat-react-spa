@@ -172,6 +172,7 @@ class MessageForm extends FormComponent {
         this.textareaRef.focus();
     }
 
+    // TODO: add files upload onPaste and drag-and-drop
     uploadFiles({ target }) {
 
         const { files } = target;

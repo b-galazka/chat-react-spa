@@ -84,16 +84,19 @@ class Message extends Component {
         );
     }
 
+    // TODO: move to abstract class and share it with Attachment component
     componentDidMount() {
 
         this.setRefreshingInterval();
     }
 
+    // TODO: move to abstract class and share it with Attachment component
     componentWillUnmount() {
 
         this.clearRefreshingInterval();
     }
 
+    // TODO: move to abstract class and share it with Attachment component
     renderTimeHeader() {
 
         const { displayTimeHeader } = this.props;
@@ -110,6 +113,7 @@ class Message extends Component {
         );
     }
 
+    // TODO: move to abstract class and share it with Attachment component
     renderTimeHeaderText() {
 
         const { message } = this.props;
@@ -159,6 +163,7 @@ class Message extends Component {
         }    
     }
 
+    // TODO: move to abstract class and share it with Attachment component
     renderMessageTime() {
 
         const { sending } = this.props;
@@ -175,6 +180,7 @@ class Message extends Component {
         );
     }
 
+    // TODO: move to abstract class and share it with Attachment component
     renderMessageTimeText() {
 
         const { message } = this.props;
@@ -227,6 +233,7 @@ class Message extends Component {
         sendMessageAgain(message);
     }
 
+    // TODO: move to abstract class and share it with Attachment component
     setRefreshingInterval() {
 
         const { day, minute } = timeUnits;
@@ -245,6 +252,7 @@ class Message extends Component {
         }, minute);
     }
 
+    // TODO: move to abstract class and share it with Attachment component
     clearRefreshingInterval() {
 
         clearInterval(this.refreshingIntervalId);

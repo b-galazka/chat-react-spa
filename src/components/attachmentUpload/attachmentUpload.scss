@@ -1,0 +1,81 @@
+@import '../../shared/config';
+
+// TODO: share duplicated styles with Message component
+
+.attachment {
+    padding-top: 2px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+	&--upload {
+        padding-top: 30px;
+        align-items: flex-end;
+
+        & + & {
+            padding-top: 2px;
+        }
+
+        .attachment__data-wrapper {
+            text-align: right;
+        }
+
+        .attachment__data {
+            background-color: rgba($blue, 0.5);
+            color: #fff;
+            border-top-left-radius: 15px;
+            border-bottom-left-radius: 15px;
+            border-top-right-radius: 2px;
+            border-bottom-right-radius: 2px;
+            text-align: left;
+            overflow: hidden;
+        }
+    }
+
+    &__data {
+        background-color: $lighterGrey;
+        display: inline-block;
+        border-top-left-radius: 2px;
+        border-bottom-left-radius: 2px;
+        border-top-right-radius: 15px;
+        border-bottom-right-radius: 15px;
+        position: relative;
+        max-width: 100%;
+    }
+
+    &__progress-bar {
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        background-color: $blue;
+        transition: 0.5s;
+    }
+
+    &__desc {
+        padding: 5px 15px;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+        position: relative;
+    }
+
+    &__data-wrapper {
+        max-width: 60%;
+    }
+
+    &__sending-error {
+        text-align: right;
+        color: $red;
+        font-size: 0.8rem;
+        cursor: pointer;
+        margin-top: 2px;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
+    &:not(:last-child) &__sending-error {
+        margin-bottom: 10px;
+    }
+}

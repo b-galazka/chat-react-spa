@@ -6,6 +6,7 @@ import propTypes from 'prop-types';
 import MessageForm from '../messageForm/MessageForm';
 import Message from '../message/Message';
 import LoadingAnimation from '../loadingAnimation/LoadingAnimation';
+import AttachmentUpload from '../attachmentUpload/AttachmentUpload';
 
 import { fetchMoreMessages } from '../../actions/messages';
 
@@ -164,18 +165,34 @@ class Chat extends Component {
 
         const { sendingMessages } = this.props;
 
-        return sendingMessages.map(message => (
-            message.attachment ?
-                `attachment component ${message.attachment.uploadedBytes}/${message.attachment.file.size} ` +
-                `${message.attachment.uploadingError}` :
+        return sendingMessages.map((message) => {
 
+            const { tempId, sendingError, attachment } = message;
+
+            if (attachment) {
+
+                const { file, uploadingError, uploadedBytes } = attachment;
+
+                return (
+                    <AttachmentUpload
+                        key={tempId}
+                        tempId={tempId}
+                        file={file}
+                        uploadingError={uploadingError}
+                        uploadedBytes={uploadedBytes}
+                    /> 
+                );
+            }
+
+            return (
                 <Message
-                    key={message.tempId}
+                    key={tempId}
                     message={message}
-                    sendingError={message.sendingError}
+                    sendingError={sendingError}
                     sending
                 />
-        ));
+            );                
+        });
     }
 
     renderTypingUsers() {
