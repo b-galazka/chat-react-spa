@@ -22,12 +22,15 @@ import {
     fetchMessages,
     messageSaved,
     messageSendingError,
-    receiveMessage,
-    fileUploadedStarted,
-    filePartUploaded,
-    fileUploaded,
-    fileUploadingError
+    receiveMessage
 } from '../actions/messages';
+
+import {
+    attachmentUploadedStarted,
+    attachmentPartUploaded,
+    attachmentUploaded,
+    attachmentUploadingError
+} from '../actions/messagesAttachments';
 
 import { logout } from '../actions/entireStore';
 import { INIT } from '../actions/types/socket';
@@ -121,32 +124,32 @@ function getSocketChannel(socket) {
 
         socket.on('file upload started', ({ tempId, uploadId }) => {
 
-            emit(fileUploadedStarted(tempId, uploadId));
+            emit(attachmentUploadedStarted(tempId, uploadId));
         });
 
         socket.on('file part uploaded', ({ uploadId, uploadedBytes }) => {
 
-            emit(filePartUploaded(uploadId, uploadedBytes));
+            emit(attachmentPartUploaded(uploadId, uploadedBytes));
         });
 
         socket.on('file uploaded', ({ uploadId, message }) => {
 
-            emit(fileUploaded(uploadId, message));
+            emit(attachmentUploaded(uploadId, message));
         });
 
         socket.on('file info validation error', ({ tempId, message }) => {
 
-            emit(fileUploadingError({ tempId, errorMessage: message }));
+            emit(attachmentUploadingError({ tempId, errorMessage: message }));
         });
 
         socket.on('file upload timeout', ({ tempId }) => {
 
-            emit(fileUploadingError({ tempId, errorMessage: 'timeout' }));
+            emit(attachmentUploadingError({ tempId, errorMessage: 'timeout' }));
         });
 
         socket.on('uploading file error', ({ uploadId, message }) => {
 
-            emit(fileUploadingError({ uploadId, errorMessage: message }));
+            emit(attachmentUploadingError({ uploadId, errorMessage: message }));
         });
 
         return () => {

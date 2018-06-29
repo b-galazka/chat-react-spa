@@ -1,7 +1,11 @@
 import { takeEvery, select, call, put } from 'redux-saga/effects';
 
-import { FILE_UPLOADING_STARTED, FILE_PART_UPLOADED } from '../actions/types/messages';
-import { fileUploadingError } from '../actions/messages';
+import {
+    ATTACHMENT_UPLOADING_STARTED,
+    ATTACHMENT_PART_UPLOADED
+} from '../actions/types/messagesAttachments';
+
+import { attachmentUploadingError } from '../actions/messagesAttachments';
 import { uploadingFileSelector } from './selectors/messages';
 import { socketSelector } from './selectors/socket';
 import getFileBinaryData from '../utils/getFileBinaryData';
@@ -24,11 +28,14 @@ function *uploadFilePart({ payload }) {
 
     } catch (err) {
 
-        yield put(fileUploadingError({ uploadId, errorMessage: 'FileReader error' }));
+        yield put(attachmentUploadingError({ uploadId, errorMessage: 'FileReader error' }));
     }
 }
 
 export default function *uploadFilePartWatcher() {
 
-    yield takeEvery([FILE_UPLOADING_STARTED, FILE_PART_UPLOADED], uploadFilePart);
+    yield takeEvery(
+        [ATTACHMENT_UPLOADING_STARTED, ATTACHMENT_PART_UPLOADED],
+        uploadFilePart
+    );
 }

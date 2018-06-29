@@ -13,12 +13,7 @@ import {
     MARK_AS_READ,
     TYPING_STARTED,
     TYPING_FINISHED,
-    TYPING_FINISH_REQUESTED,
-    START_FILE_UPLOADING,
-    FILE_UPLOADING_STARTED,
-    FILE_PART_UPLOADED,
-    FILE_UPLOADED,
-    FILE_UPLOADING_ERROR
+    TYPING_FINISH_REQUESTED
 } from './types/messages';
 
 export function fetchMessages() {
@@ -138,56 +133,5 @@ export function typingFinished() {
 
     return {
         type: TYPING_FINISHED
-    };
-}
-
-export function startFileUploading(tempId, file) {
-
-    return {
-
-        type: START_FILE_UPLOADING,
-
-        payload: {
-            tempId,
-            uploadId: null,
-
-            attachment: {
-                file,
-                uploadingError: null,
-                uploadedBytes: 0
-            }
-        }
-    };
-}
-
-export function fileUploadedStarted(tempId, uploadId) {
-
-    return {
-        type: FILE_UPLOADING_STARTED,
-        payload: { tempId, uploadId, uploadedBytes: 0 }
-    };
-}
-
-export function filePartUploaded(uploadId, uploadedBytes) {
-
-    return {
-        type: FILE_PART_UPLOADED,
-        payload: { uploadId, uploadedBytes }
-    };
-}
-
-export function fileUploaded(uploadId, message) {
-
-    return {
-        type: FILE_UPLOADED,
-        payload: { uploadId, message }
-    };
-}
-
-export function fileUploadingError(payload) {
-
-    return {
-        type: FILE_UPLOADING_ERROR,
-        payload
     };
 }

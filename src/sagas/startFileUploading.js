@@ -1,6 +1,6 @@
 import { takeEvery, select } from 'redux-saga/effects';
 
-import { START_FILE_UPLOADING } from '../actions/types/messages';
+import { START_ATTACHMENT_UPLOADING } from '../actions/types/messagesAttachments';
 import { socketSelector } from './selectors/socket';
 
 function *startFileUploading({ payload }) {
@@ -21,5 +21,5 @@ function *startFileUploading({ payload }) {
 
 export default function *startFileUploadingWatcher() {
 
-    yield takeEvery(START_FILE_UPLOADING, startFileUploading);
+    yield takeEvery(START_ATTACHMENT_UPLOADING, startFileUploading);
 }

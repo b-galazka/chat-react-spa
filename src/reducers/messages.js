@@ -12,16 +12,12 @@ import {
     MARK_AS_READ,
     RECEIVED,
     TYPING_STARTED,
-    TYPING_FINISHED,
-    START_FILE_UPLOADING,
-    FILE_UPLOADING_STARTED,
-    FILE_PART_UPLOADED,
-    FILE_UPLOADED,
-    FILE_UPLOADING_ERROR
+    TYPING_FINISHED
 } from '../actions/types/messages';
 
 import { CLEAR_STORE } from '../actions/types/entireStore';
 import { RECONNECTION_SUCCEEDED } from '../actions/types/socket';
+import messagesAttachmentsReducer from './messagesAttachments';
 
 import config from '../shared/config';
 
@@ -113,7 +109,6 @@ export default function messagesReducer(state = initialState, action) {
             };
         }
 
-        case START_FILE_UPLOADING:
         case SEND: {
 
             return {
@@ -230,107 +225,14 @@ export default function messagesReducer(state = initialState, action) {
             };
         }
 
-        case FILE_UPLOADING_STARTED: {
-
-            const { tempId, uploadId } = payload;
-            const { sending } = state;
-
-            const sendingMessages = sending.map(message =>
-                (message.tempId === tempId) ?
-                    { ...message, uploadId } :
-                    message
-            );
-
-            return {
-                ...state,
-                sending: sendingMessages
-            };
-        }
-
-        case FILE_PART_UPLOADED: {
-
-            const { uploadId, uploadedBytes } = payload;
-            const { sending } = state;
-
-            const sendingMessages = sending.map((message) => {
-
-                const { attachment } = message;
-
-                if (!attachment || message.uploadId !== uploadId) {
-
-                    return message;
-                }
-
-                return {
-                    ...message,
-
-                    attachment: {
-                        ...attachment,
-                        uploadedBytes
-                    }
-                };
-            });
-
-            return {
-                ...state,
-                sending: sendingMessages
-            };
-        }
-
-        case FILE_UPLOADED: {
-
-            const { uploadId, message } = payload;
-            const { sent, sending } = state;
-
-            // prevents doubling messages sent during reconnection
-            const doesMessageExist = sent.some(
-                existingMessage => existingMessage.id === message.id
-            );
-
-            return {
-                ...state,
-                sending: sending.filter(message => message.uploadId !== uploadId),
-                sent: (doesMessageExist) ? sent : [...sent, message]
-            };
-        }
-
-        case FILE_UPLOADING_ERROR: {
-
-            const { uploadId, tempId, errorMessage } = payload;
-            const { sending } = state;
-
-            const sendingMessages = sending.map((message) => {
-
-                const { attachment } = message;
-
-                if (
-                    !attachment ||
-                    uploadId && message.uploadId !== uploadId ||
-                    !uploadId && message.tempId !== tempId
-                ) {
-
-                    return message;
-                }
-
-                return {
-                    ...message,
-
-                    attachment: {
-                        ...attachment,
-                        uploadingError: errorMessage
-                    }
-                };
-            });
-
-            return {
-                ...state,
-                sending: sendingMessages
-            };
-        }
-
         default: {
 
-            return state;
+            if (action.type.startsWith('@@redux')) {
+
+                return state;
+            }
+
+            return messagesAttachmentsReducer(state, action);
         }      
     }
 }
