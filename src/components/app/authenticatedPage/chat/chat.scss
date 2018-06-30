@@ -101,6 +101,15 @@
         padding-top: 0;
     }
 
+    &--my {
+        padding-top: 30px;
+        align-items: flex-end;
+
+        & + & {
+            padding-top: 2px;
+        }
+    }
+
     &--my &__data {
         background-color: $blue;
         color: #fff;
@@ -144,15 +153,6 @@
     border-bottom-right-radius: 15px;
     position: relative;
     max-width: 100%;
-}
-
-.message--my, .attachment--my {
-    padding-top: 30px;
-    align-items: flex-end;
-
-    & + & {
-        padding-top: 2px;
-    }
 }
 
 .message__sending-error, .attachment__uploading-error {
