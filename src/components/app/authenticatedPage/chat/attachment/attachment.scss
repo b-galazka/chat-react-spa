@@ -1,8 +1,6 @@
 .attachment {
     &__desc {
         padding: 5px 15px;
-        white-space: pre-wrap;
-        word-wrap: break-word;
         position: relative;
 
         &::before {
