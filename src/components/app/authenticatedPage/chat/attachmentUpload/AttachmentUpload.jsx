@@ -32,11 +32,11 @@ class AttachmentUpload extends Component {
         const uploadProgress = `${uploadedBytes / file.size * 100}%`;
 
         return (
-            <article className="attachment attachment--upload">
+            <article className="attachment attachment--my">
                 <div className="attachment__data-wrapper">
-                    <div className="attachment__data">
+                    <div className="attachment__upload-data">
                         <div
-                            className="attachment__progress-bar"
+                            className="attachment__upload-progress-bar"
                             style={{ width: uploadProgress }}
                         >
                         </div>

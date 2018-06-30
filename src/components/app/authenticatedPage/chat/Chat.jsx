@@ -15,6 +15,9 @@ import renderText from 'utils/renderText';
 import strings from './strings';
 import timeUnits from './timeUnitsInMs';
 
+// TODO: remove after creating Attachment component
+import './attachment/attachment.scss';
+
 import './chat.scss';
 
 function mapStateToProps(state) {

@@ -1,0 +1,20 @@
+.attachment {
+    &__desc {
+        padding: 5px 15px;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+        position: relative;
+
+        &::before {
+            content: '';
+            height: 17px;
+            width: 17px;
+            margin: 0 3px -3px -1px;
+            display: inline-block;
+            background-image: url('/img/small-file-icon.png');
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-position: center;
+        }
+    }
+}
