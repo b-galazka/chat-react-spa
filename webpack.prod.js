@@ -1,5 +1,4 @@
 const path = require('path');
-const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const extractCSS = new ExtractTextPlugin('../css/style.css');
@@ -48,6 +47,7 @@ module.exports = {
     ],
 
     resolve: {
-        extensions: ['.js', '.json', '.jsx']
+        extensions: ['.js', '.json', '.jsx'],
+        modules: ['node_modules', path.resolve(__dirname, './src')]
     }
 };

@@ -1,0 +1,20 @@
+@import '../config';
+
+.page--authenticated {
+    flex-direction: column;
+}
+
+.page__no-connection {
+    flex: 0 0 auto;
+    width: 100%;
+    background-color: $red;
+    text-align: center;
+    color: #fff;
+    padding: 10px;
+}
+
+.page__wrapper--authenticated {
+    width: 100%;
+    flex: 1 1 auto;
+    display: flex;
+}

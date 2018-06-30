@@ -1,0 +1,54 @@
+@import '../../../config';
+
+.message-form {
+    width: 100%;
+    height: 100px;
+    display: flex;
+    flex: 0 0 auto;
+    border-top: 1px solid $blue;
+
+    &__textarea {
+        flex: 1 1 auto;
+        resize: none;
+        height: 100%;
+        border: none;
+        font-size: 1rem;
+        padding: 5px;
+        overflow-y: auto;
+    }
+
+    &__submit-button {
+        font-size: 1rem;
+        min-width: 100px;
+        padding: 0 25px;
+        flex: 0 0 auto;
+        width: auto!important;
+    }
+
+    &__file-upload-wrapper {
+        border-left: 1px solid $blue;
+        width: 70px;
+    }
+
+    &__file-upload-button {
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 10px;
+        height: 100%;
+    }
+
+    &__file-upload-icon {
+        height: 75%;
+        width: 75%;
+        background-image: url('/img/file-icon.png');
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: center;
+    }
+}
+
+#fileUpload {
+    display: none;
+}

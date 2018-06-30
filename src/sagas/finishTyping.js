@@ -2,8 +2,8 @@ import { delay } from 'redux-saga';
 import { select, takeLatest, put } from 'redux-saga/effects';
 
 import { socketSelector } from './selectors/socket';
-import { typingFinished } from '../actions/messages';
-import { TYPING_FINISH_REQUESTED } from '../actions/types/messages';
+import { typingFinished } from 'actions/messages';
+import { TYPING_FINISH_REQUESTED } from 'actions/types/messages';
 
 export function *finishTyping({ delayTime }) {
 

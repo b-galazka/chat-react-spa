@@ -40,7 +40,8 @@ module.exports = {
     ],
 
     resolve: {
-        extensions: ['.js', '.json', '.jsx']
+        extensions: ['.js', '.json', '.jsx'],
+        modules: ['node_modules', path.resolve(__dirname, './src')]
     },
 
     devServer: {

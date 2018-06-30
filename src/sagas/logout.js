@@ -1,8 +1,8 @@
 import { put, takeLatest, select } from 'redux-saga/effects';
 import cookies from 'js-cookie';
 
-import { clearStore } from '../actions/entireStore';
-import { LOGOUT } from '../actions/types/entireStore';
+import { clearStore } from 'actions/entireStore';
+import { LOGOUT } from 'actions/types/entireStore';
 import { socketSelector } from './selectors/socket';
 
 export function *logout() {

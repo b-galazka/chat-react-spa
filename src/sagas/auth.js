@@ -4,8 +4,8 @@ import cookies from 'js-cookie';
 
 import axios from '../shared/axios';
 
-import { authSuccess, authFailure } from '../actions/auth';
-import { AUTH_REQUESTED } from '../actions/types/auth';
+import { authSuccess, authFailure } from 'actions/auth';
+import { AUTH_REQUESTED } from 'actions/types/auth';
 
 function *authenticate({ username, password }) {
 

@@ -1,0 +1,72 @@
+@import '../config';
+
+.page--unauthenticated {
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.page__wrapper--unauthenticated {
+    padding: 60px 10px 10px 10px;
+    transform: translateY(-30px);
+    max-width: 900px!important;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.page__auth-section {
+    width: 48%;
+    position: relative;
+    padding-bottom: 75px;
+}
+
+.auth-input {
+    width: 100%;
+    height: 37px;
+    border-radius: 0;
+    border: 1px solid $blue;
+    padding: 0 10px;
+    background-color: #FFF;
+    color: #000;
+    font-size: 1rem;
+
+    &--invalid {
+        border-color: $red;
+    }
+}
+
+.auth-input__label {
+    display: block;
+    padding-top: 17px;
+    font-size: 1.1rem;
+}
+
+.button--auth-submit {
+    font-weight: bold;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    padding: 0 10px;
+    height: 48px;
+    font-size: 1rem;
+}
+
+.auth-message {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    bottom: 100%;
+    margin-bottom: 5px;
+        
+    &--error {
+        text-align: justify;
+        color: $red;
+    }
+
+    &--info {
+        font-weight: bold;
+        color: $blue;
+    }
+}

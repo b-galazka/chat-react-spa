@@ -3,9 +3,9 @@ import {
     AUTH_FAILED, 
     AUTH_SUCCEEDED, 
     PUT_TOKEN
-} from '../actions/types/auth';
+} from 'actions/types/auth';
 
-import { CLEAR_STORE } from '../actions/types/entireStore';
+import { CLEAR_STORE } from 'actions/types/entireStore';
 
 const initialState = {
     authenticating: false,

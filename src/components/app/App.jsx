@@ -6,11 +6,11 @@ import jwtDecode from 'jwt-decode';
 import cookies from 'js-cookie';
 import propTypes from 'prop-types';
 
-import UnauthenticatedPage from '../unauthenticatedPage/UnauthenticatedPage';
-import AuthenticatedPage from '../authenticatedPage/AuthenticatedPage';
-import NotFound from '../notFound/NotFound';
+import UnauthenticatedPage from './unauthenticatedPage/UnauthenticatedPage';
+import AuthenticatedPage from './authenticatedPage/AuthenticatedPage';
+import NotFound from './notFound/NotFound';
 
-import { putToken } from '../../actions/auth';
+import { putToken } from 'actions/auth';
 
 import './app.scss';
 

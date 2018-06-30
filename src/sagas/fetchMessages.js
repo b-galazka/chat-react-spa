@@ -2,9 +2,9 @@ import { call, put, takeLatest, select } from 'redux-saga/effects';
 
 import axios from '../shared/axios';
 
-import { logout} from '../actions/entireStore';
-import { fetchingSuccess, fetchingFailure } from '../actions/messages';
-import { FETCHING_REQUESTED } from '../actions/types/messages';
+import { logout} from 'actions/entireStore';
+import { fetchingSuccess, fetchingFailure } from 'actions/messages';
+import { FETCHING_REQUESTED } from 'actions/types/messages';
 import { tokenSelector } from './selectors/auth';
 
 import config from '../shared/config';
