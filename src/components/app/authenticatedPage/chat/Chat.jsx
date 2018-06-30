@@ -7,6 +7,7 @@ import MessageForm from './messageForm/MessageForm';
 import Message from './message/Message';
 import LoadingAnimation from '../../loadingAnimation/LoadingAnimation';
 import AttachmentUpload from './attachmentUpload/AttachmentUpload';
+import Attachment from './attachment/Attachment';
 
 import { fetchMoreMessages } from 'actions/messages';
 
@@ -14,9 +15,6 @@ import renderText from 'utils/renderText';
 
 import strings from './strings';
 import timeUnits from './timeUnitsInMs';
-
-// TODO: remove after creating Attachment component
-import './attachment/attachment.scss';
 
 import './chat.scss';
 
@@ -150,7 +148,7 @@ class Chat extends Component {
 
             if (message.attachment) {
 
-                return 'uploaded attachment component';
+                return <Attachment key={message.id} />;
             }
 
             return (
