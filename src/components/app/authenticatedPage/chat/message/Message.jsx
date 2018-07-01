@@ -275,7 +275,7 @@ Message.propTypes = {
 
             if (propValue && new Date(propValue).toString() === 'Invalid Date') {
 
-                return new Error('sentMessages[].date validation error');
+                return new Error('message.date validation error');
             }
         }
     }).isRequired,
