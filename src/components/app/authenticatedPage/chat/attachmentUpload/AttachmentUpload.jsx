@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import propTypes from 'prop-types';
 
 import renderText from 'utils/renderText';
+import prettifyFileSize from 'utils/prettifyFileSize';
 import { uploadAttachmentAgain } from 'actions/messagesAttachments';
 
 import strings from './strings';
@@ -55,37 +56,11 @@ class AttachmentUpload extends Component {
     renderDescription() {
 
         const { uploadedBytes, file } = this.props;
-        const kilobyte = 1024;
-        const megabyte = kilobyte ** 2;
-        const gigabyte = kilobyte ** 3;
-
-        let uploadedSize = uploadedBytes;
-        let totalSize = file.size;
-        let sizeUnit = 'B';
-
-        if (file.size >= gigabyte) {
-
-            uploadedSize = uploadedBytes / gigabyte;
-            totalSize = file.size / gigabyte;
-            sizeUnit = 'GB';
-
-        } else if (file.size >= megabyte) {
-
-            uploadedSize = uploadedBytes / megabyte;
-            totalSize = file.size / megabyte;
-            sizeUnit = 'MB';
-
-        } else if (file.size >= kilobyte) {
-
-            uploadedSize = uploadedBytes / kilobyte;
-            totalSize = file.size / kilobyte;
-            sizeUnit = 'KB';
-        }
 
         return renderText(strings.description, {
             fileName: file.name,
-            uploadedSize: `${AttachmentUpload.roundBytes(uploadedSize)} ${sizeUnit}`,
-            totalSize: `${AttachmentUpload.roundBytes(totalSize)} ${sizeUnit}`
+            uploadedSize: prettifyFileSize(uploadedBytes),
+            totalSize: prettifyFileSize(file.size)
         });
     }
 
@@ -146,13 +121,6 @@ class AttachmentUpload extends Component {
 
             return strings.fileSizeMinError;
         }
-    }
-
-    static roundBytes(bytes, precision = 2) {
-
-        const multiplier = 10 ** precision;
-
-        return Math.round(bytes * multiplier) / multiplier;
     }
 
     uploadAttachment() {

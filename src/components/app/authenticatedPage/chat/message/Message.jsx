@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
@@ -6,11 +6,9 @@ import classNames from 'classnames';
 
 import { sendMessageAgain } from 'actions/messages';
 import MessageContent from './messageContent/MessageContent';
-
-import renderText from 'utils/renderText';
+import ChatMessageComponent from 'components/abstracts/ChatMessageComponent';
 
 import strings from './strings';
-import timeUnits from '../timeUnitsInMs';
 
 import './message.scss';
 
@@ -28,7 +26,7 @@ function mapDispatchToProps(dispatch) {
     };
 }
 
-class Message extends Component {
+class Message extends ChatMessageComponent {
 
     constructor() {
 
@@ -84,19 +82,16 @@ class Message extends Component {
         );
     }
 
-    // TODO: move to abstract class and share it with Attachment component
     componentDidMount() {
 
         this.setRefreshingInterval();
     }
 
-    // TODO: move to abstract class and share it with Attachment component
     componentWillUnmount() {
 
         this.clearRefreshingInterval();
     }
 
-    // TODO: move to abstract class and share it with Attachment component
     renderTimeHeader() {
 
         const { displayTimeHeader } = this.props;
@@ -112,58 +107,7 @@ class Message extends Component {
             </p>
         );
     }
-
-    // TODO: move to abstract class and share it with Attachment component
-    renderTimeHeaderText() {
-
-        const { message } = this.props;
-        const { minute, hour, day } = timeUnits;
-
-        const messageDate = new Date(message.date);
-        const messageTime = messageDate.getTime();
-        const timeDiff = Date.now() - messageTime;
-
-        if (timeDiff < minute) {
-
-            return strings.lessThanMinuteAgo;
-
-        } else if (timeDiff < hour) {
-
-            const diff = Math.floor(timeDiff / minute);
-
-            return renderText(
-                strings[(diff > 1) ? 'minutesAgo' : 'minuteAgo'],
-                { minutes: diff }
-            );
-
-        } else if (timeDiff < day) {
-
-            const diff = Math.floor(timeDiff / hour);
-
-            return renderText(
-                strings[(diff > 1) ? 'hoursAgo' : 'hourAgo'],
-                { hours: diff }
-            );
-
-        } else if (timeDiff < day * 7) {
-
-            const diff = Math.floor(timeDiff / day);
-
-            return renderText(
-                strings[(diff > 1) ? 'daysAgo' : 'dayAgo'],
-                { days: diff }
-            )
-
-        } else {
-
-            const date = messageDate.toLocaleDateString();
-            const time = messageDate.toLocaleTimeString();
-
-            return `${date} ${time}`;
-        }    
-    }
-
-    // TODO: move to abstract class and share it with Attachment component
+    
     renderMessageTime() {
 
         const { sending } = this.props;
@@ -178,33 +122,6 @@ class Message extends Component {
                 {this.renderMessageTimeText()}
             </p>
         );
-    }
-
-    // TODO: move to abstract class and share it with Attachment component
-    renderMessageTimeText() {
-
-        const { message } = this.props;
-        const { day } = timeUnits;
-
-        const messageDate = new Date(message.date);
-        const messageTime = messageDate.getTime();
-        const timeDiff = Date.now() - messageTime;
-
-        if (timeDiff < day) {
-
-            return messageDate.toLocaleTimeString();
-        } else if (timeDiff < 2 * day) {
-
-            return `${strings.yesterday} ${messageDate.toLocaleTimeString()}`;
-        } else if (timeDiff < 7 * day) {
-
-            const day = strings.days[messageDate.getDay()];
-
-            return `${day} ${messageDate.toLocaleTimeString()}`;
-        } else {
-
-            return `${messageDate.toLocaleDateString()} ${messageDate.toLocaleTimeString()}`;
-        }
     }
 
     renderSendingError() {
@@ -231,31 +148,6 @@ class Message extends Component {
         const { message, sendMessageAgain } = this.props;
 
         sendMessageAgain(message);
-    }
-
-    // TODO: move to abstract class and share it with Attachment component
-    setRefreshingInterval() {
-
-        const { day, minute } = timeUnits;
-        const { displayTimeHeader, message } = this.props;
-        const messageTime = new Date(message.date).getTime();
-        const timeDiff = Date.now() - messageTime;
-
-        if (!displayTimeHeader || timeDiff >= 7 * day) {
-
-            return;
-        }
-
-        this.refreshingIntervalId = setInterval(() => {
-
-            this.forceUpdate();
-        }, minute);
-    }
-
-    // TODO: move to abstract class and share it with Attachment component
-    clearRefreshingInterval() {
-
-        clearInterval(this.refreshingIntervalId);
     }
 }
 

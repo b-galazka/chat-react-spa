@@ -26,4 +26,10 @@
     &__data:hover &__time {
         display: block;
     }
+
+    &__data--openable-file, &--my &__data--openable-file {
+        border: none;
+        background-color: transparent;
+        color: #000;
+    }
 }

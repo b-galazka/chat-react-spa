@@ -1,6 +1,7 @@
 {
     "apiBaseUrl": "http://localhost:4000",
     "socketUrl": "http://localhost:4000",
+    "filesHostingUrl": "http://localhost:4000",
     "messagesPerRequest": 50,
     "messagesPerFirstRequest": 100,
     "socketReconnectionsAmount": 20,

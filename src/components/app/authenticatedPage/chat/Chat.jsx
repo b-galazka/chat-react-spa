@@ -3,6 +3,10 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import propTypes from 'prop-types';
 
+// must be imported before children components are imported 
+// let children components ovverride their styles
+import './chat.scss';
+
 import MessageForm from './messageForm/MessageForm';
 import Message from './message/Message';
 import LoadingAnimation from '../../loadingAnimation/LoadingAnimation';
@@ -15,8 +19,6 @@ import renderText from 'utils/renderText';
 
 import strings from './strings';
 import timeUnits from './timeUnitsInMs';
-
-import './chat.scss';
 
 function mapStateToProps(state) {
 
@@ -144,19 +146,31 @@ class Chat extends Component {
 
         return sentMessages.map((message, index) => {
 
-            const displayTimeHeader = this.shouldDisplayTimeHeader(index);
+            const shouldDisplayTimeHeader = this.shouldDisplayTimeHeader(index);
+
+            const shouldDisplayAuthor = this.shouldDisplayAuthor(
+                index,
+                shouldDisplayTimeHeader
+            );
 
             if (message.attachment) {
 
-                return <Attachment key={message.id} />;
+                return (
+                    <Attachment
+                        key={message.id}
+                        message={message}
+                        displayAuthor={shouldDisplayAuthor}
+                        displayTimeHeader={shouldDisplayTimeHeader}
+                    />
+                );
             }
 
             return (
                 <Message
                     key={message.id}
                     message={message}
-                    displayAuthor={this.shouldDisplayAuthor(index, displayTimeHeader)}
-                    displayTimeHeader={displayTimeHeader}
+                    displayAuthor={shouldDisplayAuthor}
+                    displayTimeHeader={shouldDisplayTimeHeader}
                 />
             );
         });

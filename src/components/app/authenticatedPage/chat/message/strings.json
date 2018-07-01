@@ -1,12 +1,3 @@
 {
-    "lessThanMinuteAgo": "Less than a minute ago",
-    "minuteAgo": "1 minute ago",
-    "minutesAgo": "{minutes} minutes ago",
-    "hourAgo": "1 hour ago",
-    "hoursAgo": "{hours} hours ago",
-    "dayAgo": "1 day ago",
-    "daysAgo": "{days} days ago",
-    "yesterday": "Yesterday",
-    "days": ["Sunday", "Monday", "Tuesday", "Wensday", "Thursday", "Friday", "Saturday"],
     "sendingError": "Message sending error. Click here to send it again."
 }

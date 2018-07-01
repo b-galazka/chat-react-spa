@@ -18,6 +18,12 @@ function *uploadFilePart({ payload }) {
     try {
 
         const file = yield select(uploadingFileSelector(uploadId));
+
+        if (uploadedBytes >= file.size) {
+
+            return;
+        }
+
         const socket = yield select(socketSelector);
 
         const filePart = file.slice(uploadedBytes, uploadedBytes + uploadFilePartSize);
