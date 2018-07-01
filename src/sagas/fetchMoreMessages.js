@@ -1,23 +1,16 @@
-import { call, put, takeLatest, select } from 'redux-saga/effects';
+import { call, put, takeLatest } from 'redux-saga/effects';
 
 import axios from '../shared/axios';
 
 import { logout } from 'actions/entireStore';
 import { fetchingMoreSuccess, fetchingMoreFailure } from 'actions/messages';
 import { FETCHING_MORE_REQUESTED } from 'actions/types/messages';
-import { tokenSelector } from './selectors/auth';
 
 import config from '../shared/config';
 
 function *fetchMoreMessages({ lastMessageID }) {
 
-    const token = yield select(tokenSelector);
-
     const requestConfig = {
-
-        headers: {
-            Authorization: `Bearer ${token}`
-        },
 
         params: {
             limit: config.messagesPerFirstRequest,
@@ -30,6 +23,7 @@ function *fetchMoreMessages({ lastMessageID }) {
         const response = yield call(axios.get, '/messages', requestConfig);
 
         yield put(fetchingMoreSuccess(response.data));
+        
     } catch (err) {
 
         const { response } = err;

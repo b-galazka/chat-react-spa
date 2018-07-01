@@ -14,12 +14,9 @@ import './sidebar.scss';
 function mapStateToProps(state) {
 
     const { users } = state.users;
-    const { tokenData } = state.auth;
+    const { username } = state.auth.user;
 
-    return {
-        users,
-        username: tokenData.username
-    };
+    return { users, username };
 }
 
 function mapDispatchToProps(dispatch) {

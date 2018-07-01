@@ -28,7 +28,7 @@ function mapStateToProps(state) {
         fetchingMoreError
     } = state.messages;
 
-    const { username } = state.auth.tokenData;
+    const { username } = state.auth.user;
     const { typingUsers } = state.users;
 
     return {

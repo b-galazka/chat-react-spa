@@ -1,5 +1,4 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
-import jwtDecode from 'jwt-decode';
 import cookies from 'js-cookie';
 
 import axios from '../shared/axios';
@@ -11,14 +10,12 @@ function *authenticate({ username, password }) {
 
     try {
 
-        const response = yield call(axios.post, '/auth', { username, password });
+        yield call(axios.post, '/auth', { username, password });
 
-        const {token} = response.data;
-        const tokenData = jwtDecode(token);
+        const cookiesUsername = cookies.get('username');
 
-        cookies.set('token', token);
+        yield put(authSuccess(cookiesUsername));
 
-        yield put(authSuccess(token, tokenData));
     } catch (err) {
 
         yield put(authFailure(err));

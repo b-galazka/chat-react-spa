@@ -2,18 +2,15 @@ import {
     AUTH_REQUESTED,
     AUTH_SUCCEEDED,
     AUTH_FAILED,
-    PUT_TOKEN
+    PUT_USER_DATA
 } from './types/auth';
 
-export function putToken(token, tokenData) {
+export function putUserData(username) {
 
     return {
-        type: PUT_TOKEN,
-        payload: {
-            token,
-            tokenData
-        }
-    }
+        type: PUT_USER_DATA,
+        payload: { username }
+    };
 }
 
 export function authenticate(username, password) {
@@ -22,17 +19,14 @@ export function authenticate(username, password) {
         type: AUTH_REQUESTED,
         username,
         password
-    }
+    };
 }
 
-export function authSuccess(token, tokenData) {
+export function authSuccess(username) {
 
     return {
         type: AUTH_SUCCEEDED,
-        payload: {
-            token,
-            tokenData
-        }
+        payload: { username }
     };
 }
 

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import jwtDecode from 'jwt-decode';
 import cookies from 'js-cookie';
 import propTypes from 'prop-types';
 
@@ -10,21 +9,22 @@ import UnauthenticatedPage from './unauthenticatedPage/UnauthenticatedPage';
 import AuthenticatedPage from './authenticatedPage/AuthenticatedPage';
 import NotFound from './notFound/NotFound';
 
-import { putToken } from 'actions/auth';
+import { putUserData } from 'actions/auth';
 
 import './app.scss';
 
 function mapStateToProps(state) {
 
-    const { token } = state.auth;
+    const { user } = state.auth;
+    const username = user && user.username;
 
-    return { token };
+    return { username };
 }
 
 function mapDispatchToProps(dispatch) {
 
     return {
-        putToken: bindActionCreators(putToken, dispatch)
+        putUserData: bindActionCreators(putUserData, dispatch)
     };
 } 
 
@@ -39,7 +39,7 @@ class App extends Component {
 
     componentWillMount() {
 
-        this.loadTokenFromCookies();
+        this.loadUsernameFromCookies();
     }
 
     render() {
@@ -58,9 +58,9 @@ class App extends Component {
 
     isUserAuthenticated() {
 
-        const { token } = this.props;
+        const { username } = this.props;
 
-        if (token) {
+        if (username) {
 
             return <AuthenticatedPage />;
         }
@@ -68,36 +68,28 @@ class App extends Component {
         return <UnauthenticatedPage />;
     }
 
-    loadTokenFromCookies() {
+    loadUsernameFromCookies() {
 
-        const token = cookies.get('token');
+        const username = cookies.get('username');
 
-        if (!token) {
+        if (!username) {
 
             return;
         }
 
-        try {
-
-            const tokenData = jwtDecode(token);
-
-            this.props.putToken(token, tokenData);
-        } catch (err) {
-
-            cookies.remove('token');
-        }
+        this.props.putUserData(username);
     }
 }
 
 App.propTypes = {
     // redux
-    putToken: propTypes.func.isRequired,
-    token: propTypes.string
+    putUserData: propTypes.func.isRequired,
+    username: propTypes.string
 };
 
 App.defaultProps = {
     // redux
-    token: null
+    username: null
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

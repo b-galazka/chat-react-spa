@@ -2,7 +2,7 @@ import {
     AUTH_REQUESTED, 
     AUTH_FAILED, 
     AUTH_SUCCEEDED, 
-    PUT_TOKEN
+    PUT_USER_DATA
 } from 'actions/types/auth';
 
 import { CLEAR_STORE } from 'actions/types/entireStore';
@@ -10,8 +10,7 @@ import { CLEAR_STORE } from 'actions/types/entireStore';
 const initialState = {
     authenticating: false,
     authError: null,
-    token: null,
-    tokenData: null
+    user: null
 };
 
 export default function authReducer(state = initialState, action) {
@@ -40,25 +39,19 @@ export default function authReducer(state = initialState, action) {
             
         case AUTH_SUCCEEDED: {
 
-            const { token, tokenData } = payload;
-
             return {
                 ...state,
                 authenticating: false,
                 authError: null,
-                token,
-                tokenData
+                user: payload
             };
         }
 
-        case PUT_TOKEN: {
-
-            const { token, tokenData } = payload;
+        case PUT_USER_DATA: {
 
             return {
                 ...state,
-                token,
-                tokenData
+                user: payload
             };
         }
 

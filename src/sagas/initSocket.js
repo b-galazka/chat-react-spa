@@ -34,7 +34,6 @@ import {
 
 import { logout } from 'actions/entireStore';
 import { INIT } from 'actions/types/socket';
-import { tokenSelector } from './selectors/auth';
 import { socketSelector } from './selectors/socket';
 
 import config from '../shared/config';
@@ -182,10 +181,7 @@ function *initSocket() {
         return;
     }
 
-    const token = yield select(tokenSelector);
-
     const socketConfig = {
-        query: { token },
         reconnectionAttempts: config.socketReconnectionsAmount
     };
 

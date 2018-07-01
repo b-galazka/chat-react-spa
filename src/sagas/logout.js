@@ -1,9 +1,10 @@
-import { put, takeLatest, select } from 'redux-saga/effects';
+import { put, takeLatest, select, call } from 'redux-saga/effects';
 import cookies from 'js-cookie';
 
 import { clearStore } from 'actions/entireStore';
 import { LOGOUT } from 'actions/types/entireStore';
 import { socketSelector } from './selectors/socket';
+import axios from 'shared/axios';
 
 export function *logout() {
 
@@ -15,9 +16,10 @@ export function *logout() {
         socket.disconnect();
     }
 
-    cookies.remove('token');
+    cookies.remove('username');
 
     yield put(clearStore());
+    yield call(axios.get, '/auth/logout');
 }
 
 export default function *logoutWatcher() {

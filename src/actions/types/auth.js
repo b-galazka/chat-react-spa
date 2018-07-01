@@ -1,4 +1,4 @@
 export const AUTH_REQUESTED = 'AUTH_REQUESTED';
 export const AUTH_FAILED = 'AUTH_FAILED';
 export const AUTH_SUCCEEDED = 'AUTH_SUCCEEDED';
-export const PUT_TOKEN = 'PUT_TOKEN';
+export const PUT_USER_DATA = 'PUT_USER_DATA';

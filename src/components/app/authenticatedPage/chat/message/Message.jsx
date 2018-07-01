@@ -16,7 +16,7 @@ import './message.scss';
 
 function mapStateToProps(state) {
 
-    const { username } = state.auth.tokenData;
+    const { username } = state.auth.user;
 
     return { username };
 }
