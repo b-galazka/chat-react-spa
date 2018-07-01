@@ -9,10 +9,21 @@
             width: 17px;
             margin: 0 3px -3px -1px;
             display: inline-block;
-            background-image: url('/img/small-file-icon.png');
+            background-image: url('/img/small-file-icon-black.png');
             background-repeat: no-repeat;
             background-size: contain;
             background-position: center;
         }
+    }
+
+    &--my &__desc {
+
+        &::before {
+            background-image: url('/img/small-file-icon.png');
+        }
+    }
+
+    &__data:hover &__time {
+        display: block;
     }
 }

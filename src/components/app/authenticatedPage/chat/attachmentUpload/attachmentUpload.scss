@@ -5,6 +5,10 @@
         background-color: rgba($blue, 0.5);
         color: #FFF;
         overflow: hidden;
+        border-top-left-radius: 15px;
+        border-bottom-left-radius: 15px;
+        border-top-right-radius: 2px;
+        border-bottom-right-radius: 2px;
     }
 
     &__upload-progress-bar {

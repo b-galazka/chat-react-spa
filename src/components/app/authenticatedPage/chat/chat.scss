@@ -57,6 +57,10 @@
 
     &__data {
         background-color: $lighterGrey;
+        border-top-left-radius: 2px;
+        border-bottom-left-radius: 2px;
+        border-top-right-radius: 15px;
+        border-bottom-right-radius: 15px;
     }
 
     &__time {
@@ -117,7 +121,6 @@
         border-bottom-left-radius: 15px;
         border-top-right-radius: 2px;
         border-bottom-right-radius: 2px;
-        text-align: left;
     }
 
     &--my &--with-time-header {
@@ -145,14 +148,11 @@
     }
 }
 
-.attachment__upload-data, .message__data {
-    display: inline-block;
-    border-top-left-radius: 2px;
-    border-bottom-left-radius: 2px;
-    border-top-right-radius: 15px;
-    border-bottom-right-radius: 15px;
+.attachment__upload-data, .message__data, .attachment__data {
     position: relative;
     max-width: 100%;
+    display: inline-block;
+    text-align: left;
 }
 
 .message__sending-error, .attachment__uploading-error {
