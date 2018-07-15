@@ -4,15 +4,17 @@ import cookies from 'js-cookie';
 import { clearStore } from 'actions/entireStore';
 import { LOGOUT } from 'actions/types/entireStore';
 import { socketSelector } from './selectors/socket';
+import { finishTyping } from './finishTyping';
 import axios from 'shared/axios';
 
 export function *logout() {
 
+    yield call(finishTyping, { delayTime: 0 });
+
     const socket = yield select(socketSelector);
 
-    if (socket && socket.disconnect && socket.emit) {
+    if (socket && socket.disconnect) {
 
-        socket.emit('typing finished');
         socket.disconnect();
     }
 

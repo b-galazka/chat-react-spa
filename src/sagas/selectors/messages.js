@@ -9,3 +9,8 @@ export function uploadingFileSelector(uploadId) {
         return message && message.attachment.file;
     };
 }
+
+export function typingStatusSelector(state) {
+
+    return state.messages.typingMessage;
+}
