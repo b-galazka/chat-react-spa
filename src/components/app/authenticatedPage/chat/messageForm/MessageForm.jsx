@@ -43,7 +43,8 @@ class MessageForm extends FormComponent {
 
         this.submitForm = this.submitForm.bind(this);
         this.onKeyDownHandler = this.onKeyDownHandler.bind(this);
-        this.uploadFiles = this.uploadFiles.bind(this);
+        this.onFileInputValueChangeHandler = this.onFileInputValueChangeHandler.bind(this);
+        this.onPasteHandler = this.onPasteHandler.bind(this);
     }
 
     render() {
@@ -66,6 +67,7 @@ class MessageForm extends FormComponent {
                 placeholder={strings.messageTextareaPlaceholder}
                 onChange={this.updateInputValue('messageContent')}
                 onKeyDown={this.onKeyDownHandler}
+                onPaste={this.onPasteHandler}
                 ref={(ref) => { this.textareaRef = ref; }}
                 autoFocus
             ></textarea>
@@ -80,7 +82,7 @@ class MessageForm extends FormComponent {
                     type="file"
                     id="fileUpload"
                     multiple
-                    onChange={this.uploadFiles}
+                    onChange={this.onFileInputValueChangeHandler}
                     ref={(ref) => { this.fileInputRef = ref; }}
                 />
 
@@ -172,7 +174,20 @@ class MessageForm extends FormComponent {
     // TODO: add files upload onPaste and drag-and-drop
     uploadFiles({ target }) {
 
+    onFileInputValueChangeHandler({ target }) {
+
         const { files } = target;
+
+        this.uploadFiles(files);
+    }
+
+    onPasteHandler({ clipboardData }) {
+
+        const { files } = clipboardData;
+
+        this.uploadFiles(files);
+    }
+    uploadFiles(files) {
 
         Array.prototype.forEach.call(files, (file) => {
 
