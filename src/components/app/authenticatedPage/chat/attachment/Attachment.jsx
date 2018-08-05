@@ -99,9 +99,9 @@ class Attachment extends ChatMessageComponent {
             // TODO: display file
         }
 
-        const { url, name, size } = this.props.message.attachment;
+        const { urls, name, size } = this.props.message.attachment;
 
-        const fileUrl = config.filesHostingUrl + url + 
+        const fileUrl = config.filesHostingUrl + urls.originalFile +
             '?action=download&name=' + encodeURIComponent(name);
 
         return (
@@ -144,7 +144,12 @@ Attachment.propTypes = {
         },
 
         attachment: propTypes.shape({
-            url: propTypes.string.isRequired,
+            urls: propTypes.shape({
+                originalFile: propTypes.string.isRequired,
+                icon: propTypes.string,
+                preview: propTypes.string
+            }).isRequired,
+
             name: propTypes.string.isRequired,
             size: propTypes.number.isRequired,
             type: propTypes.string.isRequired
