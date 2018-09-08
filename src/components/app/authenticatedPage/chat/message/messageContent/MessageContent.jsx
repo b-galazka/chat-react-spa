@@ -36,7 +36,7 @@ class MessageContent extends Component {
         const regex = MessageContent.urlsRegex;
 
         return messageContentArr.reduce((output, contentPart, index, contentArray) => {
-        
+
             const urls = contentPart.match(regex);
 
             if (!urls) {
@@ -55,7 +55,9 @@ class MessageContent extends Component {
                 MessageContent.pushText(output, textBeforeUrl);
             }
 
-            output.push(<a href={url} key={index} target="_blank">{url}</a>);
+            output.push(
+                <a href={url} key={index} target="_blank" rel="nofollow noopener">{url}</a>
+            );
 
             return output;
         }, []);
