@@ -5,7 +5,7 @@ import propTypes from 'prop-types';
 
 import FormComponent from 'components/abstracts/FormComponent';
 
-import { logout } from 'actions/entireStore';
+import { logout } from 'actions/auth';
 
 import strings from './strings';
 
@@ -42,7 +42,7 @@ class Sidebar extends FormComponent {
     render() {
 
         const { onlineUsersSectionTitle, offlineUsersSectionTitle } = strings;
-        
+
         const onlineUsers = this.getUsers(true);
         const offlineUsers = this.getUsers(false);
 

@@ -2,7 +2,7 @@ import { call, put, takeLatest } from 'redux-saga/effects';
 
 import axios from '../shared/axios';
 
-import { logout } from 'actions/entireStore';
+import { logout } from 'actions/auth';
 import { fetchingMoreSuccess, fetchingMoreFailure } from 'actions/messages';
 import { FETCHING_MORE_REQUESTED } from 'actions/types/messages';
 
@@ -23,7 +23,7 @@ function *fetchMoreMessages({ lastMessageID }) {
         const response = yield call(axios.get, '/messages', requestConfig);
 
         yield put(fetchingMoreSuccess(response.data));
-        
+
     } catch (err) {
 
         const { response } = err;

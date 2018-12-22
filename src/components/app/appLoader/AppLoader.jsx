@@ -1,38 +1,61 @@
-import React from 'react';
+import React, { Component } from 'react';
 import propTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import LoadingAnimation from '../loadingAnimation/LoadingAnimation';
 
-import strings from '../strings';
+import baseStrings from '../strings';
+import strings from './strings';
 
 import '../app.scss';
 
 function mapStateToProps(state) {
 
-    const { fetchingCurrentUserError } = state.auth;
+    const { fetchingCurrentUserError, logoutError } = state.auth;
 
-    return { fetchingCurrentUserError };
+    return { fetchingCurrentUserError, logoutError };
 }
 
-function AppLoader(props) {
+class AppLoader extends Component {
 
-    return (
-        <div className="page__loader">
+    render() {
 
-            {
-                props.fetchingCurrentUserError ?
-                    <p className="page__loading-error">{strings.fetchingError}</p> :
-                    <LoadingAnimation />
-            }
+        const { fetchingCurrentUserError, logoutError } = this.props;
 
-        </div>
-    );
+        return (
+            <div className="page__loader">
+
+                {
+                    fetchingCurrentUserError || logoutError ?
+                        <p className="page__loading-error">{this.renderErrorText()}</p> :
+                        <LoadingAnimation />
+                }
+
+            </div>
+        );
+    }
+
+    renderErrorText() {
+
+        if (this.props.fetchingCurrentUserError) {
+
+            return baseStrings.fetchingError;
+        }
+
+        return strings.logoutError;
+    }
 }
 
 AppLoader.propTypes = {
     // redux
-    fetchingCurrentUserError: propTypes.bool.isRequired
+    fetchingCurrentUserError: propTypes.instanceOf(Error),
+    logoutError: propTypes.instanceOf(Error)
+};
+
+AppLoader.defaultProps = {
+    // redux
+    fetchingCurrentUserError: null,
+    logoutError: null
 };
 
 export default connect(mapStateToProps)(AppLoader);

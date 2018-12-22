@@ -15,9 +15,21 @@ import './app.scss';
 
 function mapStateToProps(state) {
 
-    const { user, fetchingCurrentUser, fetchingCurrentUserError } = state.auth;
+    const {
+        user,
+        fetchingCurrentUserError,
+        fetchingCurrentUser,
+        loggingOut,
+        logoutError
+    } = state.auth;
 
-    return { user, fetchingCurrentUser, fetchingCurrentUserError };
+    return {
+        user,
+        fetchingCurrentUserError,
+        fetchingCurrentUser,
+        loggingOut,
+        logoutError
+    };
 }
 
 function mapDispatchToProps(dispatch) {
@@ -38,10 +50,20 @@ class App extends Component {
 
     render() {
 
-        if (this.props.fetchingCurrentUser || this.props.fetchingCurrentUserError) {
+        if (this.isAppReady()) {
 
-            return <AppLoader />;
+            return this.renderAppConent();
         }
+
+        return <AppLoader />
+    }
+
+    componentDidMount() {
+
+        this.props.fetchCurrentUser();
+    }
+
+    renderAppConent() {
 
         return (
             <BrowserRouter>
@@ -55,9 +77,16 @@ class App extends Component {
         );
     }
 
-    componentDidMount() {
+    isAppReady() {
 
-        this.props.fetchCurrentUser();
+        const {
+            fetchingCurrentUserError,
+            fetchingCurrentUser,
+            loggingOut,
+            logoutError
+        } = this.props;
+
+        return ( !fetchingCurrentUserError && !fetchingCurrentUser && !loggingOut && !logoutError);
     }
 
     isUserAuthenticated() {
@@ -75,9 +104,11 @@ class App extends Component {
 
 App.propTypes = {
     // redux
-    fetchCurrentUser: propTypes.func.isRequired,
     fetchingCurrentUser: propTypes.bool.isRequired,
-    fetchingCurrentUserError: propTypes.bool.isRequired,
+    loggingOut: propTypes.bool.isRequired,
+
+    fetchingCurrentUserError: propTypes.instanceOf(Error),
+    logoutError: propTypes.instanceOf(Error),
 
     user: propTypes.shape({
         id: propTypes.number.isRequired,
@@ -87,7 +118,9 @@ App.propTypes = {
 
 App.defaultProps = {
     // redux
-    user: null
+    user: null,
+    logoutError: null,
+    fetchingCurrentUserError: null
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

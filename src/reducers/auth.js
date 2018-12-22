@@ -4,7 +4,9 @@ import {
     AUTH_SUCCEEDED,
     FETCHING_CURRENT_USER_REQUESTED,
     FETCHING_CURRENT_USER_SUCCEEDED,
-    FETCHING_CURRENT_USER_FAILED
+    FETCHING_CURRENT_USER_FAILED,
+    LOGOUT_REQUESTED,
+    LOGOUT_FAILED
 } from 'actions/types/auth';
 
 import { CLEAR_STORE } from 'actions/types/entireStore';
@@ -15,6 +17,8 @@ const initialState = {
     fetchingCurrentUser: false,
     fetchingCurrentUserError: null,
     fetchingCurrentUserSuccess: false,
+    loggingOut: false,
+    logoutError: null,
     user: null
 };
 
@@ -80,6 +84,24 @@ export default function authReducer(state = initialState, action) {
                 fetchingCurrentUser: false,
                 fetchingCurrentUserError: payload,
                 fetchingCurrentUserSuccess: false
+            };
+        }
+
+        case LOGOUT_REQUESTED: {
+
+            return {
+                ...state,
+                loggingOut: true,
+                logoutError: null
+            };
+        }
+
+        case LOGOUT_FAILED: {
+
+            return {
+                ...state,
+                loggingOut: false,
+                logoutError: payload
             };
         }
 

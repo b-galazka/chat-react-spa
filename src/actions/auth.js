@@ -4,7 +4,9 @@ import {
     AUTH_FAILED,
     FETCHING_CURRENT_USER_SUCCEEDED,
     FETCHING_CURRENT_USER_REQUESTED,
-    FETCHING_CURRENT_USER_FAILED
+    FETCHING_CURRENT_USER_FAILED,
+    LOGOUT_REQUESTED,
+    LOGOUT_FAILED
 } from './types/auth';
 
 export function authenticate(username, password) {
@@ -52,5 +54,20 @@ export function fetchingCurrentUserSuccess(user) {
     return {
         type: FETCHING_CURRENT_USER_SUCCEEDED,
         payload: user
+    };
+}
+
+export function logout() {
+
+    return {
+        type: LOGOUT_REQUESTED
+    };
+}
+
+export function logoutFailure(error) {
+
+    return {
+        type: LOGOUT_FAILED,
+        payload: error
     };
 }

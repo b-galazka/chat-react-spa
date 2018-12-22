@@ -2,7 +2,7 @@ import { call, put, takeLatest } from 'redux-saga/effects';
 
 import axios from '../shared/axios';
 
-import { logout} from 'actions/entireStore';
+import { logout} from 'actions/auth';
 import { fetchingSuccess, fetchingFailure } from 'actions/messages';
 import { FETCHING_REQUESTED } from 'actions/types/messages';
 
@@ -21,7 +21,7 @@ function *fetchMessages() {
         yield put(fetchingSuccess(response.data));
 
     } catch (err) {
-        
+
         const { response } = err;
 
         yield put(fetchingFailure(err));

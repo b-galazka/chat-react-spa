@@ -1,11 +1,4 @@
-import { LOGOUT, CLEAR_STORE } from './types/entireStore';
-
-export function logout() {
-
-    return {
-        type: LOGOUT
-    };
-}
+import { CLEAR_STORE } from './types/entireStore';
 
 export function clearStore() {
 

@@ -3,8 +3,8 @@ import { put, takeLatest, select, take, call } from 'redux-saga/effects';
 import io from 'socket.io-client';
 
 import {
-    putSocket, 
-    connectionFailure, 
+    putSocket,
+    connectionFailure,
     connectionSuccess,
     reconnectionSuccess,
     reconnectionFailure,
@@ -32,7 +32,7 @@ import {
     attachmentUploadingError
 } from 'actions/messagesAttachments';
 
-import { logout } from 'actions/entireStore';
+import { logout } from 'actions/auth';
 import { INIT } from 'actions/types/socket';
 import { socketSelector } from './selectors/socket';
 
@@ -97,7 +97,7 @@ function getSocketChannel(socket) {
         });
 
         socket.on('message saved', ({ message, tempId }) => {
-            
+
             emit(messageSaved(message, tempId));
         });
 
@@ -170,7 +170,7 @@ function *listenForSocketEvents(socket) {
 
         action = yield take(channel);
     }
-} 
+}
 
 function *initSocket() {
 

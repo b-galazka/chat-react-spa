@@ -13,8 +13,8 @@ render(
     document.getElementById('root')
 );
 
-// TODO: improve sign out
 // TODO: implement react-i18next
 // TODO: add "keep me signed in"
 // TODO: add eslint
 // TODO: reorganize styles
+// TODO: add RWD

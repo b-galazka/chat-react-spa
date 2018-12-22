@@ -1,12 +1,12 @@
 import { put, takeLatest, select, call } from 'redux-saga/effects';
 
 import { clearStore } from 'actions/entireStore';
-import { LOGOUT } from 'actions/types/entireStore';
+import { LOGOUT_REQUESTED } from 'actions/types/auth';
+import { logoutFailure } from 'actions/auth';
 import { socketSelector } from './selectors/socket';
 import { finishTyping } from './finishTyping';
 import axios from 'shared/axios';
 
-// TODO: add errors catching
 export function *logout() {
 
     yield call(finishTyping, { delayTime: 0 });
@@ -18,11 +18,18 @@ export function *logout() {
         socket.disconnect();
     }
 
-    yield put(clearStore());
-    yield call(axios.get, '/auth/sign-out');
+    try {
+
+        yield call(axios.delete, '/auth/sign-out');
+        yield put(clearStore());
+
+    } catch (err) {
+
+        yield put(logoutFailure(err));
+    }
 }
 
 export default function *logoutWatcher() {
 
-    yield takeLatest(LOGOUT, logout);
+    yield takeLatest(LOGOUT_REQUESTED, logout);
 }
