@@ -1,8 +1,10 @@
 import {
-    AUTH_REQUESTED, 
-    AUTH_FAILED, 
-    AUTH_SUCCEEDED, 
-    PUT_USER_DATA
+    AUTH_REQUESTED,
+    AUTH_FAILED,
+    AUTH_SUCCEEDED,
+    FETCHING_CURRENT_USER_REQUESTED,
+    FETCHING_CURRENT_USER_SUCCEEDED,
+    FETCHING_CURRENT_USER_FAILED
 } from 'actions/types/auth';
 
 import { CLEAR_STORE } from 'actions/types/entireStore';
@@ -10,6 +12,9 @@ import { CLEAR_STORE } from 'actions/types/entireStore';
 const initialState = {
     authenticating: false,
     authError: null,
+    fetchingCurrentUser: false,
+    fetchingCurrentUserError: null,
+    fetchingCurrentUserSuccess: false,
     user: null
 };
 
@@ -27,7 +32,7 @@ export default function authReducer(state = initialState, action) {
                 authError: null
             };
         }
-            
+
         case AUTH_FAILED: {
 
             return {
@@ -36,7 +41,7 @@ export default function authReducer(state = initialState, action) {
                 authError: payload
             };
         }
-            
+
         case AUTH_SUCCEEDED: {
 
             return {
@@ -47,11 +52,34 @@ export default function authReducer(state = initialState, action) {
             };
         }
 
-        case PUT_USER_DATA: {
+        case FETCHING_CURRENT_USER_REQUESTED: {
 
             return {
                 ...state,
+                fetchingCurrentUser: true,
+                fetchingCurrentUserError: null,
+                fetchingCurrentUserSuccess: false
+            };
+        }
+
+        case FETCHING_CURRENT_USER_SUCCEEDED: {
+
+            return {
+                ...state,
+                fetchingCurrentUser: false,
+                fetchingCurrentUserError: null,
+                fetchingCurrentUserSuccess: true,
                 user: payload
+            };
+        }
+
+        case FETCHING_CURRENT_USER_FAILED: {
+
+            return {
+                ...state,
+                fetchingCurrentUser: false,
+                fetchingCurrentUserError: payload,
+                fetchingCurrentUserSuccess: false
             };
         }
 
@@ -61,10 +89,10 @@ export default function authReducer(state = initialState, action) {
                 ...initialState
             };
         }
-            
+
         default: {
 
             return state;
-        }     
+        }
     }
 }

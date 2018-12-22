@@ -1,5 +1,6 @@
 {
     "title": "Chat",
     "pageTitle": "Chat | {pageTitle}",
-    "notificationTitle": "({notification}) Chat"
+    "notificationTitle": "({notification}) Chat",
+    "fetchingError": "Something went wrong when fetching data. Try again later."
 }

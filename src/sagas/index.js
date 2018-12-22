@@ -11,6 +11,7 @@ import startTypingSaga from './startTyping';
 import finishTypingSaga from './finishTyping';
 import startFileUploadingSaga from './startFileUploading';
 import uploadFilePartSaga from './uploadFilePart';
+import fetchCurrentUser from './fetchCurrentUser';
 
 export default function *rootSaga() {
 
@@ -25,6 +26,7 @@ export default function *rootSaga() {
         fork(startTypingSaga),
         fork(finishTypingSaga),
         fork(startFileUploadingSaga),
-        fork(uploadFilePartSaga)
+        fork(uploadFilePartSaga),
+        fork(fetchCurrentUser)
     ]);
 }

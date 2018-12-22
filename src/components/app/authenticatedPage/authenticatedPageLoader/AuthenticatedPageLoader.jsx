@@ -4,7 +4,7 @@ import propTypes from 'prop-types';
 
 import LoadingAnimation from '../../loadingAnimation/LoadingAnimation';
 
-import strings from './strings';
+import strings from '../strings';
 
 import './authenticatedPageLoader.scss';
 
@@ -22,8 +22,8 @@ function mapStateToProps(state) {
 function AuthenticatedPageLoader(props) {
 
     const {
-        usersFetchingError, 
-        messagesFetchingError, 
+        usersFetchingError,
+        messagesFetchingError,
         socketConnectionError
     } = props;
 
@@ -37,7 +37,7 @@ function AuthenticatedPageLoader(props) {
 
                 <LoadingAnimation />
             }
-            
+
         </div>
     );
 }

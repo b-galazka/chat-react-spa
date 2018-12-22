@@ -2,31 +2,30 @@ import React, { Component } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import cookies from 'js-cookie';
 import propTypes from 'prop-types';
 
 import UnauthenticatedPage from './unauthenticatedPage/UnauthenticatedPage';
 import AuthenticatedPage from './authenticatedPage/AuthenticatedPage';
 import NotFound from './notFound/NotFound';
+import AppLoader from './appLoader/AppLoader';
 
-import { putUserData } from 'actions/auth';
+import { fetchCurrentUser } from 'actions/auth';
 
 import './app.scss';
 
 function mapStateToProps(state) {
 
-    const { user } = state.auth;
-    const username = user && user.username;
+    const { user, fetchingCurrentUser, fetchingCurrentUserError } = state.auth;
 
-    return { username };
+    return { user, fetchingCurrentUser, fetchingCurrentUserError };
 }
 
 function mapDispatchToProps(dispatch) {
 
     return {
-        putUserData: bindActionCreators(putUserData, dispatch)
+        fetchCurrentUser: bindActionCreators(fetchCurrentUser, dispatch)
     };
-} 
+}
 
 class App extends Component {
 
@@ -37,13 +36,13 @@ class App extends Component {
         this.isUserAuthenticated = this.isUserAuthenticated.bind(this);
     }
 
-    componentWillMount() {
-
-        this.loadUsernameFromCookies();
-    }
-
     render() {
-        
+
+        if (this.props.fetchingCurrentUser || this.props.fetchingCurrentUserError) {
+
+            return <AppLoader />;
+        }
+
         return (
             <BrowserRouter>
                 <main>
@@ -56,40 +55,39 @@ class App extends Component {
         );
     }
 
+    componentDidMount() {
+
+        this.props.fetchCurrentUser();
+    }
+
     isUserAuthenticated() {
 
-        const { username } = this.props;
+        const { user } = this.props;
 
-        if (username) {
+        if (user) {
 
             return <AuthenticatedPage />;
         }
 
         return <UnauthenticatedPage />;
     }
-
-    loadUsernameFromCookies() {
-
-        const username = cookies.get('username');
-
-        if (!username) {
-
-            return;
-        }
-
-        this.props.putUserData(username);
-    }
 }
 
 App.propTypes = {
     // redux
-    putUserData: propTypes.func.isRequired,
-    username: propTypes.string
+    fetchCurrentUser: propTypes.func.isRequired,
+    fetchingCurrentUser: propTypes.bool.isRequired,
+    fetchingCurrentUserError: propTypes.bool.isRequired,
+
+    user: propTypes.shape({
+        id: propTypes.number.isRequired,
+        username: propTypes.string.isRequired
+    })
 };
 
 App.defaultProps = {
     // redux
-    username: null
+    user: null
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -5,7 +5,7 @@
     padding: 0;
     box-sizing: border-box;
     font-family: Arial, sans-serif;
-    
+
     &::selection {
         background-color: $selectionColor;
     }
@@ -33,7 +33,7 @@ input, textarea {
     transition-property: background-color;
     border: none;
     border-radius: 0;
-    
+
     &--disabled {
         opacity: 0.5;
         cursor: not-allowed;
@@ -50,7 +50,7 @@ input, textarea {
     height: 100vh;
     min-height: 500px;
     min-width: 600px;
-    
+
     &__loader {
         width: 100%;
         display: flex;
@@ -58,5 +58,9 @@ input, textarea {
         align-items: center;
         height: 100vh;
         padding: 10px;
+    }
+
+    &__loading-error {
+        color: $red;
     }
 }
