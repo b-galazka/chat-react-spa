@@ -1,0 +1,9 @@
+{
+    "siteTitle": "Chat | {{ pageTitle }}",
+    "notFoundPage": {
+        "header": "404",
+        "desc": "This page does not exist",
+        "homepageButton": "Back to homepage",
+        "pageTitle": "Not found"
+    }
+}

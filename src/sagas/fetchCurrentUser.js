@@ -17,7 +17,7 @@ function *fetchCurrentUser() {
 
         const { response } = err;
 
-        if (response && response.status === 401 || response.status === 403) {
+        if (response && (response.status === 401 || response.status === 403)) {
 
             return yield put(fetchingCurrentUserSuccess(null));
         }

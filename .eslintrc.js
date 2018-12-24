@@ -226,6 +226,7 @@ module.exports = {
         "prefer-spread": "error",
         "template-curly-spacing": "error",
         "no-unused-vars": "error",
+        "import/no-named-as-default-member": "off",
 
         "react/default-props-match-prop-types": "error",
         "react/no-access-state-in-setstate": "error",

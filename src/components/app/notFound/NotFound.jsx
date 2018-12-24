@@ -1,24 +1,24 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { withNamespaces } from 'react-i18next';
+import propTypes from 'prop-types';
 
-import renderText from 'utils/renderText';
-
-import strings from './strings';
-import baseStrings from '../strings';
 import './notFound.scss';
 
-export default class NotFound extends Component {
+class NotFound extends Component {
 
     render() {
+
+        const { t } = this.props;
 
         return (
             <div className="page page--not-found">
                 <div className="page__wrapper--not-found">
-                    <h1 className="page__title--not-found">{strings.notFoundTitle}</h1>
-                    <p className="page__desc--not-found">{strings.notFoundMsg}</p>
+                    <h1 className="page__title--not-found">{t('notFoundPage.header')}</h1>
+                    <p className="page__desc--not-found">{t('notFoundPage.desc')}</p>
 
                     <Link to="/" className="button button--homepage">
-                        {strings.homepageButtonText}
+                        {t('notFoundPage.homepageButton')}
                     </Link>
                 </div>
             </div>
@@ -27,13 +27,20 @@ export default class NotFound extends Component {
 
     componentDidMount() {
 
-        NotFound.updatePageTitle();
+        this.updatePageTitle();
     }
 
-    static updatePageTitle() {
+    updatePageTitle() {
 
-        const { pageTitle } = strings;
+        const { t } = this.props;
 
-        document.title = renderText(baseStrings.pageTitle, { pageTitle });
+        document.title = t('siteTitle', { pageTitle: t('notFoundPage.pageTitle') });
     }
 }
+
+NotFound.propTypes = {
+    // i18n
+    t: propTypes.func.isRequired
+};
+
+export default withNamespaces()(NotFound);
