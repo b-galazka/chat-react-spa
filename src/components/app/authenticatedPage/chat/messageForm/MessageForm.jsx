@@ -73,7 +73,8 @@ class MessageForm extends FormComponent {
                 onDrop={this.onDropHandler}
                 ref={(ref) => { this.textareaRef = ref; }}
                 autoFocus
-            ></textarea>
+            >
+            </textarea>
         );
     }
 

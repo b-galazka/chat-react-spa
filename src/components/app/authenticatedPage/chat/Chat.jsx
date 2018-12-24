@@ -87,7 +87,7 @@ class Chat extends Component {
                         fetchingMoreMessages &&
 
                         <figure className="chat__fetching-more-messages-loader">
-                            <LoadingAnimation width="50px" height="50px"/>
+                            <LoadingAnimation width="50px" height="50px" />
                         </figure>
                     }
 

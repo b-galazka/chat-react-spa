@@ -49,16 +49,18 @@ class Message extends ChatMessageComponent {
         const messageAuthor = message.author && message.author.username;
 
         return (
-            <article className={
+            <article
+                className={
 
-                classNames({
-                    message: true,
-                    'message--sending': sending,
-                    'message--sent': !sending,
-                    'message--my': (username === messageAuthor || sending),
-                    'message--with-time-header': displayTimeHeader
-                })
-            }>
+                    classNames({
+                        message: true,
+                        'message--sending': sending,
+                        'message--sent': !sending,
+                        'message--my': (username === messageAuthor || sending),
+                        'message--with-time-header': displayTimeHeader
+                    })
+                }
+            >
 
                 {this.renderTimeHeader()}
 

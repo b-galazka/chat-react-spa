@@ -45,6 +45,7 @@ module.exports = {
             "error",
             "always"
         ],
+
         "import/no-unresolved": "error",
         "no-async-promise-executor": "error",
         "no-template-curly-in-string": "error",
@@ -224,6 +225,39 @@ module.exports = {
         "prefer-rest-params": "error",
         "prefer-spread": "error",
         "template-curly-spacing": "error",
-        "no-unused-vars": "error"
+        "no-unused-vars": "error",
+
+        "react/default-props-match-prop-types": "error",
+        "react/no-access-state-in-setstate": "error",
+        "react/no-danger": "error",
+        "react/no-did-mount-set-state": "error",
+        "react/no-did-update-set-state": "error",
+        "react/no-multi-comp": "error",
+        "react/no-redundant-should-component-update": "error",
+        "react/no-this-in-sfc": "error",
+        "react/no-will-update-set-state": "error",
+        "react/prefer-es6-class": "error",
+        "react/require-default-props": "error",
+        "react/style-prop-object": "error",
+        "react/void-dom-elements-no-children": "error",
+        "react/jsx-boolean-value": ["error", "never"],
+        "react/jsx-closing-bracket-location": "error",
+        "react/jsx-closing-tag-location": "error",
+        "react/jsx-curly-spacing": ["error", { "when": "never" }],
+        "react/jsx-equals-spacing": ["error", "never"],
+        "react/jsx-filename-extension": "error",
+        "react/jsx-first-prop-new-line": ["error", "multiline-multiprop"],
+        "react/jsx-no-bind": ["error", { "ignoreRefs": true }],
+        "react/jsx-pascal-case": "error",
+        "react/jsx-props-no-multi-spaces": "error",
+        "react/jsx-tag-spacing": [
+            "error",
+            {
+                "closingSlash": "never",
+                "beforeSelfClosing": "always",
+                "afterOpening": "never",
+                "beforeClosing": "allow"
+            }
+        ]
     }
 };

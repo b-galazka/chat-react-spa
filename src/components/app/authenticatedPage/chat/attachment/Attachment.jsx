@@ -31,14 +31,16 @@ class Attachment extends ChatMessageComponent {
         const { author } = message;
 
         return (
-            <article className={
+            <article
+                className={
 
-                classNames({
-                    attachment: true,
-                    'attachment--my': (username === author.username),
-                    'attachment--with-time-header': displayTimeHeader
-                })
-            }>
+                    classNames({
+                        attachment: true,
+                        'attachment--my': (username === author.username),
+                        'attachment--with-time-header': displayTimeHeader
+                    })
+                }
+            >
 
                 {this.renderTimeHeader()}
 
@@ -49,13 +51,15 @@ class Attachment extends ChatMessageComponent {
                         <p className="attachment__author">{author.username}</p>
                     }
 
-                    <div className={
+                    <div
+                        className={
 
-                        classNames({
-                            attachment__data: true
-                            // 'attachment__data--openable-file': this.isOpenableFile()
-                        })
-                    }>
+                            classNames({
+                                attachment__data: true
+                                // 'attachment__data--openable-file': this.isOpenableFile()
+                            })
+                        }
+                    >
                         {this.renderAttachmentData()}
 
                         <p className="attachment__time">
