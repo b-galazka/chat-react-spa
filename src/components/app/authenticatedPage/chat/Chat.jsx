@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import propTypes from 'prop-types';
 
-// must be imported before children components are imported 
+// must be imported before children components are imported
 // let children components ovverride their styles
 import './chat.scss';
 
@@ -16,6 +16,7 @@ import Attachment from './attachment/Attachment';
 import { fetchMoreMessages } from 'actions/messages';
 
 import renderText from 'utils/renderText';
+import datePropValidator from 'utils/datePropValidator';
 
 import strings from './strings';
 import timeUnits from './timeUnitsInMs';
@@ -38,7 +39,7 @@ function mapStateToProps(state) {
         sentMessages: sent,
         noMoreMessages: fetchedAll,
         fetchingMoreMessages: fetchingMore,
-        fetchingMoreMessagesError: fetchingMoreError, 
+        fetchingMoreMessagesError: fetchingMoreError,
         username,
         typingUsers
     };
@@ -77,7 +78,7 @@ class Chat extends Component {
         return (
             <section className="chat">
                 <section
-                    className="chat__messages-area" 
+                    className="chat__messages-area"
                     ref={(ref) => { this.scrollableArea = ref; }}
                     onScroll={this.fetchMoreMessages}
                 >
@@ -128,7 +129,7 @@ class Chat extends Component {
 
             return;
         }
-        
+
         if (this.shouldScrollDown()) {
 
             this.scrollDown();
@@ -195,7 +196,7 @@ class Chat extends Component {
                         file={file}
                         uploadingError={uploadingError}
                         uploadedBytes={uploadedBytes}
-                    /> 
+                    />
                 );
             }
 
@@ -206,7 +207,7 @@ class Chat extends Component {
                     sendingError={sendingError}
                     sending
                 />
-            );                
+            );
         });
     }
 
@@ -219,17 +220,14 @@ class Chat extends Component {
             return null;
         }
 
-        const text = (
-
-            (typingUsers.length === 1) ?
+        const text = (typingUsers.length === 1) ?
 
             renderText(strings.typing.singlePerson, { username: typingUsers[0] }) :
 
             renderText(strings.typing.multiplePersons, {
                 usernames: typingUsers.slice(0, -1).join(', '),
                 lastUsername: typingUsers[typingUsers.length - 1]
-            })
-        );
+            });
 
         return <p className="chat__typing-users">{text}</p>;
     }
@@ -355,7 +353,7 @@ Chat.propTypes = {
             sendingError(props, propName) {
 
                 const sendingError = props[propName];
-                const attachment = props.attachment;
+                const { attachment } = props;
 
                 if (attachment && sendingError !== undefined && sendingError !== null) {
 
@@ -380,20 +378,11 @@ Chat.propTypes = {
         propTypes.shape({
             id: propTypes.number.isRequired,
             attachment: propTypes.object,
-
-            date(props, propName) {
-
-                const propValue = props[propName];
-
-                if (new Date(propValue).toString() === 'Invalid Date') {
-
-                    return new Error('sentMessages[].date validation error');
-                }
-            },
+            date: datePropValidator('sentMessages[].date validation error'),
 
             author: propTypes.shape({
                 username: propTypes.string.isRequired
-            }).isRequired,
+            }).isRequired
         })
     ).isRequired
 };

@@ -33,9 +33,9 @@ function AuthenticatedPageLoader(props) {
             {
                 (usersFetchingError || messagesFetchingError || socketConnectionError) ?
 
-                <p className="page__loading-error">{strings.fetchingError}</p> :
+                    <p className="page__loading-error">{strings.fetchingError}</p> :
 
-                <LoadingAnimation />
+                    <LoadingAnimation />
             }
 
         </div>

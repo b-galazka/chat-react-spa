@@ -37,14 +37,14 @@ export function fetchingSuccess(users) {
     return {
         type: FETCHING_SUCCEDED,
         payload: users
-    }
+    };
 }
 
 export function fetchingFailure() {
 
     return {
         type: FETCHING_FAILED
-    }
+    };
 }
 
 export function typingStarted(username) {

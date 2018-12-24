@@ -9,7 +9,7 @@ export default function getFileBinaryData(file) {
             resolve(target.result);
         });
 
-        fileReader.addEventListener('error', (err) => reject(err));
+        fileReader.addEventListener('error', err => reject(err));
 
         fileReader.readAsArrayBuffer(file);
     });

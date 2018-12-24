@@ -32,11 +32,7 @@ class Sidebar extends FormComponent {
 
         super();
 
-        this.state = {
-            searchFieldValue: ''
-        };
-
-        this.renderUser = this.renderUser.bind(this);
+        this.state = { searchFieldValue: '' };
     }
 
     render() {
@@ -48,10 +44,7 @@ class Sidebar extends FormComponent {
 
         return (
             <section className="sidebar">
-                <button
-                    className="button button--logout"
-                    onClick={this.props.logout}
-                >
+                <button className="button button--logout" onClick={this.props.logout}>
                     {strings.logoutButtonText}
                 </button>
 
@@ -84,7 +77,9 @@ class Sidebar extends FormComponent {
 
     renderUsers(users, sectionTitle) {
 
-        const usersListItems = users.map(this.renderUser);
+        const usersListItems = users.map(user => (
+            <li key={user.id}>{this.renderUsername(user.username)}</li>
+        ));
 
         return (
             <section className="users__wrapper">
@@ -95,33 +90,23 @@ class Sidebar extends FormComponent {
                 {
                     (users.length === 0) ?
 
-                    <p className="users__empty-list">
-                        {strings.emptyUsersListMsg}
-                    </p> :
+                        <p className="users__empty-list">{strings.emptyUsersListMsg}</p> :
 
-                    <ul className="users__list">
-                        {usersListItems}
-                    </ul>
+                        <ul className="users__list">{usersListItems}</ul>
                 }
 
             </section>
         );
     }
 
-    renderUser(user) {
+    renderUsername(username) {
 
         const searchQuery = this.getSearchQuery();
 
-        const username = (
-            (searchQuery === '') ?
-                user.username :
-                this.renderUsername(user.username, searchQuery)
-        );
+        if (searchQuery === '') {
 
-        return <li key={user.id}>{username}</li>;
-    }
-
-    renderUsername(username, searchQuery) {
+            return username;
+        }
 
         const searchQueryRegex = new RegExp(searchQuery, 'gi');
         const splittedUsername = username.split(searchQueryRegex);

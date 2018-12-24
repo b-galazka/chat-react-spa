@@ -59,8 +59,8 @@ class RegistrationForm extends FormComponent {
     render() {
 
         const {
-            passwordErrors, 
-            repeatedPasswordErrors, 
+            passwordErrors,
+            repeatedPasswordErrors,
             usernameErrors
         } = this.state;
 
@@ -91,7 +91,7 @@ class RegistrationForm extends FormComponent {
                     </label>
 
                     {this.renderUsernameField()}
-                    
+
                     {
                         this.state.usernameAvailabilityCheckingError &&
 
@@ -100,21 +100,21 @@ class RegistrationForm extends FormComponent {
                         </p>
                     }
 
-                    {this.renderValidationErrors(usernameErrors)}
+                    {RegistrationForm.renderValidationErrors(usernameErrors)}
 
                     <label className="auth-input__label">
                         {unauthPageStrings.passwordLabel}:
                     </label>
-                    
+
                     {this.renderPasswordField()}
-                    {this.renderValidationErrors(passwordErrors)}
+                    {RegistrationForm.renderValidationErrors(passwordErrors)}
 
                     <label className="auth-input__label">
                         {strings.repeatedPasswordLabel}:
                     </label>
-                    
+
                     {this.renderRepeatedPasswordField()}
-                    {this.renderValidationErrors(repeatedPasswordErrors)}
+                    {RegistrationForm.renderValidationErrors(repeatedPasswordErrors)}
 
                     {this.renderSubmitButton()}
                 </form>
@@ -241,7 +241,7 @@ class RegistrationForm extends FormComponent {
         );
     }
 
-    renderValidationErrors(errors) {
+    static renderValidationErrors(errors) {
 
         if (errors.length === 0) {
 
@@ -252,11 +252,7 @@ class RegistrationForm extends FormComponent {
             <li className="auth-input__error" key={index}>{error}</li>
         ));
 
-        return (
-            <ul className="auth-input__errors-list">
-                {renderedErrors}
-            </ul>
-        );
+        return <ul className="auth-input__errors-list">{renderedErrors}</ul>;
     }
 
     renderSubmitButton() {
@@ -270,7 +266,7 @@ class RegistrationForm extends FormComponent {
                 className={
 
                     classNames({
-                        'button': true,
+                        button: true,
                         'button--auth-submit': true,
                         'button--disabled': usernameAvailabilityChecking
                     })
@@ -373,7 +369,7 @@ class RegistrationForm extends FormComponent {
         });
     }
 
-    checkingUsernameAvailabilitySucceeded(data) {
+    checkingUsernameAvailabilitySucceeded() {
 
         this.setState({
             usernameAvailabilityChecking: false,
@@ -472,10 +468,10 @@ class RegistrationForm extends FormComponent {
     }
 
     isFormValid() {
-        
+
         const validUsername = this.validateUsername();
         const validPassword = this.validatePassword();
-        const validRepeatedPassword = this.validateRepeatedPassword();  
+        const validRepeatedPassword = this.validateRepeatedPassword();
 
         return (
             validUsername &&

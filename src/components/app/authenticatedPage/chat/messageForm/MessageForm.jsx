@@ -46,7 +46,6 @@ class MessageForm extends FormComponent {
         this.onFileInputValueChangeHandler = this.onFileInputValueChangeHandler.bind(this);
         this.onPasteHandler = this.onPasteHandler.bind(this);
         this.onDropHandler = this.onDropHandler.bind(this);
-        this.preventFileBeingOpened = this.preventFileBeingOpened.bind(this);
     }
 
     render() {
@@ -70,7 +69,7 @@ class MessageForm extends FormComponent {
                 onChange={this.updateInputValue('messageContent')}
                 onKeyDown={this.onKeyDownHandler}
                 onPaste={this.onPasteHandler}
-                onDragOver={this.preventFileBeingOpened}
+                onDragOver={MessageForm.preventFileBeingOpened}
                 onDrop={this.onDropHandler}
                 ref={(ref) => { this.textareaRef = ref; }}
                 autoFocus
@@ -107,7 +106,7 @@ class MessageForm extends FormComponent {
                 className={
 
                     classNames({
-                        'button': true,
+                        button: true,
                         'message-form__submit-button': true,
                         'button--disabled': this.isMessageEmpty()
                     })
@@ -175,7 +174,7 @@ class MessageForm extends FormComponent {
         this.textareaRef.focus();
     }
 
-    preventFileBeingOpened(event) {
+    static preventFileBeingOpened(event) {
 
         event.preventDefault();
     }

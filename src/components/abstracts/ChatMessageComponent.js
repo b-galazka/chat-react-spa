@@ -1,11 +1,13 @@
 import { Component } from 'react';
+import propTypes from 'prop-types';
 
 import renderText from 'utils/renderText';
+import datePropValidator from 'utils/datePropValidator';
 
 import timeUnits from '../app/authenticatedPage/chat/timeUnitsInMs';
 import strings from '../app/authenticatedPage/chat/strings';
 
-export default class ChatMessageComponent extends Component {
+class ChatMessageComponent extends Component {
 
     constructor() {
 
@@ -55,15 +57,14 @@ export default class ChatMessageComponent extends Component {
             return renderText(
                 strings[(diff > 1) ? 'daysAgo' : 'dayAgo'],
                 { days: diff }
-            )
+            );
 
-        } else {
-
-            const date = messageDate.toLocaleDateString();
-            const time = messageDate.toLocaleTimeString();
-
-            return `${date} ${time}`;
         }
+
+        const date = messageDate.toLocaleDateString();
+        const time = messageDate.toLocaleTimeString();
+
+        return `${date} ${time}`;
     }
 
     renderMessageTimeText() {
@@ -89,10 +90,9 @@ export default class ChatMessageComponent extends Component {
 
             return `${day} ${messageDate.toLocaleTimeString()}`;
 
-        } else {
-
-            return `${messageDate.toLocaleDateString()} ${messageDate.toLocaleTimeString()}`;
         }
+
+        return `${messageDate.toLocaleDateString()} ${messageDate.toLocaleTimeString()}`;
     }
 
     setRefreshingInterval() {
@@ -118,3 +118,13 @@ export default class ChatMessageComponent extends Component {
         clearInterval(this.refreshingIntervalId);
     }
 }
+
+ChatMessageComponent.propTypes = {
+    message: propTypes.shape({
+        date: datePropValidator('messate.date validation error')
+    }).isRequired,
+
+    displayTimeHeader: propTypes.bool.isRequired
+};
+
+export default ChatMessageComponent;

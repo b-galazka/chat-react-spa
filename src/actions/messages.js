@@ -47,7 +47,7 @@ export function sendMessageAgain(message) {
     return {
         type: SEND_AGAIN,
         payload: message
-    }
+    };
 }
 
 export function fetchingSuccess(messages) {
@@ -55,7 +55,7 @@ export function fetchingSuccess(messages) {
     return {
         type: FETCHING_SUCCEDED,
         payload: messages
-    }
+    };
 }
 
 export function fetchingFailure(error) {
@@ -63,7 +63,7 @@ export function fetchingFailure(error) {
     return {
         type: FETCHING_FAILED,
         payload: error
-    }
+    };
 }
 
 export function fetchingMoreSuccess(messages) {
@@ -71,7 +71,7 @@ export function fetchingMoreSuccess(messages) {
     return {
         type: FETCHING_MORE_SUCCEDED,
         payload: messages
-    }
+    };
 }
 
 export function fetchingMoreFailure(error) {
@@ -79,7 +79,7 @@ export function fetchingMoreFailure(error) {
     return {
         type: FETCHING_MORE_FAILED,
         payload: error
-    }
+    };
 }
 
 export function messageSaved(message, tempId) {
@@ -88,7 +88,7 @@ export function messageSaved(message, tempId) {
         type: SAVED,
         payload: message,
         tempId
-    }
+    };
 }
 
 export function messageSendingError(tempId) {

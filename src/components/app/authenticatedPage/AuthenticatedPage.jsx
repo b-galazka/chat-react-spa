@@ -52,7 +52,7 @@ class AuthenticatedPage extends Component {
 
         const {
             usersFetched,
-            messagesFetched, 
+            messagesFetched,
             socketConnected,
             socketConnectionError
         } = this.props;
@@ -63,7 +63,7 @@ class AuthenticatedPage extends Component {
         }
 
         return (
-            <div 
+            <div
                 className="page page--authenticated"
                 onMouseMove={this.markMessagesAsRead}
                 onKeyDown={this.markMessagesAsRead}
@@ -73,11 +73,11 @@ class AuthenticatedPage extends Component {
                     !socketConnected &&
 
                     <p className="page__no-connection">
-                    
+
                         {
                             (socketConnectionError) ?
-                            strings.socketReconnectionError :
-                            strings.socketDisconnected
+                                strings.socketReconnectionError :
+                                strings.socketDisconnected
                         }
 
                     </p>
@@ -108,7 +108,7 @@ class AuthenticatedPage extends Component {
         if (nextProps.unreadMessages !== this.props.unreadMessages) {
 
             this.updatePageTitle(nextProps);
-        }  
+        }
     }
 
     updatePageTitle(props = this.props) {
@@ -130,6 +130,9 @@ class AuthenticatedPage extends Component {
 
 AuthenticatedPage.propTypes = {
     // redux
+    fetchMessages: propTypes.func.isRequired,
+    initSocket: propTypes.func.isRequired,
+    markMessagesAsRead: propTypes.func.isRequired,
     usersFetched: propTypes.bool.isRequired,
     messagesFetched: propTypes.bool.isRequired,
     socketConnected: propTypes.bool.isRequired,

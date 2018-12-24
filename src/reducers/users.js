@@ -39,7 +39,7 @@ export default function usersReducer(state = initialState, action) {
                 creationError: null
             };
         }
-            
+
         case CREATION_SUCCEDDED: {
 
             return {
@@ -49,7 +49,7 @@ export default function usersReducer(state = initialState, action) {
                 creationError: null
             };
         }
-            
+
         case CREATION_FAILED: {
 
             return {
@@ -59,7 +59,7 @@ export default function usersReducer(state = initialState, action) {
                 creationError: payload
             };
         }
-            
+
         case FETCHING_SUCCEDED: {
 
             return {
@@ -68,7 +68,7 @@ export default function usersReducer(state = initialState, action) {
                 updatingError: false,
                 users: payload
             };
-        }       
+        }
 
         case FETCHING_FAILED: {
 
@@ -77,7 +77,7 @@ export default function usersReducer(state = initialState, action) {
                 fetchingError: true
             };
         }
-        
+
         case CLEAR_STORE: {
 
             return {
@@ -91,7 +91,7 @@ export default function usersReducer(state = initialState, action) {
                 ...state,
                 typingUsers: [...typingUsers, payload]
             };
-        };
+        }
 
         case TYPING_FINISHED: {
 
@@ -104,6 +104,6 @@ export default function usersReducer(state = initialState, action) {
         default: {
 
             return state;
-        }      
+        }
     }
 }

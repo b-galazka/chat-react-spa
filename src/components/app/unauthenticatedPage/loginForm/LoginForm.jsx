@@ -62,7 +62,7 @@ class LoginForm extends FormComponent {
                     <label className="auth-input__label">
                         {unauthPageStrings.passwordLabel}:
                     </label>
-                    
+
                     {this.renderPasswordField()}
 
                     {this.renderSubmitButton()}
@@ -83,10 +83,10 @@ class LoginForm extends FormComponent {
         if (!authError.response) {
 
             return unauthPageStrings.unknownError;
-        } 
-        
+        }
+
         const { status } = authError.response;
-        
+
         if (status === 403) {
 
             return strings.invalidCredentials;
@@ -129,7 +129,7 @@ class LoginForm extends FormComponent {
                 className={
 
                     classNames({
-                        'button': true,
+                        button: true,
                         'button--auth-submit': true,
                         'button--disabled': this.isInvalidDataProvided()
                     })

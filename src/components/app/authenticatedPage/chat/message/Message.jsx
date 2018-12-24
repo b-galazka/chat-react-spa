@@ -7,6 +7,7 @@ import classNames from 'classnames';
 import { sendMessageAgain } from 'actions/messages';
 import MessageContent from './messageContent/MessageContent';
 import ChatMessageComponent from 'components/abstracts/ChatMessageComponent';
+import datePropValidator from 'utils/datePropValidator';
 
 import strings from './strings';
 
@@ -38,8 +39,8 @@ class Message extends ChatMessageComponent {
     render() {
 
         const {
-            sending, 
-            username, 
+            sending,
+            username,
             message,
             displayAuthor,
             displayTimeHeader
@@ -107,7 +108,7 @@ class Message extends ChatMessageComponent {
             </p>
         );
     }
-    
+
     renderMessageTime() {
 
         const { sending } = this.props;
@@ -156,20 +157,8 @@ Message.propTypes = {
     message: propTypes.shape({
         content: propTypes.string.isRequired,
         tempId: propTypes.string,
-
-        author: propTypes.shape({
-            username: propTypes.string
-        }),
-
-        date(props, propName) {
-
-            const propValue = props[propName];
-
-            if (propValue && new Date(propValue).toString() === 'Invalid Date') {
-
-                return new Error('message.date validation error');
-            }
-        }
+        date: datePropValidator('message.date validation error'),
+        author: propTypes.shape({ username: propTypes.string })
     }).isRequired,
 
     sendingError(props, propName) {

@@ -40,17 +40,17 @@ class UnauthenticatedPage extends Component {
                     (authenticating || creatingUser) &&
                     <AuthLoader />
                 }
-                
+
             </div>
         );
     }
 
     componentDidMount() {
 
-        this.updatePageTitle();
+        UnauthenticatedPage.updatePageTitle();
     }
 
-    updatePageTitle() {
+    static updatePageTitle() {
 
         const { pageTitle } = strings;
 

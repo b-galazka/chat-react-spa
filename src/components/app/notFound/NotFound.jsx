@@ -27,10 +27,10 @@ export default class NotFound extends Component {
 
     componentDidMount() {
 
-        this.updatePageTitle();
+        NotFound.updatePageTitle();
     }
 
-    updatePageTitle() {
+    static updatePageTitle() {
 
         const { pageTitle } = strings;
 

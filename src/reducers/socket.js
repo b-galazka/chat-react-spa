@@ -52,7 +52,7 @@ export default function socketReducer(state = initialState, action) {
                 connected: false
             };
         }
-            
+
         case CLEAR_STORE: {
 
             return {
@@ -65,4 +65,4 @@ export default function socketReducer(state = initialState, action) {
             return state;
         }
     }
-};
+}

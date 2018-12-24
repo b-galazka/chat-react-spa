@@ -55,7 +55,7 @@ class App extends Component {
             return this.renderAppConent();
         }
 
-        return <AppLoader />
+        return <AppLoader />;
     }
 
     componentDidMount() {
@@ -86,7 +86,7 @@ class App extends Component {
             logoutError
         } = this.props;
 
-        return ( !fetchingCurrentUserError && !fetchingCurrentUser && !loggingOut && !logoutError);
+        return (!fetchingCurrentUserError && !fetchingCurrentUser && !loggingOut && !logoutError);
     }
 
     isUserAuthenticated() {
@@ -104,6 +104,7 @@ class App extends Component {
 
 App.propTypes = {
     // redux
+    fetchCurrentUser: propTypes.func.isRequired,
     fetchingCurrentUser: propTypes.bool.isRequired,
     loggingOut: propTypes.bool.isRequired,
 

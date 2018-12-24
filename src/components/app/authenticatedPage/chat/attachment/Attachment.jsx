@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import classNames from 'classnames';
 
 import prettifyFileSize from 'utils/prettifyFileSize';
+import datePropValidator from 'utils/datePropValidator';
 import ChatMessageComponent from 'components/abstracts/ChatMessageComponent';
 import config from 'shared/config';
 
@@ -51,7 +52,7 @@ class Attachment extends ChatMessageComponent {
                     <div className={
 
                         classNames({
-                            attachment__data: true,
+                            attachment__data: true
                             // 'attachment__data--openable-file': this.isOpenableFile()
                         })
                     }>
@@ -106,7 +107,8 @@ class Attachment extends ChatMessageComponent {
 
         return (
             <p className="attachment__desc">
-                <a href={fileUrl} target="_blank">{name}</a> ({prettifyFileSize(size)})
+                <a href={fileUrl} target="_blank" rel="noopener noreferrer">{name}</a>{' '}
+                ({prettifyFileSize(size)})
             </p>
         );
     }
@@ -133,15 +135,7 @@ Attachment.propTypes = {
             username: propTypes.string.isRequired
         }).isRequired,
 
-        date(props, propName) {
-
-            const propValue = props[propName];
-
-            if (new Date(propValue).toString() === 'Invalid Date') {
-
-                return new Error('message.date validation error');
-            }
-        },
+        date: datePropValidator('message.date validation error'),
 
         attachment: propTypes.shape({
             urls: propTypes.shape({

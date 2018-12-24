@@ -54,7 +54,7 @@ export default function messagesReducer(state = initialState, action) {
                 fetchingError: null
             };
         }
-            
+
         case FETCHING_SUCCEDED: {
 
             return {
@@ -66,7 +66,7 @@ export default function messagesReducer(state = initialState, action) {
                 fetchedAll: (payload.length < config.messagesPerFirstRequest)
             };
         }
-            
+
         case FETCHING_FAILED: {
 
             return {
@@ -181,7 +181,7 @@ export default function messagesReducer(state = initialState, action) {
                 ...state,
                 sent: [...sent, payload],
                 unreadMessages: (document.hasFocus()) ? unreadMessages : unreadMessages + 1
-            }
+            };
         }
 
         case MARK_AS_READ: {
@@ -194,7 +194,9 @@ export default function messagesReducer(state = initialState, action) {
 
         case RECONNECTION_SUCCEEDED: {
 
-            const { sending, ...newState } = initialState;
+            const newState = { ...initialState };
+
+            delete newState.sending;
 
             return {
                 ...state,
@@ -233,6 +235,6 @@ export default function messagesReducer(state = initialState, action) {
             }
 
             return messagesAttachmentsReducer(state, action);
-        }      
+        }
     }
 }

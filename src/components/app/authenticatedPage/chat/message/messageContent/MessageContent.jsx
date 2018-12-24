@@ -56,7 +56,7 @@ class MessageContent extends Component {
             }
 
             output.push(
-                <a href={url} key={index} target="_blank" rel="nofollow noopener">{url}</a>
+                <a href={url} key={index} target="_blank" rel="noreferrer noopener">{url}</a>
             );
 
             return output;

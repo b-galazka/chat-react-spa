@@ -15,6 +15,5 @@ render(
 
 // TODO: implement react-i18next
 // TODO: add "keep me signed in"
-// TODO: add eslint
 // TODO: reorganize styles
 // TODO: add RWD
