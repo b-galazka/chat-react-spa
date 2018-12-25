@@ -1,10 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
+import { withNamespaces } from 'react-i18next';
+import { compose } from 'redux';
 
 import LoadingAnimation from '../../loadingAnimation/LoadingAnimation';
-
-import strings from '../strings';
 
 import './authenticatedPageLoader.scss';
 
@@ -19,13 +19,12 @@ function mapStateToProps(state) {
     };
 }
 
-function AuthenticatedPageLoader(props) {
-
-    const {
-        usersFetchingError,
-        messagesFetchingError,
-        socketConnectionError
-    } = props;
+function AuthenticatedPageLoader({
+    usersFetchingError,
+    messagesFetchingError,
+    socketConnectionError,
+    t
+}) {
 
     return (
         <div className="page__loader page__loader--authenticated">
@@ -33,7 +32,7 @@ function AuthenticatedPageLoader(props) {
             {
                 (usersFetchingError || messagesFetchingError || socketConnectionError) ?
 
-                    <p className="page__loading-error">{strings.fetchingError}</p> :
+                    <p className="page__loading-error">{t('fetchingError')}</p> :
 
                     <LoadingAnimation />
             }
@@ -46,7 +45,10 @@ AuthenticatedPageLoader.propTypes = {
     // redux
     usersFetchingError: propTypes.bool.isRequired,
     socketConnectionError: propTypes.bool.isRequired,
-    messagesFetchingError: propTypes.instanceOf(Error)
+    messagesFetchingError: propTypes.instanceOf(Error),
+
+    // i18n
+    t: propTypes.func.isRequired
 };
 
 AuthenticatedPageLoader.defaultProps = {
@@ -54,4 +56,4 @@ AuthenticatedPageLoader.defaultProps = {
     messagesFetchingError: null
 };
 
-export default connect(mapStateToProps)(AuthenticatedPageLoader);
+export default compose(withNamespaces(), connect(mapStateToProps))(AuthenticatedPageLoader);

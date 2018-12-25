@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import { bindActionCreators, compose } from 'redux';
 import propTypes from 'prop-types';
+import { withNamespaces } from 'react-i18next';
 
 import AuthenticatedPageLoader from './authenticatedPageLoader/AuthenticatedPageLoader';
 import Sidebar from './sidebar/Sidebar';
@@ -9,11 +10,6 @@ import Chat from './chat/Chat';
 
 import { fetchMessages, markMessagesAsRead } from 'actions/messages';
 import { initSocket } from 'actions/socket';
-
-import renderText from 'utils/renderText';
-
-import baseStrings from '../strings';
-import strings from './strings';
 
 import './authenticatedPage.scss';
 
@@ -54,7 +50,8 @@ class AuthenticatedPage extends Component {
             usersFetched,
             messagesFetched,
             socketConnected,
-            socketConnectionError
+            socketConnectionError,
+            t
         } = this.props;
 
         if (!usersFetched || !messagesFetched) {
@@ -75,9 +72,9 @@ class AuthenticatedPage extends Component {
                     <p className="page__no-connection">
 
                         {
-                            (socketConnectionError) ?
-                                strings.socketReconnectionError :
-                                strings.socketDisconnected
+                            socketConnectionError ?
+                                t('authenticatedPage.socketReconnectionError') :
+                                t('authenticatedPage.socketDisconnected')
                         }
 
                     </p>
@@ -113,10 +110,10 @@ class AuthenticatedPage extends Component {
 
     updatePageTitle(props = this.props) {
 
-        const { unreadMessages } = props;
-        const title = baseStrings[(unreadMessages > 0) ? 'notificationTitle' : 'title'];
+        const { unreadMessages, t } = props;
+        const title = (unreadMessages > 0) ? 'notificationSiteTitle' : 'siteTitle';
 
-        document.title = renderText(title, { notification: unreadMessages });
+        document.title = t(title, { notification: unreadMessages });
     }
 
     markMessagesAsRead() {
@@ -137,7 +134,13 @@ AuthenticatedPage.propTypes = {
     messagesFetched: propTypes.bool.isRequired,
     socketConnected: propTypes.bool.isRequired,
     socketConnectionError: propTypes.bool.isRequired,
-    unreadMessages: propTypes.number.isRequired
+    unreadMessages: propTypes.number.isRequired,
+
+    // i18n
+    t: propTypes.func.isRequired
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(AuthenticatedPage);
+export default compose(
+    withNamespaces(),
+    connect(mapStateToProps, mapDispatchToProps)
+)(AuthenticatedPage);

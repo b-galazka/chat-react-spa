@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
-import { bindActionCreators } from 'redux';
+import { bindActionCreators, compose } from 'redux';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
+import { withNamespaces } from 'react-i18next';
 
-import renderText from 'utils/renderText';
 import prettifyFileSize from 'utils/prettifyFileSize';
 import { uploadAttachmentAgain } from 'actions/messagesAttachments';
-
-import strings from './strings';
 
 import './attachmentUpload.scss';
 
@@ -55,9 +53,9 @@ class AttachmentUpload extends Component {
 
     renderDescription() {
 
-        const { uploadedBytes, file } = this.props;
+        const { uploadedBytes, file, t } = this.props;
 
-        return renderText(strings.description, {
+        return t('attachmentUpload.description', {
             fileName: file.name,
             uploadedSize: prettifyFileSize(uploadedBytes),
             totalSize: prettifyFileSize(file.size)
@@ -66,7 +64,7 @@ class AttachmentUpload extends Component {
 
     renderSendingError() {
 
-        const { uploadingError } = this.props;
+        const { uploadingError, t } = this.props;
 
         if (uploadingError === null) {
 
@@ -83,43 +81,40 @@ class AttachmentUpload extends Component {
         return (
             <p
                 onClick={this.uploadAttachment}
-                className={
-                    'attachment__uploading-error ' +
-                    'attachment__uploading-error--clickable'
-                }
+                className="attachment__uploading-error attachment__uploading-error--clickable"
             >
-                {strings.unknownError}
+                {t('attachmentUpload.unknownError')}
             </p>
         );
     }
 
     getValidationError() {
 
-        const { uploadingError } = this.props;
+        const { uploadingError, t } = this.props;
 
         if (uploadingError.includes(
             '"name" length must be less than or equal to 255 characters long'
         )) {
 
-            return strings.fileNameLengthError;
+            return t('attachmentUpload.fileNameLengthError');
 
         } else if (uploadingError.includes(
             '"type" length must be less than or equal to 255 characters long'
         )) {
 
-            return strings.fileTypeError;
+            return t('attachmentUpload.fileTypeError');
 
         } else if (uploadingError.includes(
             '"file size" must be less than or equal to 10485760'
         )) {
 
-            return strings.fileSizeMaxError;
+            return t('attachmentUpload.fileSizeMaxError');
 
         } else if (uploadingError.includes(
             '"file size" must be larger than or equal to 1'
         )) {
 
-            return strings.fileSizeMinError;
+            return t('attachmentUpload.fileSizeMinError');
         }
     }
 
@@ -144,11 +139,14 @@ AttachmentUpload.propTypes = {
     }).isRequired,
 
     // redux
-    uploadAttachmentAgain: propTypes.func.isRequired
+    uploadAttachmentAgain: propTypes.func.isRequired,
+
+    // i18n
+    t: propTypes.func.isRequired
 };
 
 AttachmentUpload.defaultProps = {
     uploadingError: null
 };
 
-export default connect(null, mapDispatchToProps)(AttachmentUpload);
+export default compose(withNamespaces(), connect(null, mapDispatchToProps))(AttachmentUpload);

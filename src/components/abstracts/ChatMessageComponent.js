@@ -1,17 +1,14 @@
 import { Component } from 'react';
 import propTypes from 'prop-types';
 
-import renderText from 'utils/renderText';
 import datePropValidator from 'utils/datePropValidator';
-
-import timeUnits from '../app/authenticatedPage/chat/timeUnitsInMs';
-import strings from '../app/authenticatedPage/chat/strings';
+import timeUnits from 'utils/timeUnitsInMs';
 
 class ChatMessageComponent extends Component {
 
-    constructor() {
+    constructor(props) {
 
-        super();
+        super(props);
 
         if (this.constructor === ChatMessageComponent) {
 
@@ -21,7 +18,7 @@ class ChatMessageComponent extends Component {
 
     renderTimeHeaderText() {
 
-        const { message } = this.props;
+        const { message, t } = this.props;
         const { minute, hour, day } = timeUnits;
 
         const messageDate = new Date(message.date);
@@ -30,35 +27,25 @@ class ChatMessageComponent extends Component {
 
         if (timeDiff < minute) {
 
-            return strings.lessThanMinuteAgo;
+            return t('message.lessThanMinuteAgo');
 
         } else if (timeDiff < hour) {
 
             const diff = Math.floor(timeDiff / minute);
 
-            return renderText(
-                strings[(diff > 1) ? 'minutesAgo' : 'minuteAgo'],
-                { minutes: diff }
-            );
+            return t(`message.${(diff > 1) ? 'minutesAgo' : 'minuteAgo'}`, { minutes: diff });
 
         } else if (timeDiff < day) {
 
             const diff = Math.floor(timeDiff / hour);
 
-            return renderText(
-                strings[(diff > 1) ? 'hoursAgo' : 'hourAgo'],
-                { hours: diff }
-            );
+            return t(`message.${(diff > 1) ? 'hoursAgo' : 'hourAgo'}`, { hours: diff });
 
         } else if (timeDiff < day * 7) {
 
             const diff = Math.floor(timeDiff / day);
 
-            return renderText(
-                strings[(diff > 1) ? 'daysAgo' : 'dayAgo'],
-                { days: diff }
-            );
-
+            return t(`message.${(diff > 1) ? 'daysAgo' : 'dayAgo'}`, { days: diff });
         }
 
         const date = messageDate.toLocaleDateString();
@@ -69,7 +56,7 @@ class ChatMessageComponent extends Component {
 
     renderMessageTimeText() {
 
-        const { message } = this.props;
+        const { message, t } = this.props;
         const { day } = timeUnits;
 
         const messageDate = new Date(message.date);
@@ -82,11 +69,12 @@ class ChatMessageComponent extends Component {
 
         } else if (timeDiff < 2 * day) {
 
-            return `${strings.yesterday} ${messageDate.toLocaleTimeString()}`;
+            return `${t('message.yesterday')} ${messageDate.toLocaleTimeString()}`;
 
         } else if (timeDiff < 7 * day) {
 
-            const day = strings.days[messageDate.getDay()];
+            const days = t('days', { returnObjects: true });
+            const day = days[messageDate.getDay()];
 
             return `${day} ${messageDate.toLocaleTimeString()}`;
 
@@ -107,10 +95,7 @@ class ChatMessageComponent extends Component {
             return;
         }
 
-        this.refreshingIntervalId = setInterval(() => {
-
-            this.forceUpdate();
-        }, minute);
+        this.refreshingIntervalId = setInterval(() => this.forceUpdate(), minute);
     }
 
     clearRefreshingInterval() {
@@ -124,7 +109,10 @@ ChatMessageComponent.propTypes = {
         date: datePropValidator('messate.date validation error')
     }).isRequired,
 
-    displayTimeHeader: propTypes.bool.isRequired
+    displayTimeHeader: propTypes.bool.isRequired,
+
+    // i18n
+    t: propTypes.func.isRequired
 };
 
 export default ChatMessageComponent;

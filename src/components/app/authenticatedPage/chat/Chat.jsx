@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import { bindActionCreators, compose } from 'redux';
 import propTypes from 'prop-types';
+import { withNamespaces } from 'react-i18next';
 
 // must be imported before children components are imported
 // let children components ovverride their styles
@@ -15,11 +16,8 @@ import Attachment from './attachment/Attachment';
 
 import { fetchMoreMessages } from 'actions/messages';
 
-import renderText from 'utils/renderText';
 import datePropValidator from 'utils/datePropValidator';
-
-import strings from './strings';
-import timeUnits from './timeUnitsInMs';
+import timeUnits from 'utils/timeUnitsInMs';
 
 function mapStateToProps(state) {
 
@@ -72,7 +70,8 @@ class Chat extends Component {
             sendingMessages,
             sentMessages,
             fetchingMoreMessages,
-            fetchingMoreMessagesError
+            fetchingMoreMessagesError,
+            t
         } = this.props;
 
         return (
@@ -95,13 +94,13 @@ class Chat extends Component {
                         fetchingMoreMessagesError &&
 
                         <p className="chat__fetching-more-messages-error">
-                            {strings.fetchingMoreMessagesError}
+                            {t('chat.fetchingMoreMessagesError')}
                         </p>
                     }
 
                     {
                         (sendingMessages.length === 0 && sentMessages.length === 0) &&
-                        <p className="chat__no-messages">{strings.noMessages}</p>
+                        <p className="chat__no-messages">{t('chat.noMessages')}</p>
                     }
 
                     {this.renderSentMessages()}
@@ -213,7 +212,7 @@ class Chat extends Component {
 
     renderTypingUsers() {
 
-        const { typingUsers } = this.props;
+        const { typingUsers, t } = this.props;
 
         if (typingUsers.length === 0) {
 
@@ -222,9 +221,9 @@ class Chat extends Component {
 
         const text = (typingUsers.length === 1) ?
 
-            renderText(strings.typing.singlePerson, { username: typingUsers[0] }) :
+            t('chat.singlePersonTyping', { username: typingUsers[0] }) :
 
-            renderText(strings.typing.multiplePersons, {
+            t('chat.multiplePersonsTyping', {
                 usernames: typingUsers.slice(0, -1).join(', '),
                 lastUsername: typingUsers[typingUsers.length - 1]
             });
@@ -345,6 +344,9 @@ Chat.propTypes = {
     typingUsers: propTypes.arrayOf(propTypes.string).isRequired,
     fetchingMoreMessagesError: propTypes.instanceOf(Error),
 
+    // i18n
+    t: propTypes.func.isRequired,
+
     sendingMessages: propTypes.arrayOf(
         propTypes.shape({
             tempId: propTypes.string.isRequired,
@@ -392,4 +394,4 @@ Chat.defaultProps = {
     fetchingMoreMessagesError: null
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Chat);
+export default compose(withNamespaces(), connect(mapStateToProps, mapDispatchToProps))(Chat);

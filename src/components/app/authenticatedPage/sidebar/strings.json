@@ -1,8 +1,0 @@
-{
-    "logoutButtonText": "Log out",
-    "sidebarTitle": "Users",
-    "searchFieldPlaceholder": "Username",
-    "onlineUsersSectionTitle": "Online",
-    "offlineUsersSectionTitle": "Offline",
-    "emptyUsersListMsg": "none" 
-}

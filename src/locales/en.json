@@ -1,9 +1,109 @@
 {
-    "siteTitle": "Chat | {{ pageTitle }}",
+    "siteTitle": "Chat",
+    "notificationSiteTitle": "({{ notification }}) Chat",
+    "pageTitle": "Chat | {{ page }}",
+    "fetchingError": "Something went wrong when fetching data. Try again later.",
+    "unknownError": "Something went wrong. Try again later.",
+
+    "fileSizeUnits": {
+        "B": "B",
+        "KB": "KB",
+        "MB": "MB",
+        "GB": "GB"
+    },
+
+    "days": [
+        "Sunday",
+        "Monday",
+        "Tuesday",
+        "Wensday",
+        "Thursday",
+        "Friday",
+        "Saturday"
+    ],
+
     "notFoundPage": {
         "header": "404",
         "desc": "This page does not exist",
         "homepageButton": "Back to homepage",
         "pageTitle": "Not found"
+    },
+
+    "loader": {
+        "logoutError": "Something went wrong. Refresh the page and try to log out again or clear cookies."
+    },
+
+    "authenticatedPage": {
+        "socketReconnectionError": "Reconnection failed. Try to refresh the page later.",
+        "socketDisconnected": "You have been disconnected. Wait for reconnection."
+    },
+
+    "sidebar": {
+        "logoutButtonText": "Log out",
+        "sidebarTitle": "Users",
+        "searchFieldPlaceholder": "Username",
+        "onlineUsersSectionTitle": "Online",
+        "offlineUsersSectionTitle": "Offline",
+        "emptyUsersListMsg": "none"
+    },
+
+    "message": {
+        "lessThanMinuteAgo": "Less than a minute ago",
+        "minuteAgo": "1 minute ago",
+        "minutesAgo": "{{ minutes }} minutes ago",
+        "hourAgo": "1 hour ago",
+        "hoursAgo": "{{ hours }} hours ago",
+        "dayAgo": "1 day ago",
+        "daysAgo": "{{ days }} days ago",
+        "yesterday": "Yesterday",
+        "sendingError": "Message sending error. Click here to send it again."
+    },
+
+    "attachmentUpload": {
+        "description": "Uploading {{ fileName }}... Uploaded {{ uploadedSize }} of {{ totalSize }}",
+        "fileNameLengthError": "File name cannot be longer than 255 characters",
+        "fileTypeError": "Unsupported file type",
+        "fileSizeMaxError": "File size cannot be larger than 10 MB",
+        "fileSizeMinError": "File size must be at larger than 0 bytes",
+        "unknownError": "Error has occured. Click here to upload it again."
+    },
+
+    "chat": {
+        "noMessages": "No messages",
+        "fetchingMoreMessagesError": "Something went wrong when fetching older messages. Refresh the page and try again.",
+        "singlePersonTyping": "{{ username }} is typing...",
+        "multiplePersonsTyping": "{{ usernames }} and {{ lastUsername }} are typing..."
+    },
+
+    "messageForm": {
+        "submitButtonText": "Send",
+        "textareaPlaceholder": "Your message..."
+    },
+
+    "unauthenticatedPage": {
+        "pageTitle": "Log in"
+    },
+
+    "registrationForm": {
+        "usernameLabel": "Username",
+        "passwordLabel": "Password",
+        "repeatedPasswordLabel": "Replaced password",
+        "submitButtonText": "Register",
+        "passwordsEqualityErr": "Password should be equal to replaced password.",
+        "passwordLengthErr": "Password should contain minimum 8 and maximum 32 characters.",
+        "passwordCharactersErr": "Password should contain minmum one number, special character, lower and upper case letter",
+        "usernameLengthErr": "Username should contain minimum 3 and maximum 16 characters.",
+        "usernameCharactersErr": "Username should contain only numbers, underscore, lower and upper case letters.",
+        "usernameAvailabilityUnknownErr": "Something went wrong when checking username availability.",
+        "usernameNotAvailableErr": "This username is currently being used.",
+        "userCreated": "Your account has been created. You can log in now.",
+        "validationErr": "Validation error"
+    },
+
+    "loginForm": {
+        "usernameLabel": "Username",
+        "passwordLabel": "Password",
+        "loginButtonText": "Log in",
+        "invalidCredentials": "Wrong username or password."
     }
 }

@@ -1,6 +1,6 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
 
-import axios from '../shared/axios';
+import axios from '../utils/axios';
 
 import { creationSuccess, creationFailure } from 'actions/users';
 import { CREATION_REQUESTED } from 'actions/types/users';

@@ -9,7 +9,7 @@ import { attachmentUploadingError } from 'actions/messagesAttachments';
 import { uploadingFileSelector } from './selectors/messages';
 import { socketSelector } from './selectors/socket';
 import getFileBinaryData from '../utils/getFileBinaryData';
-import { uploadFilePartSize } from '../shared/config';
+import { uploadFilePartSize } from '../config';
 
 function *uploadFilePart({ payload }) {
 

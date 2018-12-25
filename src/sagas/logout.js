@@ -5,7 +5,7 @@ import { LOGOUT_REQUESTED } from 'actions/types/auth';
 import { logoutFailure } from 'actions/auth';
 import { socketSelector } from './selectors/socket';
 import { finishTyping } from './finishTyping';
-import axios from 'shared/axios';
+import axios from '../utils/axios';
 
 export function *logout() {
 

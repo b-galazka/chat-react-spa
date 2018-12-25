@@ -1,15 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { compose } from 'redux';
 import propTypes from 'prop-types';
+import { withNamespaces } from 'react-i18next';
 
 import AuthLoader from './authLoader/AuthLoader';
 import LoginForm from './loginForm/LoginForm';
 import RegistrationForm from './registrationForm/RegistrationForm';
-
-import renderText from 'utils/renderText';
-
-import baseStrings from '../strings';
-import strings from './strings';
 
 import './unauthenticatedPage.scss';
 
@@ -47,21 +44,24 @@ class UnauthenticatedPage extends Component {
 
     componentDidMount() {
 
-        UnauthenticatedPage.updatePageTitle();
+        this.updatePageTitle();
     }
 
-    static updatePageTitle() {
+    updatePageTitle() {
 
-        const { pageTitle } = strings;
+        const { t } = this.props;
 
-        document.title = renderText(baseStrings.pageTitle, { pageTitle });
+        document.title = t('pageTitle', { page: t('unauthenticatedPage.pageTitle') });
     }
 }
 
 UnauthenticatedPage.propTypes = {
     // redux
     authenticating: propTypes.bool.isRequired,
-    creatingUser: propTypes.bool.isRequired
+    creatingUser: propTypes.bool.isRequired,
+
+    // i18n
+    t: propTypes.func.isRequired
 };
 
-export default connect(mapStateToProps)(UnauthenticatedPage);
+export default compose(withNamespaces(), connect(mapStateToProps))(UnauthenticatedPage);

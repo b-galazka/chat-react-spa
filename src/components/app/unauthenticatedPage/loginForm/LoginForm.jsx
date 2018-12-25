@@ -1,15 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import { bindActionCreators, compose } from 'redux';
 import classNames from 'classnames';
 import propTypes from 'prop-types';
+import { withNamespaces } from 'react-i18next';
 
 import FormComponent from 'components/abstracts/FormComponent';
 
 import { authenticate } from 'actions/auth';
-
-import strings from './strings';
-import unauthPageStrings from '../strings';
 
 function mapStateToProps(state) {
 
@@ -41,6 +39,8 @@ class LoginForm extends FormComponent {
 
     render() {
 
+        const { t } = this.props;
+
         return (
             <section className="page__auth-section page__auth-section--login">
                 <form onSubmit={this.submitForm}>
@@ -54,13 +54,13 @@ class LoginForm extends FormComponent {
                     }
 
                     <label className="auth-input__label">
-                        {unauthPageStrings.usernameLabel}:
+                        {t('loginForm.usernameLabel')}:
                     </label>
 
                     {this.renderUsernameField()}
 
                     <label className="auth-input__label">
-                        {unauthPageStrings.passwordLabel}:
+                        {t('loginForm.passwordLabel')}:
                     </label>
 
                     {this.renderPasswordField()}
@@ -78,21 +78,15 @@ class LoginForm extends FormComponent {
 
     renderAuthError() {
 
-        const { authError } = this.props;
+        const { t, authError } = this.props;
+        const { response } = authError;
 
-        if (!authError.response) {
+        if (!response || response && response.status !== 403) {
 
-            return unauthPageStrings.unknownError;
+            return t('unknownError');
         }
 
-        const { status } = authError.response;
-
-        if (status === 403) {
-
-            return strings.invalidCredentials;
-        }
-
-        return unauthPageStrings.unknownError;
+        return t('loginForm.invalidCredentials');
     }
 
     renderUsernameField() {
@@ -122,10 +116,12 @@ class LoginForm extends FormComponent {
 
     renderSubmitButton() {
 
+        const { t } = this.props;
+
         return (
             <input
                 type="submit"
-                value={strings.loginButtonText}
+                value={t('loginForm.loginButtonText')}
                 className={
 
                     classNames({
@@ -173,7 +169,10 @@ class LoginForm extends FormComponent {
 LoginForm.propTypes = {
     // redux
     authenticate: propTypes.func.isRequired,
-    authError: propTypes.instanceOf(Error)
+    authError: propTypes.instanceOf(Error),
+
+    // i18n
+    t: propTypes.func.isRequired
 };
 
 LoginForm.defaultProps = {
@@ -181,4 +180,7 @@ LoginForm.defaultProps = {
     authError: null
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);
+export default compose(
+    withNamespaces(),
+    connect(mapStateToProps, mapDispatchToProps)
+)(LoginForm);

@@ -17,7 +17,6 @@ render(
     document.getElementById('root')
 );
 
-// TODO: implement react-i18next
 // TODO: add "keep me signed in"
 // TODO: reorganize styles
 // TODO: add RWD

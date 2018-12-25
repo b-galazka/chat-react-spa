@@ -1,15 +1,14 @@
 import React from 'react';
-import { bindActionCreators } from 'redux';
+import { bindActionCreators, compose } from 'redux';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
 import classNames from 'classnames';
+import { withNamespaces } from 'react-i18next';
 
 import { sendMessageAgain } from 'actions/messages';
 import MessageContent from './messageContent/MessageContent';
 import ChatMessageComponent from 'components/abstracts/ChatMessageComponent';
 import datePropValidator from 'utils/datePropValidator';
-
-import strings from './strings';
 
 import './message.scss';
 
@@ -29,9 +28,9 @@ function mapDispatchToProps(dispatch) {
 
 class Message extends ChatMessageComponent {
 
-    constructor() {
+    constructor(props) {
 
-        super();
+        super(props);
 
         this.sendMessage = this.sendMessage.bind(this);
     }
@@ -129,7 +128,7 @@ class Message extends ChatMessageComponent {
 
     renderSendingError() {
 
-        const { sendingError } = this.props;
+        const { sendingError, t } = this.props;
 
         if (!sendingError) {
 
@@ -137,11 +136,8 @@ class Message extends ChatMessageComponent {
         }
 
         return (
-            <p
-                className="message__sending-error"
-                onClick={this.sendMessage}
-            >
-                {strings.sendingError}
+            <p className="message__sending-error" onClick={this.sendMessage}>
+                {t('message.sendingError')}
             </p>
         );
     }
@@ -187,7 +183,10 @@ Message.propTypes = {
 
     // redux
     username: propTypes.string.isRequired,
-    sendMessageAgain: propTypes.func.isRequired
+    sendMessageAgain: propTypes.func.isRequired,
+
+    // i18n
+    t: propTypes.func.isRequired
 };
 
 Message.defaultProps = {
@@ -196,4 +195,4 @@ Message.defaultProps = {
     sending: false
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Message);
+export default compose(withNamespaces(), connect(mapStateToProps, mapDispatchToProps))(Message);

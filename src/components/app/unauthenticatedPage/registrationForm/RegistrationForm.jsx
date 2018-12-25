@@ -1,17 +1,15 @@
 import React from 'react';
 import classNames from 'classnames';
-import { bindActionCreators } from 'redux';
+import { bindActionCreators, compose } from 'redux';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
+import { withNamespaces } from 'react-i18next';
 
 import FormComponent from 'components/abstracts/FormComponent';
 import LoadingAnimation from '../../loadingAnimation/LoadingAnimation';
 
-import axios from 'shared/axios';
+import axios from 'utils/axios';
 import { createUser } from 'actions/users';
-
-import strings from './strings';
-import unauthPageStrings from '../strings';
 
 import './registrationForm.scss';
 
@@ -64,7 +62,7 @@ class RegistrationForm extends FormComponent {
             usernameErrors
         } = this.state;
 
-        const { userCreationError, userCreated } = this.props;
+        const { userCreationError, userCreated, t } = this.props;
 
         return (
             <section className="page__auth-section page__auth-section--registration">
@@ -82,12 +80,12 @@ class RegistrationForm extends FormComponent {
                         userCreated &&
 
                         <p className="auth-message auth-message--info">
-                            {strings.userCreated}
+                            {t('registrationForm.userCreated')}
                         </p>
                     }
 
                     <label className="auth-input__label">
-                        {unauthPageStrings.usernameLabel}:
+                        {t('registrationForm.usernameLabel')}:
                     </label>
 
                     {this.renderUsernameField()}
@@ -96,21 +94,21 @@ class RegistrationForm extends FormComponent {
                         this.state.usernameAvailabilityCheckingError &&
 
                         <p className="auth-input__error">
-                            {strings.usernameAvailabilityUnknownErr}
+                            {t('registrationForm.usernameAvailabilityUnknownErr')}
                         </p>
                     }
 
                     {RegistrationForm.renderValidationErrors(usernameErrors)}
 
                     <label className="auth-input__label">
-                        {unauthPageStrings.passwordLabel}:
+                        {t('registrationForm.passwordLabel')}:
                     </label>
 
                     {this.renderPasswordField()}
                     {RegistrationForm.renderValidationErrors(passwordErrors)}
 
                     <label className="auth-input__label">
-                        {strings.repeatedPasswordLabel}:
+                        {t('registrationForm.repeatedPasswordLabel')}:
                     </label>
 
                     {this.renderRepeatedPasswordField()}
@@ -138,24 +136,21 @@ class RegistrationForm extends FormComponent {
 
     renderUserCreationError() {
 
-        const { userCreationError } = this.props;
+        const { userCreationError, t } = this.props;
+        const { response } = userCreationError;
+        const resStatus = response && response.status;
 
-        if (!userCreationError.responose) {
+        switch (resStatus) {
 
-            return unauthPageStrings.unknownError;
+            case 409:
+                return t('registrationForm.usernameNotAvailableErr');
+
+            case 400:
+                return t('registrationForm.validationError');
+
+            default:
+                return t('unknownError');
         }
-
-        const { status } = userCreationError.responose;
-
-        if (status === 409) {
-
-            return strings.usernameNotAvailableErr;
-        } else if (status === 400) {
-
-            return strings.validationError;
-        }
-
-        return unauthPageStrings.unknownError;
     }
 
     renderUsernameField() {
@@ -258,11 +253,12 @@ class RegistrationForm extends FormComponent {
     renderSubmitButton() {
 
         const { usernameAvailabilityChecking } = this.state;
+        const { t } = this.props;
 
         return (
             <input
                 type="submit"
-                value={strings.registrationButtonText}
+                value={t('registrationForm.submitButtonText')}
                 className={
 
                     classNames({
@@ -278,10 +274,11 @@ class RegistrationForm extends FormComponent {
     updateUsernameAvailabilityStatus(usernameAvailability) {
 
         const errors = [];
+        const { t } = this.props;
 
         if (!usernameAvailability.free) {
 
-            errors.push(strings.usernameNotAvailableErr);
+            errors.push(t('registrationForm.usernameNotAvailableErr'));
         }
 
         this.setState({
@@ -324,15 +321,16 @@ class RegistrationForm extends FormComponent {
 
         const errors = [];
         const { username } = this.state;
+        const { t } = this.props;
 
         if (username.length < 3 || username.length > 16) {
 
-            errors.push(strings.usernameLengthErr);
+            errors.push(t('registrationForm.usernameLengthErr'));
         }
 
         if (/[^a-z0-9_]/i.test(username)) {
 
-            errors.push(strings.usernameCharactersErr);
+            errors.push(t('registrationForm.usernameCharactersErr'));
         }
 
         return errors;
@@ -391,15 +389,16 @@ class RegistrationForm extends FormComponent {
 
         const errors = [];
         const { password } = this.state;
+        const { t } = this.props;
 
         if (password.length < 8 || password.length > 32) {
 
-            errors.push(strings.passwordLengthErr);
+            errors.push(t('registrationForm.passwordLengthErr'));
         }
 
         if (!this.passwordContainsRequiredCharacters()) {
 
-            errors.push(strings.passwordCharactersErr);
+            errors.push(t('registrationForm.passwordCharactersErr'));
         }
 
         this.setState({
@@ -425,10 +424,11 @@ class RegistrationForm extends FormComponent {
 
         const errors = [];
         const { password, repeatedPassword } = this.state;
+        const { t } = this.props;
 
         if (password !== repeatedPassword) {
 
-            errors.push(strings.passwordsEqualityErr);
+            errors.push(t('registrationForm.passwordsEqualityErr'));
         }
 
         this.setState({
@@ -510,7 +510,10 @@ RegistrationForm.propTypes = {
     // redux
     userCreated: propTypes.bool.isRequired,
     createUser: propTypes.func.isRequired,
-    userCreationError: propTypes.instanceOf(Error)
+    userCreationError: propTypes.instanceOf(Error),
+
+    // i18n
+    t: propTypes.func.isRequired
 };
 
 RegistrationForm.defaultProps = {
@@ -518,4 +521,7 @@ RegistrationForm.defaultProps = {
     userCreationError: null
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(RegistrationForm);
+export default compose(
+    withNamespaces(),
+    connect(mapStateToProps, mapDispatchToProps)
+)(RegistrationForm);

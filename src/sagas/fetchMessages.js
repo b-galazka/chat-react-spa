@@ -1,12 +1,12 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
 
-import axios from '../shared/axios';
+import axios from '../utils/axios';
 
 import { logout } from 'actions/auth';
 import { fetchingSuccess, fetchingFailure } from 'actions/messages';
 import { FETCHING_REQUESTED } from 'actions/types/messages';
 
-import config from '../shared/config';
+import config from '../config';
 
 function *fetchMessages() {
 

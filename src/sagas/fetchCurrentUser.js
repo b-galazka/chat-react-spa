@@ -1,6 +1,6 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
 
-import axios from '../shared/axios';
+import axios from '../utils/axios';
 
 import { fetchingCurrentUserFailure, fetchingCurrentUserSuccess } from 'actions/auth';
 import { FETCHING_CURRENT_USER_REQUESTED } from 'actions/types/auth';

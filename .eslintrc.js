@@ -227,6 +227,7 @@ module.exports = {
         "template-curly-spacing": "error",
         "no-unused-vars": "error",
         "import/no-named-as-default-member": "off",
+        "import/no-named-as-default": "off",
 
         "react/default-props-match-prop-types": "error",
         "react/no-access-state-in-setstate": "error",

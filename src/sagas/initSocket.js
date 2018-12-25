@@ -36,7 +36,7 @@ import { logout } from 'actions/auth';
 import { INIT } from 'actions/types/socket';
 import { socketSelector } from './selectors/socket';
 
-import config from '../shared/config';
+import config from '../config';
 
 function getSocketChannel(socket) {
 

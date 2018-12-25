@@ -1,16 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import { bindActionCreators, compose } from 'redux';
 import classNames from 'classnames';
 import cuid from 'cuid';
 import propTypes from 'prop-types';
+import { withNamespaces } from 'react-i18next';
 
 import FormComponent from 'components/abstracts/FormComponent';
 
 import { sendMessage, startTyping, finishTyping } from 'actions/messages';
 import { startAttachmentUploading } from 'actions/messagesAttachments';
-
-import strings from './strings';
 
 import './messageForm.scss';
 
@@ -61,11 +60,13 @@ class MessageForm extends FormComponent {
 
     renderTextarea() {
 
+        const { t } = this.props;
+
         return (
             <textarea
                 className="message-form__textarea"
                 value={this.state.messageContent}
-                placeholder={strings.messageTextareaPlaceholder}
+                placeholder={t('messageForm.textareaPlaceholder')}
                 onChange={this.updateInputValue('messageContent')}
                 onKeyDown={this.onKeyDownHandler}
                 onPaste={this.onPasteHandler}
@@ -102,6 +103,8 @@ class MessageForm extends FormComponent {
 
     renderSendMessageButton() {
 
+        const { t } = this.props;
+
         return (
             <button
                 className={
@@ -113,7 +116,7 @@ class MessageForm extends FormComponent {
                     })
                 }
             >
-                {strings.submitButtonText}
+                {t('messageForm.submitButtonText')}
             </button>
         );
     }
@@ -220,7 +223,13 @@ MessageForm.propTypes = {
     sendMessage: propTypes.func.isRequired,
     startTyping: propTypes.func.isRequired,
     finishTyping: propTypes.func.isRequired,
-    startAttachmentUploading: propTypes.func.isRequired
+    startAttachmentUploading: propTypes.func.isRequired,
+
+    // i18n
+    t: propTypes.func.isRequired
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(MessageForm);
+export default compose(
+    withNamespaces(),
+    connect(mapStateToProps, mapDispatchToProps)
+)(MessageForm);

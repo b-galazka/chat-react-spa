@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { withNamespaces } from 'react-i18next';
+import { compose } from 'redux';
 
 import LoadingAnimation from '../loadingAnimation/LoadingAnimation';
-
-import baseStrings from '../strings';
-import strings from './strings';
 
 import '../app.scss';
 
@@ -37,19 +36,24 @@ class AppLoader extends Component {
 
     renderErrorText() {
 
+        const { t } = this.props;
+
         if (this.props.fetchingCurrentUserError) {
 
-            return baseStrings.fetchingError;
+            return t('fetchingError');
         }
 
-        return strings.logoutError;
+        return t('loader.logoutError');
     }
 }
 
 AppLoader.propTypes = {
     // redux
     fetchingCurrentUserError: propTypes.instanceOf(Error),
-    logoutError: propTypes.instanceOf(Error)
+    logoutError: propTypes.instanceOf(Error),
+
+    // i18n
+    t: propTypes.func.isRequired
 };
 
 AppLoader.defaultProps = {
@@ -58,4 +62,4 @@ AppLoader.defaultProps = {
     logoutError: null
 };
 
-export default connect(mapStateToProps)(AppLoader);
+export default compose(withNamespaces(), connect(mapStateToProps))(AppLoader);

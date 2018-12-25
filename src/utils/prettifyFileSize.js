@@ -1,3 +1,5 @@
+import i18n from '../i18n';
+
 function roundBytes(bytes, precision = 2) {
 
     const multiplier = 10 ** precision;
@@ -29,6 +31,8 @@ export default function prettifyFileSize(size) {
         sizeInNewUnit = size / kilobyte;
         sizeUnit = 'KB';
     }
+
+    sizeUnit = i18n.t(`fileSizeUnits.${sizeUnit}`);
 
     return `${roundBytes(sizeInNewUnit)} ${sizeUnit}`;
 }

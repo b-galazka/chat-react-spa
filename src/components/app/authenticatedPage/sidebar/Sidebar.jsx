@@ -1,13 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import { bindActionCreators, compose } from 'redux';
 import propTypes from 'prop-types';
+import { withNamespaces } from 'react-i18next';
 
 import FormComponent from 'components/abstracts/FormComponent';
 
 import { logout } from 'actions/auth';
-
-import strings from './strings';
 
 import './sidebar.scss';
 
@@ -37,22 +36,21 @@ class Sidebar extends FormComponent {
 
     render() {
 
-        const { onlineUsersSectionTitle, offlineUsersSectionTitle } = strings;
-
+        const { t } = this.props;
         const onlineUsers = this.getUsers(true);
         const offlineUsers = this.getUsers(false);
 
         return (
             <section className="sidebar">
                 <button className="button button--logout" onClick={this.props.logout}>
-                    {strings.logoutButtonText}
+                    {t('sidebar.logoutButtonText')}
                 </button>
 
                 {this.renderSidebarHeader()}
 
                 <section className="users">
-                    {this.renderUsers(onlineUsers, onlineUsersSectionTitle)}
-                    {this.renderUsers(offlineUsers, offlineUsersSectionTitle)}
+                    {this.renderUsers(onlineUsers, t('sidebar.onlineUsersSectionTitle'))}
+                    {this.renderUsers(offlineUsers, t('sidebar.offlineUsersSectionTitle'))}
                 </section>
             </section>
         );
@@ -60,22 +58,26 @@ class Sidebar extends FormComponent {
 
     renderSidebarHeader() {
 
+        const { t } = this.props;
+
         return (
             <header className="sidebar__header">
-                <h1 className="sidebar__title">{strings.sidebarTitle}</h1>
+                <h1 className="sidebar__title">{t('sidebar.sidebarTitle')}</h1>
 
                 <input
                     type="text"
                     className="sidebar__search-field"
                     value={this.state.searchFieldValue}
                     onChange={this.updateInputValue('searchFieldValue')}
-                    placeholder={strings.searchFieldPlaceholder}
+                    placeholder={t('sidebar.searchFieldPlaceholder')}
                 />
             </header>
         );
     }
 
     renderUsers(users, sectionTitle) {
+
+        const { t } = this.props;
 
         const usersListItems = users.map(user => (
             <li key={user.id}>{this.renderUsername(user.username)}</li>
@@ -90,7 +92,7 @@ class Sidebar extends FormComponent {
                 {
                     (users.length === 0) ?
 
-                        <p className="users__empty-list">{strings.emptyUsersListMsg}</p> :
+                        <p className="users__empty-list">{t('sidebar.emptyUsersListMsg')}</p> :
 
                         <ul className="users__list">{usersListItems}</ul>
                 }
@@ -168,4 +170,7 @@ Sidebar.defaultProps = {
     userCreationError: null
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Sidebar);
+export default compose(
+    withNamespaces(),
+    connect(mapStateToProps, mapDispatchToProps)
+)(Sidebar);

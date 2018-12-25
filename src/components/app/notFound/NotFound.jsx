@@ -4,6 +4,7 @@ import { withNamespaces } from 'react-i18next';
 import propTypes from 'prop-types';
 
 import './notFound.scss';
+import { compose } from 'redux';
 
 class NotFound extends Component {
 
@@ -34,7 +35,7 @@ class NotFound extends Component {
 
         const { t } = this.props;
 
-        document.title = t('siteTitle', { pageTitle: t('notFoundPage.pageTitle') });
+        document.title = t('pageTitle', { page: t('notFoundPage.pageTitle') });
     }
 }
 
@@ -43,4 +44,4 @@ NotFound.propTypes = {
     t: propTypes.func.isRequired
 };
 
-export default withNamespaces()(NotFound);
+export default compose(withNamespaces())(NotFound);

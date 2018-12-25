@@ -1,12 +1,14 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { withNamespaces } from 'react-i18next';
 import classNames from 'classnames';
 
 import prettifyFileSize from 'utils/prettifyFileSize';
 import datePropValidator from 'utils/datePropValidator';
 import ChatMessageComponent from 'components/abstracts/ChatMessageComponent';
-import config from 'shared/config';
+import config from 'config';
 
 import './attachment.scss';
 
@@ -17,7 +19,13 @@ function mapStateToProps(state) {
     return { username };
 }
 
+/* eslint no-useless-constructor: 0 */
 class Attachment extends ChatMessageComponent {
+
+    constructor(props) {
+
+        super(props);
+    }
 
     render() {
 
@@ -164,4 +172,4 @@ Attachment.defaultProps = {
     displayTimeHeader: false
 };
 
-export default connect(mapStateToProps)(Attachment);
+export default compose(withNamespaces(), connect(mapStateToProps))(Attachment);

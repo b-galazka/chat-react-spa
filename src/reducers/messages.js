@@ -19,7 +19,7 @@ import { CLEAR_STORE } from 'actions/types/entireStore';
 import { RECONNECTION_SUCCEEDED } from 'actions/types/socket';
 import messagesAttachmentsReducer from './messagesAttachments';
 
-import config from '../shared/config';
+import config from '../config';
 
 const initialState = {
 
