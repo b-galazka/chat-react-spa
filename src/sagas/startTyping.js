@@ -1,7 +1,7 @@
 import { select, takeLatest } from 'redux-saga/effects';
 
 import { socketSelector } from './selectors/socket';
-import { TYPING_STARTED } from 'actions/types/messages';
+import { TYPING_STARTED } from '@src/actions/types/messages';
 
 function *startTyping() {
 

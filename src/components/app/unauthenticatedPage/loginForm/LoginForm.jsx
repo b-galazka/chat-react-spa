@@ -5,9 +5,8 @@ import classNames from 'classnames';
 import propTypes from 'prop-types';
 import { withNamespaces } from 'react-i18next';
 
-import FormComponent from 'components/abstracts/FormComponent';
-
-import { authenticate } from 'actions/auth';
+import FormComponent from '@src/components/abstracts/FormComponent';
+import { authenticate } from '@src/actions/auth';
 
 function mapStateToProps(state) {
 

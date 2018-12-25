@@ -3,9 +3,9 @@ import { takeEvery, select, call, put } from 'redux-saga/effects';
 import {
     ATTACHMENT_UPLOADING_STARTED,
     ATTACHMENT_PART_UPLOADED
-} from 'actions/types/messagesAttachments';
+} from '@src/actions/types/messagesAttachments';
 
-import { attachmentUploadingError } from 'actions/messagesAttachments';
+import { attachmentUploadingError } from '@src/actions/messagesAttachments';
 import { uploadingFileSelector } from './selectors/messages';
 import { socketSelector } from './selectors/socket';
 import getFileBinaryData from '../utils/getFileBinaryData';

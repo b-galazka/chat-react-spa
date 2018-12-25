@@ -2,8 +2,8 @@ import { call, put, takeLatest } from 'redux-saga/effects';
 
 import axios from '../utils/axios';
 
-import { creationSuccess, creationFailure } from 'actions/users';
-import { CREATION_REQUESTED } from 'actions/types/users';
+import { creationSuccess, creationFailure } from '@src/actions/users';
+import { CREATION_REQUESTED } from '@src/actions/types/users';
 
 function *createUser({ username, password }) {
 

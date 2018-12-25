@@ -2,8 +2,8 @@ import { call, put, takeLatest } from 'redux-saga/effects';
 
 import axios from '../utils/axios';
 
-import { authSuccess, authFailure } from 'actions/auth';
-import { AUTH_REQUESTED } from 'actions/types/auth';
+import { authSuccess, authFailure } from '@src/actions/auth';
+import { AUTH_REQUESTED } from '@src/actions/types/auth';
 
 function *authenticate({ username, password }) {
 

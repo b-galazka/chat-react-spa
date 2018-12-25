@@ -4,9 +4,8 @@ import { bindActionCreators, compose } from 'redux';
 import propTypes from 'prop-types';
 import { withNamespaces } from 'react-i18next';
 
-import FormComponent from 'components/abstracts/FormComponent';
-
-import { logout } from 'actions/auth';
+import FormComponent from '@src/components/abstracts/FormComponent';
+import { logout } from '@src/actions/auth';
 
 import './sidebar.scss';
 

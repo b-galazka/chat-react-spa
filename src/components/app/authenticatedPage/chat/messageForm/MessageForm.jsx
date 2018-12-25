@@ -6,10 +6,10 @@ import cuid from 'cuid';
 import propTypes from 'prop-types';
 import { withNamespaces } from 'react-i18next';
 
-import FormComponent from 'components/abstracts/FormComponent';
+import FormComponent from '@src/components/abstracts/FormComponent';
 
-import { sendMessage, startTyping, finishTyping } from 'actions/messages';
-import { startAttachmentUploading } from 'actions/messagesAttachments';
+import { sendMessage, startTyping, finishTyping } from '@src/actions/messages';
+import { startAttachmentUploading } from '@src/actions/messagesAttachments';
 
 import './messageForm.scss';
 

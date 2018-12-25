@@ -1,6 +1,6 @@
 import { takeEvery, select } from 'redux-saga/effects';
 
-import { SEND, SEND_AGAIN } from 'actions/types/messages';
+import { SEND, SEND_AGAIN } from '@src/actions/types/messages';
 import { socketSelector } from './selectors/socket';
 
 function *sendMessage({ payload }) {

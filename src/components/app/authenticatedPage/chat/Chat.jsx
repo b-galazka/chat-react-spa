@@ -14,10 +14,9 @@ import LoadingAnimation from '../../loadingAnimation/LoadingAnimation';
 import AttachmentUpload from './attachmentUpload/AttachmentUpload';
 import Attachment from './attachment/Attachment';
 
-import { fetchMoreMessages } from 'actions/messages';
-
-import datePropValidator from 'utils/datePropValidator';
-import timeUnits from 'utils/timeUnitsInMs';
+import { fetchMoreMessages } from '@src/actions/messages';
+import datePropValidator from '@src/utils/datePropValidator';
+import timeUnits from '@src/utils/timeUnitsInMs';
 
 function mapStateToProps(state) {
 

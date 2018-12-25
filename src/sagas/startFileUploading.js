@@ -3,7 +3,7 @@ import { takeEvery, select } from 'redux-saga/effects';
 import {
     START_ATTACHMENT_UPLOADING,
     UPLOAD_ATTACHMENT_AGAIN
-} from 'actions/types/messagesAttachments';
+} from '@src/actions/types/messagesAttachments';
 
 import { socketSelector } from './selectors/socket';
 

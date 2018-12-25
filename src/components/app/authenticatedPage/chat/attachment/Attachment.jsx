@@ -5,10 +5,10 @@ import { compose } from 'redux';
 import { withNamespaces } from 'react-i18next';
 import classNames from 'classnames';
 
-import prettifyFileSize from 'utils/prettifyFileSize';
-import datePropValidator from 'utils/datePropValidator';
-import ChatMessageComponent from 'components/abstracts/ChatMessageComponent';
-import config from 'config';
+import prettifyFileSize from '@src/utils/prettifyFileSize';
+import datePropValidator from '@src/utils/datePropValidator';
+import ChatMessageComponent from '@src/components/abstracts/ChatMessageComponent';
+import config from '@src/config';
 
 import './attachment.scss';
 

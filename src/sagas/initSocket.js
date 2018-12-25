@@ -9,31 +9,31 @@ import {
     reconnectionSuccess,
     reconnectionFailure,
     disconnection
-} from 'actions/socket';
+} from '@src/actions/socket';
 
 import {
     fetchingFailure as fetchingUsersFailure,
     fetchingSuccess as fetchingUsersSuccess,
     typingStarted as userStartedTyping,
     typingFinished as userFinishedTyping
-} from 'actions/users';
+} from '@src/actions/users';
 
 import {
     fetchMessages,
     messageSaved,
     messageSendingError,
     receiveMessage
-} from 'actions/messages';
+} from '@src/actions/messages';
 
 import {
     attachmentUploadedStarted,
     attachmentPartUploaded,
     attachmentUploaded,
     attachmentUploadingError
-} from 'actions/messagesAttachments';
+} from '@src/actions/messagesAttachments';
 
-import { logout } from 'actions/auth';
-import { INIT } from 'actions/types/socket';
+import { logout } from '@src/actions/auth';
+import { INIT } from '@src/actions/types/socket';
 import { socketSelector } from './selectors/socket';
 
 import config from '../config';

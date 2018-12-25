@@ -1,8 +1,8 @@
 import { Component } from 'react';
 import propTypes from 'prop-types';
 
-import datePropValidator from 'utils/datePropValidator';
-import timeUnits from 'utils/timeUnitsInMs';
+import datePropValidator from '@src/utils/datePropValidator';
+import timeUnits from '@src/utils/timeUnitsInMs';
 
 class ChatMessageComponent extends Component {
 

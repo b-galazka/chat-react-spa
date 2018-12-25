@@ -8,8 +8,8 @@ import AuthenticatedPageLoader from './authenticatedPageLoader/AuthenticatedPage
 import Sidebar from './sidebar/Sidebar';
 import Chat from './chat/Chat';
 
-import { fetchMessages, markMessagesAsRead } from 'actions/messages';
-import { initSocket } from 'actions/socket';
+import { fetchMessages, markMessagesAsRead } from '@src/actions/messages';
+import { initSocket } from '@src/actions/socket';
 
 import './authenticatedPage.scss';
 

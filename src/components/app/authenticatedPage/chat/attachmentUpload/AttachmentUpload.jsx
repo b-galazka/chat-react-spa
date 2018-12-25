@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import propTypes from 'prop-types';
 import { withNamespaces } from 'react-i18next';
 
-import prettifyFileSize from 'utils/prettifyFileSize';
-import { uploadAttachmentAgain } from 'actions/messagesAttachments';
+import prettifyFileSize from '@src/utils/prettifyFileSize';
+import { uploadAttachmentAgain } from '@src/actions/messagesAttachments';
 
 import './attachmentUpload.scss';
 

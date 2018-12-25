@@ -5,11 +5,11 @@ import { connect } from 'react-redux';
 import propTypes from 'prop-types';
 import { withNamespaces } from 'react-i18next';
 
-import FormComponent from 'components/abstracts/FormComponent';
+import FormComponent from '@src/components/abstracts/FormComponent';
 import LoadingAnimation from '../../loadingAnimation/LoadingAnimation';
 
-import axios from 'utils/axios';
-import { createUser } from 'actions/users';
+import axios from '@src/utils/axios';
+import { createUser } from '@src/actions/users';
 
 import './registrationForm.scss';
 

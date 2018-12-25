@@ -13,10 +13,10 @@ import {
     RECEIVED,
     TYPING_STARTED,
     TYPING_FINISHED
-} from 'actions/types/messages';
+} from '@src/actions/types/messages';
 
-import { CLEAR_STORE } from 'actions/types/entireStore';
-import { RECONNECTION_SUCCEEDED } from 'actions/types/socket';
+import { CLEAR_STORE } from '@src/actions/types/entireStore';
+import { RECONNECTION_SUCCEEDED } from '@src/actions/types/socket';
 import messagesAttachmentsReducer from './messagesAttachments';
 
 import config from '../config';

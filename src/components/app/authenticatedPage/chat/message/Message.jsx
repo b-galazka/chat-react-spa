@@ -5,10 +5,11 @@ import propTypes from 'prop-types';
 import classNames from 'classnames';
 import { withNamespaces } from 'react-i18next';
 
-import { sendMessageAgain } from 'actions/messages';
 import MessageContent from './messageContent/MessageContent';
-import ChatMessageComponent from 'components/abstracts/ChatMessageComponent';
-import datePropValidator from 'utils/datePropValidator';
+
+import { sendMessageAgain } from '@src/actions/messages';
+import ChatMessageComponent from '@src/components/abstracts/ChatMessageComponent';
+import datePropValidator from '@src/utils/datePropValidator';
 
 import './message.scss';
 

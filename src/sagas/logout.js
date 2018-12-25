@@ -1,8 +1,8 @@
 import { put, takeLatest, select, call } from 'redux-saga/effects';
 
-import { clearStore } from 'actions/entireStore';
-import { LOGOUT_REQUESTED } from 'actions/types/auth';
-import { logoutFailure } from 'actions/auth';
+import { clearStore } from '@src/actions/entireStore';
+import { LOGOUT_REQUESTED } from '@src/actions/types/auth';
+import { logoutFailure } from '@src/actions/auth';
 import { socketSelector } from './selectors/socket';
 import { finishTyping } from './finishTyping';
 import axios from '../utils/axios';

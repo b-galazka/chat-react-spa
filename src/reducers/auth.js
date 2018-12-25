@@ -7,9 +7,9 @@ import {
     FETCHING_CURRENT_USER_FAILED,
     LOGOUT_REQUESTED,
     LOGOUT_FAILED
-} from 'actions/types/auth';
+} from '@src/actions/types/auth';
 
-import { CLEAR_STORE } from 'actions/types/entireStore';
+import { CLEAR_STORE } from '@src/actions/types/entireStore';
 
 const initialState = {
     authenticating: false,

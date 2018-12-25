@@ -9,7 +9,7 @@ import AuthenticatedPage from './authenticatedPage/AuthenticatedPage';
 import NotFound from './notFound/NotFound';
 import AppLoader from './appLoader/AppLoader';
 
-import { fetchCurrentUser } from 'actions/auth';
+import { fetchCurrentUser } from '@src/actions/auth';
 
 import './app.scss';
 

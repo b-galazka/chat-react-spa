@@ -5,7 +5,7 @@ import {
     ATTACHMENT_UPLOADED,
     ATTACHMENT_UPLOADING_ERROR,
     UPLOAD_ATTACHMENT_AGAIN
-} from 'actions/types/messagesAttachments';
+} from '@src/actions/types/messagesAttachments';
 
 export default function messagesAttachmentsReducer(state, action) {
 
