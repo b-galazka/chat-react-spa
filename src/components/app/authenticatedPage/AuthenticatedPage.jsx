@@ -6,6 +6,7 @@ import { withNamespaces } from 'react-i18next';
 import classNames from 'classnames';
 
 import AuthenticatedPageLoader from './authenticatedPageLoader/AuthenticatedPageLoader';
+import AuthenticatedPageHeader from './authenticatedPageHeader/AuthenticatedPageHeader';
 import Sidebar from './sidebar/Sidebar';
 import Chat from './chat/Chat';
 
@@ -81,6 +82,8 @@ class AuthenticatedPage extends Component {
 
                     </p>
                 }
+
+                <AuthenticatedPageHeader />
 
                 <div className={styles.pageAuthenticatedWrapper}>
                     <Sidebar />

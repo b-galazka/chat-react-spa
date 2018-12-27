@@ -1,0 +1,15 @@
+@import 'config';
+
+.authenticatedPageHeader {
+    padding: 14px;
+    border-bottom: 1px solid $blue;
+    text-align: center;
+
+    &Text {
+        font-size: 18px;
+    }
+
+    &CurrentUserName {
+        font-weight: bold;
+    }
+}

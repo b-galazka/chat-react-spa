@@ -38,6 +38,10 @@
         "socketDisconnected": "You have been disconnected. Wait for reconnection."
     },
 
+    "authenticatedPageHeader": {
+        "loggedAs": "You are logged as <1>{{ username }}</1>"
+    },
+
     "sidebar": {
         "logoutButtonText": "Log out",
         "sidebarTitle": "Users",
