@@ -11,7 +11,9 @@ import LoadingAnimation from '../../loadingAnimation/LoadingAnimation';
 import axios from '@src/utils/axios';
 import { createUser } from '@src/actions/users';
 
-import './registrationForm.scss';
+import sharedStyles from '@appComponent/shared.scss';
+import unauthPageSharedStyles from '../shared.scss';
+import styles from './registrationForm.scss';
 
 function mapStateToProps(state) {
 
@@ -65,13 +67,18 @@ class RegistrationForm extends FormComponent {
         const { userCreationError, userCreated, t } = this.props;
 
         return (
-            <section className="page__auth-section page__auth-section--registration">
+            <section className={unauthPageSharedStyles.authSection}>
                 <form onSubmit={this.submitForm}>
 
                     {
                         userCreationError &&
 
-                        <p className="auth-message auth-message--error">
+                        <p
+                            className={classNames(
+                                unauthPageSharedStyles.authMessage,
+                                unauthPageSharedStyles.authMessageError
+                            )}
+                        >
                             {this.renderUserCreationError()}
                         </p>
                     }
@@ -79,12 +86,17 @@ class RegistrationForm extends FormComponent {
                     {
                         userCreated &&
 
-                        <p className="auth-message auth-message--info">
+                        <p
+                            className={classNames(
+                                unauthPageSharedStyles.authMessage,
+                                unauthPageSharedStyles.authMessageInfo
+                            )}
+                        >
                             {t('registrationForm.userCreated')}
                         </p>
                     }
 
-                    <label className="auth-input__label">
+                    <label className={unauthPageSharedStyles.authInputLabel}>
                         {t('registrationForm.usernameLabel')}:
                     </label>
 
@@ -93,21 +105,21 @@ class RegistrationForm extends FormComponent {
                     {
                         this.state.usernameAvailabilityCheckingError &&
 
-                        <p className="auth-input__error">
+                        <p className={styles.authInputError}>
                             {t('registrationForm.usernameAvailabilityUnknownErr')}
                         </p>
                     }
 
                     {RegistrationForm.renderValidationErrors(usernameErrors)}
 
-                    <label className="auth-input__label">
+                    <label className={unauthPageSharedStyles.authInputLabel}>
                         {t('registrationForm.passwordLabel')}:
                     </label>
 
                     {this.renderPasswordField()}
                     {RegistrationForm.renderValidationErrors(passwordErrors)}
 
-                    <label className="auth-input__label">
+                    <label className={unauthPageSharedStyles.authInputLabel}>
                         {t('registrationForm.repeatedPasswordLabel')}:
                     </label>
 
@@ -158,14 +170,14 @@ class RegistrationForm extends FormComponent {
         const { usernameErrors, usernameAvailabilityChecking } = this.state;
 
         return (
-            <div className="auth-input__wrapper">
+            <div className={styles.authInputWrapper}>
                 <input
                     type="text"
                     className={
 
                         classNames({
-                            'auth-input': true,
-                            'auth-input--invalid': (usernameErrors.length !== 0)
+                            [unauthPageSharedStyles.authInput]: true,
+                            [unauthPageSharedStyles.authInputInvalid]: (usernameErrors.length !== 0)
                         })
                     }
 
@@ -178,7 +190,7 @@ class RegistrationForm extends FormComponent {
                 {
                     usernameAvailabilityChecking &&
 
-                    <div className="auth-input__loading-animation">
+                    <div className={styles.authInputLoadingAnimation}>
                         <LoadingAnimation
                             width="30px"
                             height="30px"
@@ -200,8 +212,8 @@ class RegistrationForm extends FormComponent {
                 className={
 
                     classNames({
-                        'auth-input': true,
-                        'auth-input--invalid': (passwordErrors.length !== 0)
+                        [unauthPageSharedStyles.authInput]: true,
+                        [unauthPageSharedStyles.authInputInvalid]: (passwordErrors.length !== 0)
                     })
                 }
 
@@ -223,8 +235,11 @@ class RegistrationForm extends FormComponent {
                 className={
 
                     classNames({
-                        'auth-input': true,
-                        'auth-input--invalid': (repeatedPasswordErrors.length !== 0)
+                        [unauthPageSharedStyles.authInput]: true,
+
+                        [unauthPageSharedStyles.authInputInvalid]: (
+                            repeatedPasswordErrors.length !== 0
+                        )
                     })
                 }
 
@@ -244,10 +259,10 @@ class RegistrationForm extends FormComponent {
         }
 
         const renderedErrors = errors.map((error, index) => (
-            <li className="auth-input__error" key={index}>{error}</li>
+            <li className={styles.authInputError} key={index}>{error}</li>
         ));
 
-        return <ul className="auth-input__errors-list">{renderedErrors}</ul>;
+        return <ul className={styles.authInputErrorsList}>{renderedErrors}</ul>;
     }
 
     renderSubmitButton() {
@@ -262,9 +277,9 @@ class RegistrationForm extends FormComponent {
                 className={
 
                     classNames({
-                        button: true,
-                        'button--auth-submit': true,
-                        'button--disabled': usernameAvailabilityChecking
+                        [sharedStyles.button]: true,
+                        [unauthPageSharedStyles.buttonSubmit]: true,
+                        [sharedStyles.buttonDisabled]: usernameAvailabilityChecking
                     })
                 }
             />

@@ -8,6 +8,9 @@ import { withNamespaces } from 'react-i18next';
 import FormComponent from '@src/components/abstracts/FormComponent';
 import { authenticate } from '@src/actions/auth';
 
+import sharedStyles from '@appComponent/shared.scss';
+import unauthPageSharedStyles from '../shared.scss';
+
 function mapStateToProps(state) {
 
     const { authError } = state.auth;
@@ -41,24 +44,29 @@ class LoginForm extends FormComponent {
         const { t } = this.props;
 
         return (
-            <section className="page__auth-section page__auth-section--login">
+            <section className={unauthPageSharedStyles.authSection}>
                 <form onSubmit={this.submitForm}>
 
                     {
                         this.props.authError &&
 
-                        <p className="auth-message auth-message--error">
+                        <p
+                            className={classNames(
+                                unauthPageSharedStyles.authMessage,
+                                unauthPageSharedStyles.authMessageError
+                            )}
+                        >
                             {this.renderAuthError()}
                         </p>
                     }
 
-                    <label className="auth-input__label">
+                    <label className={unauthPageSharedStyles.authInputLabel}>
                         {t('loginForm.usernameLabel')}:
                     </label>
 
                     {this.renderUsernameField()}
 
-                    <label className="auth-input__label">
+                    <label className={unauthPageSharedStyles.authInputLabel}>
                         {t('loginForm.passwordLabel')}:
                     </label>
 
@@ -93,7 +101,7 @@ class LoginForm extends FormComponent {
         return (
             <input
                 type="text"
-                className="auth-input"
+                className={unauthPageSharedStyles.authInput}
                 value={this.state.username}
                 onChange={this.updateInputValue('username')}
                 autoFocus
@@ -106,7 +114,7 @@ class LoginForm extends FormComponent {
         return (
             <input
                 type="password"
-                className="auth-input"
+                className={unauthPageSharedStyles.authInput}
                 value={this.state.password}
                 onChange={this.updateInputValue('password')}
             />
@@ -124,9 +132,9 @@ class LoginForm extends FormComponent {
                 className={
 
                     classNames({
-                        button: true,
-                        'button--auth-submit': true,
-                        'button--disabled': this.isInvalidDataProvided()
+                        [sharedStyles.button]: true,
+                        [unauthPageSharedStyles.buttonSubmit]: true,
+                        [sharedStyles.buttonDisabled]: this.isInvalidDataProvided()
                     })
                 }
             />

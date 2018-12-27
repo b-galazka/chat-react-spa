@@ -1,24 +1,22 @@
-@import '../config';
-
-.page--not-found {
+.pageNotFound {
     align-items: center;
+
+    &Wrapper {
+        width: 100%;
+        text-align: center;
+        padding: 10px;
+    }
+
+    &Title {
+        font-size: 4.7rem;
+    }
+
+    &Desc {
+        margin-bottom: 20px;
+    }
 }
 
-.page__wrapper--not-found {
-    width: 100%;
-    text-align: center;
-    padding: 10px;
-}
-
-.page__title--not-found {
-    font-size: 4.7rem;
-}
-
-.page__desc--not-found {
-    margin-bottom: 20px;
-}
-
-.button--homepage {
+.buttonHomepage {
     max-width: 300px;
     text-decoration: none;
     padding: 15px;

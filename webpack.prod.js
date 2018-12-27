@@ -33,9 +33,16 @@ module.exports = {
                 use: extractCSS.extract({
                     fallback: 'style-loader',
                     use: [
-                        { loader: 'css-loader', options: { importLoaders: 1 } },
+                        {
+                            loader: 'css-loader',
+                            options: {
+                                importLoaders: 1,
+                                modules: true,
+                                localIdentName: '[hash:base64:5]'
+                            }
+                        },
                         'postcss-loader',
-                        'sass-loader'
+                        { loader: 'sass-loader', options: { includePaths: ['./src/components/app'] } }
                     ]
                 })
             }
@@ -48,6 +55,9 @@ module.exports = {
 
     resolve: {
         extensions: ['.js', '.json', '.jsx'],
-        alias: { '@src': path.resolve(__dirname, './src') }
+        alias: {
+            '@src': path.resolve(__dirname, './src'),
+            '@appComponent': path.resolve(__dirname, './src/components/app')
+        }
     }
 };

@@ -27,9 +27,16 @@ module.exports = {
                 test: /\.scss$/,
                 use: [
                     'style-loader',
-                    { loader: 'css-loader', options: { importLoaders: 1 } },
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            importLoaders: 1,
+                            modules: true,
+                            localIdentName: '[name]__[local]___[hash:base64:5]'
+                        }
+                    },
                     'postcss-loader',
-                    'sass-loader'
+                    { loader: 'sass-loader', options: { includePaths: ['./src/components/app'] } }
                 ]
             }
         ]
@@ -41,7 +48,10 @@ module.exports = {
 
     resolve: {
         extensions: ['.js', '.json', '.jsx'],
-        alias: { '@src': path.resolve(__dirname, './src') }
+        alias: {
+            '@src': path.resolve(__dirname, './src'),
+            '@appComponent': path.resolve(__dirname, './src/components/app')
+        }
     },
 
     devServer: {

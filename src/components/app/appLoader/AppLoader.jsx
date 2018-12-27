@@ -6,7 +6,7 @@ import { compose } from 'redux';
 
 import LoadingAnimation from '../loadingAnimation/LoadingAnimation';
 
-import '../app.scss';
+import sharedStyles from '@appComponent/shared.scss';
 
 function mapStateToProps(state) {
 
@@ -22,11 +22,11 @@ class AppLoader extends Component {
         const { fetchingCurrentUserError, logoutError } = this.props;
 
         return (
-            <div className="page__loader">
+            <div className={sharedStyles.loader}>
 
                 {
                     fetchingCurrentUserError || logoutError ?
-                        <p className="page__loading-error">{this.renderErrorText()}</p> :
+                        <p className={sharedStyles.loaderError}>{this.renderErrorText()}</p> :
                         <LoadingAnimation />
                 }
 

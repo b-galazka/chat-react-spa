@@ -3,12 +3,14 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import propTypes from 'prop-types';
 import { withNamespaces } from 'react-i18next';
+import classNames from 'classnames';
 
 import AuthLoader from './authLoader/AuthLoader';
 import LoginForm from './loginForm/LoginForm';
 import RegistrationForm from './registrationForm/RegistrationForm';
 
-import './unauthenticatedPage.scss';
+import sharedStyles from '@appComponent/shared.scss';
+import styles from './unauthenticatedPage.scss';
 
 function mapStateToProps(state) {
 
@@ -27,8 +29,8 @@ class UnauthenticatedPage extends Component {
         const { authenticating, creatingUser } = this.props;
 
         return (
-            <div className="page page--unauthenticated">
-                <div className="page__wrapper--unauthenticated">
+            <div className={classNames(sharedStyles.page, styles.pageUnauthenticated)}>
+                <div className={styles.pageUnauthenticatedWrapper}>
                     <LoginForm />
                     <RegistrationForm />
                 </div>

@@ -1,35 +1,37 @@
-@import '../../config';
+@import 'config';
 
-.auth-input__wrapper {
-    position: relative;
-}
+.authInput {
+    &Wrapper {
+        position: relative;
+    }
 
-.auth-input__loading-animation {
-    position: absolute;
-    top: 0;
-    right: 0;
-    height: 100%;
-    width: 100px;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    padding-right: 5px;
-    border: 1px solid $blue;
-    border-left: none;
-    background-image: linear-gradient(
-        to right, 
-        rgba(255, 255, 255, 0),
-        rgba(255, 255, 255, 1) 70%
-    );
-}
+    &LoadingAnimation {
+        position: absolute;
+        top: 0;
+        right: 0;
+        height: 100%;
+        width: 100px;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        padding-right: 5px;
+        border: 1px solid $blue;
+        border-left: none;
+        background-image: linear-gradient(
+            to right,
+            rgba(255, 255, 255, 0),
+            rgba(255, 255, 255, 1) 70%
+        );
+    }
 
-.auth-input__errors-list {
-    list-style-type: none;
-}
+    &ErrorsList {
+        list-style-type: none;
+    }
 
-.auth-input__error {
-    font-size: 0.9rem;
-    text-align: justify;
-    padding-top: 5px;
-    color: $red;
+    &Error {
+        font-size: 0.9rem;
+        text-align: justify;
+        padding-top: 5px;
+        color: $red;
+    }
 }

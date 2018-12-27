@@ -1,10 +1,10 @@
-@import '../../config';
+@import 'config';
 
 .chat {
     display: flex;
     flex: 1 1 auto;
     flex-direction: column;
-    
+
     // Prevents stretching element horizontally when message contains very long word.
     // I also have no idea why it works.
     width: 0;
@@ -170,7 +170,7 @@
     }
 }
 
-.message:not(:last-child) .message__sending-error, 
+.message:not(:last-child) .message__sending-error,
 .attachment:not(:last-child) .attachment__uploading-error {
     margin-bottom: 10px;
 }

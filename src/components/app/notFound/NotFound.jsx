@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { withNamespaces } from 'react-i18next';
 import propTypes from 'prop-types';
-
-import './notFound.scss';
 import { compose } from 'redux';
+import classNames from 'classnames';
+
+import sharedStyles from '@appComponent/shared.scss';
+import styles from './notFound.scss';
 
 class NotFound extends Component {
 
@@ -13,12 +15,12 @@ class NotFound extends Component {
         const { t } = this.props;
 
         return (
-            <div className="page page--not-found">
-                <div className="page__wrapper--not-found">
-                    <h1 className="page__title--not-found">{t('notFoundPage.header')}</h1>
-                    <p className="page__desc--not-found">{t('notFoundPage.desc')}</p>
+            <div className={classNames(sharedStyles.page, styles.pageNotFound)}>
+                <div className={styles.pageNotFoundWrapper}>
+                    <h1 className={styles.pageNotFoundTitle}>{t('notFoundPage.header')}</h1>
+                    <p className={styles.pageNotFoundDesc}>{t('notFoundPage.desc')}</p>
 
-                    <Link to="/" className="button button--homepage">
+                    <Link to="/" className={classNames(sharedStyles.button, styles.buttonHomepage)}>
                         {t('notFoundPage.homepageButton')}
                     </Link>
                 </div>
