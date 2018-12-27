@@ -1,13 +1,13 @@
 .message {
-    &__data {
+    &Data {
         padding: 5px 15px;
     }
 
-    &--sending &__data {
+    &Sending &Data {
         opacity: 0.5;
     }
 
-    &--sent &__data:hover &__time {
+    &Sent &Data:hover &Time {
         display: block;
     }
 }

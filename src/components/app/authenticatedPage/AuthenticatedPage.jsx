@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators, compose } from 'redux';
 import propTypes from 'prop-types';
 import { withNamespaces } from 'react-i18next';
+import classNames from 'classnames';
 
 import AuthenticatedPageLoader from './authenticatedPageLoader/AuthenticatedPageLoader';
 import Sidebar from './sidebar/Sidebar';
@@ -11,7 +12,8 @@ import Chat from './chat/Chat';
 import { fetchMessages, markMessagesAsRead } from '@src/actions/messages';
 import { initSocket } from '@src/actions/socket';
 
-import './authenticatedPage.scss';
+import sharedStyles from '@appComponent/shared.scss';
+import styles from './authenticatedPage.scss';
 
 function mapStateToProps(state) {
 
@@ -61,7 +63,7 @@ class AuthenticatedPage extends Component {
 
         return (
             <div
-                className="page page--authenticated"
+                className={classNames(sharedStyles.page, styles.pageAuthenticated)}
                 onMouseMove={this.markMessagesAsRead}
                 onKeyDown={this.markMessagesAsRead}
             >
@@ -69,7 +71,7 @@ class AuthenticatedPage extends Component {
                 {
                     !socketConnected &&
 
-                    <p className="page__no-connection">
+                    <p className={styles.pageAuthenticatedNoConnection}>
 
                         {
                             socketConnectionError ?
@@ -80,7 +82,7 @@ class AuthenticatedPage extends Component {
                     </p>
                 }
 
-                <div className="page__wrapper--authenticated">
+                <div className={styles.pageAuthenticatedWrapper}>
                     <Sidebar />
                     <Chat />
                 </div>

@@ -1,33 +1,9 @@
 .attachment {
-    &__desc {
-        padding: 5px 15px;
-        position: relative;
-
-        &::before {
-            content: '';
-            height: 17px;
-            width: 17px;
-            margin: 0 3px -3px -1px;
-            display: inline-block;
-            background-image: url('/img/small-file-icon-black.png');
-            background-repeat: no-repeat;
-            background-size: contain;
-            background-position: center;
-        }
-    }
-
-    &--my &__desc {
-
-        &::before {
-            background-image: url('/img/small-file-icon.png');
-        }
-    }
-
-    &__data:hover &__time {
+    &Data:hover &Time {
         display: block;
     }
 
-    &__data--openable-file, &--my &__data--openable-file {
+    &DataOpenableFile, &My &DataOpenableFile {
         border: none;
         background-color: transparent;
         color: #000;

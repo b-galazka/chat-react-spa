@@ -1,7 +1,7 @@
 @import 'config';
 
 .attachment {
-	&__upload-data {
+	&UploadData {
         background-color: rgba($blue, 0.5);
         color: #FFF;
         overflow: hidden;
@@ -11,7 +11,7 @@
         border-bottom-right-radius: 2px;
     }
 
-    &__upload-progress-bar {
+    &UploadProgressBar {
         position: absolute;
         left: 0;
         top: 0;

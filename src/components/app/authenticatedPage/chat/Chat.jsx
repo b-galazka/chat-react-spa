@@ -4,10 +4,6 @@ import { bindActionCreators, compose } from 'redux';
 import propTypes from 'prop-types';
 import { withNamespaces } from 'react-i18next';
 
-// must be imported before children components are imported
-// let children components ovverride their styles
-import './chat.scss';
-
 import MessageForm from './messageForm/MessageForm';
 import Message from './message/Message';
 import LoadingAnimation from '../../loadingAnimation/LoadingAnimation';
@@ -17,6 +13,8 @@ import Attachment from './attachment/Attachment';
 import { fetchMoreMessages } from '@src/actions/messages';
 import datePropValidator from '@src/utils/datePropValidator';
 import timeUnits from '@src/utils/timeUnitsInMs';
+
+import styles from './chat.scss';
 
 function mapStateToProps(state) {
 
@@ -74,9 +72,9 @@ class Chat extends Component {
         } = this.props;
 
         return (
-            <section className="chat">
+            <section className={styles.chat}>
                 <section
-                    className="chat__messages-area"
+                    className={styles.chatMessagesArea}
                     ref={(ref) => { this.scrollableArea = ref; }}
                     onScroll={this.fetchMoreMessages}
                 >
@@ -84,7 +82,7 @@ class Chat extends Component {
                     {
                         fetchingMoreMessages &&
 
-                        <figure className="chat__fetching-more-messages-loader">
+                        <figure className={styles.chatFetchingMoreMessagesLoader}>
                             <LoadingAnimation width="50px" height="50px" />
                         </figure>
                     }
@@ -92,14 +90,14 @@ class Chat extends Component {
                     {
                         fetchingMoreMessagesError &&
 
-                        <p className="chat__fetching-more-messages-error">
+                        <p className={styles.chatFetchingMoreMessagesError}>
                             {t('chat.fetchingMoreMessagesError')}
                         </p>
                     }
 
                     {
                         (sendingMessages.length === 0 && sentMessages.length === 0) &&
-                        <p className="chat__no-messages">{t('chat.noMessages')}</p>
+                        <p className={styles.chatNoMessages}>{t('chat.noMessages')}</p>
                     }
 
                     {this.renderSentMessages()}
@@ -227,7 +225,7 @@ class Chat extends Component {
                 lastUsername: typingUsers[typingUsers.length - 1]
             });
 
-        return <p className="chat__typing-users">{text}</p>;
+        return <p className={styles.chatTypingUsers}>{text}</p>;
     }
 
     shouldDisplayTimeHeader(messageIndex) {

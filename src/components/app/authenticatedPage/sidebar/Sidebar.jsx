@@ -3,11 +3,13 @@ import { connect } from 'react-redux';
 import { bindActionCreators, compose } from 'redux';
 import propTypes from 'prop-types';
 import { withNamespaces } from 'react-i18next';
+import classNames from 'classnames';
 
 import FormComponent from '@src/components/abstracts/FormComponent';
 import { logout } from '@src/actions/auth';
 
-import './sidebar.scss';
+import sharedStyles from '@appComponent/shared.scss';
+import styles from './sidebar.scss';
 
 function mapStateToProps(state) {
 
@@ -40,14 +42,17 @@ class Sidebar extends FormComponent {
         const offlineUsers = this.getUsers(false);
 
         return (
-            <section className="sidebar">
-                <button className="button button--logout" onClick={this.props.logout}>
+            <section className={styles.sidebar}>
+                <button
+                    className={classNames(sharedStyles.button, styles.buttonLogout)}
+                    onClick={this.props.logout}
+                >
                     {t('sidebar.logoutButtonText')}
                 </button>
 
                 {this.renderSidebarHeader()}
 
-                <section className="users">
+                <section className={styles.users}>
                     {this.renderUsers(onlineUsers, t('sidebar.onlineUsersSectionTitle'))}
                     {this.renderUsers(offlineUsers, t('sidebar.offlineUsersSectionTitle'))}
                 </section>
@@ -60,12 +65,12 @@ class Sidebar extends FormComponent {
         const { t } = this.props;
 
         return (
-            <header className="sidebar__header">
-                <h1 className="sidebar__title">{t('sidebar.sidebarTitle')}</h1>
+            <header className={styles.sidebarHeader}>
+                <h1 className={styles.sidebarTitle}>{t('sidebar.sidebarTitle')}</h1>
 
                 <input
                     type="text"
-                    className="sidebar__search-field"
+                    className={styles.sidebarSearchField}
                     value={this.state.searchFieldValue}
                     onChange={this.updateInputValue('searchFieldValue')}
                     placeholder={t('sidebar.searchFieldPlaceholder')}
@@ -83,17 +88,17 @@ class Sidebar extends FormComponent {
         ));
 
         return (
-            <section className="users__wrapper">
-                <h2 className="users__title">
+            <section className={styles.usersWrapper}>
+                <h2 className={styles.usersTitle}>
                     {sectionTitle} ({users.length})
                 </h2>
 
                 {
                     (users.length === 0) ?
 
-                        <p className="users__empty-list">{t('sidebar.emptyUsersListMsg')}</p> :
+                        <p className={styles.usersEmptyList}>{t('sidebar.emptyUsersListMsg')}</p> :
 
-                        <ul className="users__list">{usersListItems}</ul>
+                        <ul className={styles.usersList}>{usersListItems}</ul>
                 }
 
             </section>
@@ -122,7 +127,7 @@ class Sidebar extends FormComponent {
             if (searchQueryMatch) {
 
                 username.push(
-                    <span className='users__search-query-match' key={index}>
+                    <span className={styles.usersSearchQueryMatch} key={index}>
                         {searchQueryMatch}
                     </span>
                 );

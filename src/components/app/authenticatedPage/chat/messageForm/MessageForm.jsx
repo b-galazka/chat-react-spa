@@ -11,7 +11,8 @@ import FormComponent from '@src/components/abstracts/FormComponent';
 import { sendMessage, startTyping, finishTyping } from '@src/actions/messages';
 import { startAttachmentUploading } from '@src/actions/messagesAttachments';
 
-import './messageForm.scss';
+import sharedStyles from '@appComponent/shared.scss';
+import styles from './messageForm.scss';
 
 function mapStateToProps(state) {
 
@@ -50,7 +51,7 @@ class MessageForm extends FormComponent {
     render() {
 
         return (
-            <form className="message-form" onSubmit={this.submitForm}>
+            <form className={styles.messageForm} onSubmit={this.submitForm}>
                 {this.renderTextarea()}
                 {this.renderFileUploadButton()}
                 {this.renderSendMessageButton()}
@@ -64,7 +65,7 @@ class MessageForm extends FormComponent {
 
         return (
             <textarea
-                className="message-form__textarea"
+                className={styles.messageFormTextarea}
                 value={this.state.messageContent}
                 placeholder={t('messageForm.textareaPlaceholder')}
                 onChange={this.updateInputValue('messageContent')}
@@ -82,10 +83,11 @@ class MessageForm extends FormComponent {
     renderFileUploadButton() {
 
         return (
-            <div className="message-form__file-upload-wrapper">
+            <div className={styles.fileUpload}>
                 <input
                     type="file"
                     id="fileUpload"
+                    className={styles.fileUploadInput}
                     multiple
                     onChange={this.onFileInputValueChangeHandler}
                     ref={(ref) => { this.fileInputRef = ref; }}
@@ -93,9 +95,9 @@ class MessageForm extends FormComponent {
 
                 <label
                     htmlFor="fileUpload"
-                    className="message-form__file-upload-button"
+                    className={styles.fileUploadButton}
                 >
-                    <figure className="message-form__file-upload-icon"></figure>
+                    <figure className={styles.fileUploadIcon}></figure>
                 </label>
             </div>
         );
@@ -110,9 +112,9 @@ class MessageForm extends FormComponent {
                 className={
 
                     classNames({
-                        button: true,
-                        'message-form__submit-button': true,
-                        'button--disabled': this.isMessageEmpty()
+                        [sharedStyles.button]: true,
+                        [styles.messageFormSubmitButton]: true,
+                        [sharedStyles.buttonDisabled]: this.isMessageEmpty()
                     })
                 }
             >

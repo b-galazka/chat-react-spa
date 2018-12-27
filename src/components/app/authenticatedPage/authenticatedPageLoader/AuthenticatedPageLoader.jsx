@@ -3,10 +3,12 @@ import { connect } from 'react-redux';
 import propTypes from 'prop-types';
 import { withNamespaces } from 'react-i18next';
 import { compose } from 'redux';
+import classNames from 'classnames';
 
 import LoadingAnimation from '../../loadingAnimation/LoadingAnimation';
 
-import './authenticatedPageLoader.scss';
+import sharedStyles from '@appComponent/shared.scss';
+import styles from './authenticatedPageLoader.scss';
 
 function mapStateToProps(state) {
 
@@ -27,12 +29,12 @@ function AuthenticatedPageLoader({
 }) {
 
     return (
-        <div className="page__loader page__loader--authenticated">
+        <div className={classNames(sharedStyles.loader, styles.loaderAuthenticated)}>
 
             {
                 (usersFetchingError || messagesFetchingError || socketConnectionError) ?
 
-                    <p className="page__loading-error">{t('fetchingError')}</p> :
+                    <p className={sharedStyles.loaderError}>{t('fetchingError')}</p> :
 
                     <LoadingAnimation />
             }

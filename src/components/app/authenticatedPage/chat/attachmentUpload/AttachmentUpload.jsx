@@ -3,11 +3,13 @@ import { bindActionCreators, compose } from 'redux';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
 import { withNamespaces } from 'react-i18next';
+import classNames from 'classnames';
 
 import prettifyFileSize from '@src/utils/prettifyFileSize';
 import { uploadAttachmentAgain } from '@src/actions/messagesAttachments';
 
-import './attachmentUpload.scss';
+import chatSharedStyles from '../shared.scss';
+import styles from './attachmentUpload.scss';
 
 function mapDispatchToProps(dispatch) {
 
@@ -31,16 +33,26 @@ class AttachmentUpload extends Component {
         const uploadProgress = `${uploadedBytes / file.size * 100}%`;
 
         return (
-            <article className="attachment attachment--my">
-                <div className="attachment__data-wrapper">
-                    <div className="attachment__upload-data">
+            <article
+                className={classNames(
+                    chatSharedStyles.attachment,
+                    chatSharedStyles.attachmentMy
+                )}
+            >
+                <div className={chatSharedStyles.attachmentDataWrapper}>
+                    <div
+                        className={classNames(
+                            chatSharedStyles.attachmentUploadData,
+                            styles.attachmentUploadData
+                        )}
+                    >
                         <div
-                            className="attachment__upload-progress-bar"
+                            className={styles.attachmentUploadProgressBar}
                             style={{ width: uploadProgress }}
                         >
                         </div>
 
-                        <p className="attachment__desc">
+                        <p className={chatSharedStyles.attachmentDesc}>
                             {this.renderDescription()}
                         </p>
                     </div>
@@ -81,7 +93,11 @@ class AttachmentUpload extends Component {
         return (
             <p
                 onClick={this.uploadAttachment}
-                className="attachment__uploading-error attachment__uploading-error--clickable"
+
+                className={classNames(
+                    chatSharedStyles.attachmentUploadingError,
+                    chatSharedStyles.attachmentUploadingErrorClickable
+                )}
             >
                 {t('attachmentUpload.unknownError')}
             </p>

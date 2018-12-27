@@ -6,10 +6,9 @@
     flex-direction: column;
 
     // Prevents stretching element horizontally when message contains very long word.
-    // I also have no idea why it works.
     width: 0;
 
-    &__messages-area {
+    &MessagesArea {
         overflow-y: auto;
         width: 100%;
         flex: 1 1 auto;
@@ -17,165 +16,29 @@
         padding: 0 15px;
 
         // Prevents stretching element to height of all its children.
-        // I have no idea why it works, but it does.
         height: 0;
     }
 
-    &__no-messages {
+    &NoMessages {
         text-align: center;
         margin-top: 100px;
         font-size: 1.1rem;
     }
 
-    &__fetching-more-messages-loader, &__fetching-more-messages-error {
+    &FetchingMoreMessagesLoader, &FetchingMoreMessagesError {
         text-align: center;
         padding-top: 20px;
     }
 
-    &__fetching-more-messages-error {
+    &FetchingMoreMessagesError {
         color: $red;
     }
 
-    &__typing-users {
+    &TypingUsers {
         margin-bottom: 5px;
         padding: 0 15px;
         color: $textGrey;
         max-height: 50px;
         overflow: auto;
     }
-}
-
-.message, .attachment {
-    padding-top: 2px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-
-    &__data-wrapper {
-        max-width: 60%;
-    }
-
-    &__data {
-        background-color: $lighterGrey;
-        border-top-left-radius: 2px;
-        border-bottom-left-radius: 2px;
-        border-top-right-radius: 15px;
-        border-bottom-right-radius: 15px;
-    }
-
-    &__time {
-        display: none;
-        position: absolute;
-        top: 50%;
-        white-space: nowrap;
-        transform: translate(0, -50%);
-        left: 100%;
-        color: #fff;
-        background-color: $dark;
-        padding: 2px 5px;
-        border-radius: 2px;
-        margin-left: 15px;
-        z-index: 1000;
-
-        &::after {
-            content: '';
-            position: absolute;
-            right: 100%;
-            display: block;
-            top: 50%;
-            transform: translate(0, -50%);
-            border-right: 10px solid $dark;
-            border-top: 5px solid transparent;
-            border-bottom: 5px solid transparent;
-        }
-    }
-
-    &__author, &__time-header {
-        padding-top: 13px;
-        color: $textGrey;
-    }
-
-    &__time-header {
-        text-align: center;
-        width: 100%;
-        padding: 30px 0;
-    }
-
-    &--with-time-header &__author {
-        padding-top: 0;
-    }
-
-    &--my {
-        padding-top: 30px;
-        align-items: flex-end;
-
-        & + & {
-            padding-top: 2px;
-        }
-    }
-
-    &--my &__data {
-        background-color: $blue;
-        color: #fff;
-        border-top-left-radius: 15px;
-        border-bottom-left-radius: 15px;
-        border-top-right-radius: 2px;
-        border-bottom-right-radius: 2px;
-    }
-
-    &--my &--with-time-header {
-        padding-top: 0;
-    }
-
-    &--my &__data-wrapper, &--my &__author {
-        text-align: right;
-    }
-
-    &--my &__time {
-        left: auto;
-        right: 100%;
-        margin-right: 15px;
-        margin-left: 0;
-
-        &::after {
-            right: auto;
-            left: 100%;
-            border-right: none;
-            border-left: 10px solid $dark;
-            border-top: 5px solid transparent;
-            border-bottom: 5px solid transparent;
-        }
-    }
-}
-
-.attachment__upload-data, .message__data, .attachment__data {
-    position: relative;
-    max-width: 100%;
-    display: inline-block;
-    text-align: left;
-}
-
-.message__sending-error, .attachment__uploading-error {
-    text-align: right;
-    color: $red;
-    font-size: 0.8rem;
-    margin-top: 2px;
-}
-
-.message__sending-error, .attachment__uploading-error--clickable {
-    cursor: pointer;
-
-    &:hover {
-        text-decoration: underline;
-    }
-}
-
-.message:not(:last-child) .message__sending-error,
-.attachment:not(:last-child) .attachment__uploading-error {
-    margin-bottom: 10px;
-}
-
-.message__content, .attachment__desc {
-    white-space: pre-wrap;
-    word-wrap: break-word;
 }

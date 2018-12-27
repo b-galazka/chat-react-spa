@@ -10,7 +10,8 @@ import datePropValidator from '@src/utils/datePropValidator';
 import ChatMessageComponent from '@src/components/abstracts/ChatMessageComponent';
 import config from '@src/config';
 
-import './attachment.scss';
+import chatSharedStyles from '../shared.scss';
+import styles from './attachment.scss';
 
 function mapStateToProps(state) {
 
@@ -37,40 +38,48 @@ class Attachment extends ChatMessageComponent {
         } = this.props;
 
         const { author } = message;
+        const isMyMessage = (username === author.username);
 
         return (
             <article
                 className={
 
                     classNames({
-                        attachment: true,
-                        'attachment--my': (username === author.username),
-                        'attachment--with-time-header': displayTimeHeader
+                        [chatSharedStyles.attachment]: true,
+                        [chatSharedStyles.attachmentMy]: isMyMessage,
+                        [styles.attachmentMy]: isMyMessage,
+                        [chatSharedStyles.attachmentWithTimeHeader]: displayTimeHeader
                     })
                 }
             >
 
                 {this.renderTimeHeader()}
 
-                <div className="attachment__data-wrapper">
+                <div className={chatSharedStyles.attachmentDataWrapper}>
 
                     {
                         displayAuthor &&
-                        <p className="attachment__author">{author.username}</p>
+                        <p className={chatSharedStyles.attachmentAuthor}>{author.username}</p>
                     }
 
                     <div
                         className={
 
                             classNames({
-                                attachment__data: true
-                                // 'attachment__data--openable-file': this.isOpenableFile()
+                                [chatSharedStyles.attachmentData]: true,
+                                [styles.attachmentData]: true
+                                // [styles.attachmentDataOpenableFile]: this.isOpenableFile()
                             })
                         }
                     >
                         {this.renderAttachmentData()}
 
-                        <p className="attachment__time">
+                        <p
+                            className={classNames(
+                                chatSharedStyles.attachmentTime,
+                                styles.attachmentTime
+                            )}
+                        >
                             {this.renderMessageTimeText()}
                         </p>
                     </div>
@@ -99,7 +108,7 @@ class Attachment extends ChatMessageComponent {
         }
 
         return (
-            <p className="attachment__time-header">
+            <p className={chatSharedStyles.attachmentTimeHeader}>
                 {this.renderTimeHeaderText()}
             </p>
         );
@@ -118,7 +127,7 @@ class Attachment extends ChatMessageComponent {
             '?action=download&name=' + encodeURIComponent(name);
 
         return (
-            <p className="attachment__desc">
+            <p className={chatSharedStyles.attachmentDesc}>
                 <a href={fileUrl} target="_blank" rel="noopener noreferrer">{name}</a>{' '}
                 ({prettifyFileSize(size)})
             </p>

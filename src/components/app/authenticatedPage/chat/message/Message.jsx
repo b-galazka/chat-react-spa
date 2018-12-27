@@ -11,7 +11,8 @@ import { sendMessageAgain } from '@src/actions/messages';
 import ChatMessageComponent from '@src/components/abstracts/ChatMessageComponent';
 import datePropValidator from '@src/utils/datePropValidator';
 
-import './message.scss';
+import chatSharedStyles from '../shared.scss';
+import styles from './message.scss';
 
 function mapStateToProps(state) {
 
@@ -53,26 +54,26 @@ class Message extends ChatMessageComponent {
                 className={
 
                     classNames({
-                        message: true,
-                        'message--sending': sending,
-                        'message--sent': !sending,
-                        'message--my': (username === messageAuthor || sending),
-                        'message--with-time-header': displayTimeHeader
+                        [chatSharedStyles.message]: true,
+                        [styles.messageSending]: sending,
+                        [styles.messageSent]: !sending,
+                        [chatSharedStyles.messageMy]: (username === messageAuthor || sending),
+                        [chatSharedStyles.messageWithTimeHeader]: displayTimeHeader
                     })
                 }
             >
 
                 {this.renderTimeHeader()}
 
-                <div className="message__data-wrapper">
+                <div className={chatSharedStyles.messageDataWrapper}>
 
                     {
                         displayAuthor &&
-                        <p className="message__author">{messageAuthor}</p>
+                        <p className={chatSharedStyles.messageAuthor}>{messageAuthor}</p>
                     }
 
-                    <div className="message__data">
-                        <p className="message__content">
+                    <div className={classNames(chatSharedStyles.messageData, styles.messageData)}>
+                        <p className={chatSharedStyles.messageContent}>
                             <MessageContent>{message.content}</MessageContent>
                         </p>
 
@@ -105,7 +106,7 @@ class Message extends ChatMessageComponent {
         }
 
         return (
-            <p className="message__time-header">
+            <p className={chatSharedStyles.messageTimeHeader}>
                 {this.renderTimeHeaderText()}
             </p>
         );
@@ -121,7 +122,7 @@ class Message extends ChatMessageComponent {
         }
 
         return (
-            <p className="message__time">
+            <p className={classNames(chatSharedStyles.messageTime, styles.messageTime)}>
                 {this.renderMessageTimeText()}
             </p>
         );
@@ -137,7 +138,7 @@ class Message extends ChatMessageComponent {
         }
 
         return (
-            <p className="message__sending-error" onClick={this.sendMessage}>
+            <p className={chatSharedStyles.messageSendingError} onClick={this.sendMessage}>
                 {t('message.sendingError')}
             </p>
         );

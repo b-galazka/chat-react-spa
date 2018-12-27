@@ -1,0 +1,159 @@
+@import 'config';
+
+.message, .attachment {
+    padding-top: 2px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    &DataWrapper {
+        max-width: 60%;
+    }
+
+    &Data {
+        background-color: $lighterGrey;
+        border-top-left-radius: 2px;
+        border-bottom-left-radius: 2px;
+        border-top-right-radius: 15px;
+        border-bottom-right-radius: 15px;
+    }
+
+    &Time {
+        display: none;
+        position: absolute;
+        top: 50%;
+        white-space: nowrap;
+        transform: translate(0, -50%);
+        left: 100%;
+        color: #fff;
+        background-color: $dark;
+        padding: 2px 5px;
+        border-radius: 2px;
+        margin-left: 15px;
+        z-index: 1000;
+
+        &::after {
+            content: '';
+            position: absolute;
+            right: 100%;
+            display: block;
+            top: 50%;
+            transform: translate(0, -50%);
+            border-right: 10px solid $dark;
+            border-top: 5px solid transparent;
+            border-bottom: 5px solid transparent;
+        }
+    }
+
+    &Author, &TimeHeader {
+        padding-top: 13px;
+        color: $textGrey;
+    }
+
+    &TimeHeader {
+        text-align: center;
+        width: 100%;
+        padding: 30px 0;
+    }
+
+    &WithTimeHeader &Author {
+        padding-top: 0;
+    }
+
+    &My {
+        padding-top: 30px;
+        align-items: flex-end;
+
+        & + & {
+            padding-top: 2px;
+        }
+    }
+
+    &My &Data {
+        background-color: $blue;
+        color: #fff;
+        border-top-left-radius: 15px;
+        border-bottom-left-radius: 15px;
+        border-top-right-radius: 2px;
+        border-bottom-right-radius: 2px;
+    }
+
+    &My &WithTimeHeader {
+        padding-top: 0;
+    }
+
+    &My &DataWrapper, &My &Author {
+        text-align: right;
+    }
+
+    &My &Time {
+        left: auto;
+        right: 100%;
+        margin-right: 15px;
+        margin-left: 0;
+
+        &::after {
+            right: auto;
+            left: 100%;
+            border-right: none;
+            border-left: 10px solid $dark;
+            border-top: 5px solid transparent;
+            border-bottom: 5px solid transparent;
+        }
+    }
+}
+
+.attachment {
+    &Desc {
+        padding: 5px 15px;
+        position: relative;
+
+        &::before {
+            content: '';
+            height: 17px;
+            width: 17px;
+            margin: 0 3px -3px -1px;
+            display: inline-block;
+            background-image: url('/img/small-file-icon-black.png');
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-position: center;
+        }
+    }
+
+    &My &Desc::before {
+        background-image: url('/img/small-file-icon.png');
+    }
+}
+
+.messageContent, .attachmentDesc {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+.attachmentUploadData, .messageData, .attachmentData {
+    position: relative;
+    max-width: 100%;
+    display: inline-block;
+    text-align: left;
+}
+
+.messageSendingError, .attachmentUploadingError {
+    text-align: right;
+    color: $red;
+    font-size: 0.8rem;
+    margin-top: 2px;
+}
+
+.messageSendingError, .attachmentUploadingErrorClickable {
+    cursor: pointer;
+
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+.message:not(:last-child) .messageSendingError,
+.attachment:not(:last-child) .attachmentUploadingEerror {
+    margin-bottom: 10px;
+}
