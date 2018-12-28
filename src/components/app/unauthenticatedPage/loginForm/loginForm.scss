@@ -1,0 +1,7 @@
+@import 'config';
+
+.loginForm {
+    @media (max-width: $extraSmallWidth) {
+        margin-bottom: 60px;
+    }
+}

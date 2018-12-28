@@ -2,7 +2,7 @@
 
 .sidebar {
     width: 20%;
-    min-width: 200px;
+    min-width: 250px;
     max-width: 350px;
     display: flex;
     flex: 0 0 auto;
@@ -10,6 +10,21 @@
     border-right: 1px solid $blue;
     padding-bottom: 10px;
     text-align: center;
+
+    @media (max-width: $smallWidth) {
+        position: fixed;
+        z-index: 100;
+        background-color: #fff;
+        height: calc(100vh - 50px);
+        width: 75%;
+        min-width: 250px;
+        max-width: 350px;
+        left: -100%;
+
+        &Opened {
+            left: 0;
+        }
+    }
 
     &Header {
         flex: 0 0 auto;

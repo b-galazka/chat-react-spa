@@ -7,6 +7,10 @@
     flex: 0 0 auto;
     border-top: 1px solid $blue;
 
+    @media (max-width: $extraSmallWidth) {
+        height: 50px;
+    }
+
     &Textarea {
         flex: 1 1 auto;
         resize: none;
@@ -23,12 +27,21 @@
         padding: 0 25px;
         flex: 0 0 auto;
         width: auto!important;
+
+        @media (max-width: $extraSmallWidth) {
+            min-width: 50px;
+            padding: 0 10px;
+        }
     }
 }
 
 .fileUpload {
     border-left: 1px solid $blue;
     width: 70px;
+
+    @media (max-width: $extraSmallWidth) {
+        width: 35px;
+    }
 
     &Input {
         display: none;
@@ -41,6 +54,10 @@
         align-items: center;
         padding: 10px;
         height: 100%;
+
+        @media (max-width: $extraSmallWidth) {
+            padding: 5px;
+        }
     }
 
     &Icon {

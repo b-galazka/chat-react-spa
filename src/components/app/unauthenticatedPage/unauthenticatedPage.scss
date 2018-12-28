@@ -4,14 +4,18 @@
     align-items: center;
     justify-content: center;
     position: relative;
+    padding: 43px 0 60px 0;
 
     &Wrapper {
-        padding: 60px 10px 10px 10px;
-        transform: translateY(-30px);
+        padding: 0 10px;
         max-width: 900px!important;
         width: 100%;
         display: flex;
         flex-wrap: wrap;
         justify-content: space-between;
+
+        @media (max-width: $extraSmallWidth) {
+            flex-direction: column;
+        }
     }
 }

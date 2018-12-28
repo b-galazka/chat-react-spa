@@ -19,4 +19,5 @@ render(
 
 // TODO: add "keep me signed in"
 // TODO: reorganize styles
-// TODO: add RWD
+// TODO: add mobile sidebar opening
+// TODO: fix fetching prev messages on big screens

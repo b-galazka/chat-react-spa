@@ -10,6 +10,7 @@ import { authenticate } from '@src/actions/auth';
 
 import sharedStyles from '@appComponent/shared.scss';
 import unauthPageSharedStyles from '../shared.scss';
+import styles from './loginForm.scss';
 
 function mapStateToProps(state) {
 
@@ -44,7 +45,7 @@ class LoginForm extends FormComponent {
         const { t } = this.props;
 
         return (
-            <section className={unauthPageSharedStyles.authSection}>
+            <section className={classNames(unauthPageSharedStyles.authSection, styles.loginForm)}>
                 <form onSubmit={this.submitForm}>
 
                     {
