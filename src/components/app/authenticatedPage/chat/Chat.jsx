@@ -128,7 +128,7 @@ class Chat extends Component {
 
         // TODO: fix scroll down bug
 
-        if (this.areOlderMessagesBeingFetched()) {
+        if (this.areOlderMessagesFetched()) {
 
             this.scrollToTheLastPosition();
             this.firstFetchedMessageID = this.props.sentMessages[0].id;
@@ -309,22 +309,17 @@ class Chat extends Component {
         this.props.fetchMoreMessages(sentMessages[0].id);
     }
 
-    areOlderMessagesBeingFetched(props = this.props) {
+    areOlderMessagesFetched(props = this.props) {
 
         const firstMessage = props.sentMessages[0];
         const { firstFetchedMessageID } = this;
 
-        if (!firstMessage) {
-
-            return false;
-        }
-
-        return (firstMessage.id !== firstFetchedMessageID);
+        return !!firstMessage && (firstMessage.id !== firstFetchedMessageID);
     }
 
     onOlderMessagesFetching(nextProps) {
 
-        if (this.areOlderMessagesBeingFetched(nextProps)) {
+        if (this.areOlderMessagesFetched(nextProps)) {
 
             this.scrollableAreaPrevScrollHeight = this.scrollableArea.scrollHeight;
         }
