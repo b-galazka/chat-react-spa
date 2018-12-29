@@ -65,6 +65,7 @@ module.exports = {
                     "componentWillReceiveProps",
                     "shouldComponentUpdate",
                     "componentWillUpdate",
+                    "getSnapshotBeforeUpdate",
                     "componentDidUpdate",
                     "componentWillUnmount",
                 ]
