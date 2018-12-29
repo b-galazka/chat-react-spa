@@ -15,8 +15,9 @@ function mapStateToProps(state) {
 
     const { users } = state.users;
     const { username } = state.auth.user;
+    const { isMobileSidebarOpened } = state.ui;
 
-    return { users, username };
+    return { users, username, isMobileSidebarOpened };
 }
 
 function mapDispatchToProps(dispatch) {
@@ -37,12 +38,19 @@ class Sidebar extends FormComponent {
 
     render() {
 
-        const { t } = this.props;
+        const { t, isMobileSidebarOpened } = this.props;
         const onlineUsers = this.getUsers(true);
         const offlineUsers = this.getUsers(false);
 
         return (
-            <section className={styles.sidebar}>
+            <section
+                className={
+                    classNames({
+                        [styles.sidebar]: true,
+                        [styles.sidebarMobileOpened]: isMobileSidebarOpened
+                    })
+                }
+            >
                 <button
                     className={classNames(sharedStyles.button, styles.buttonLogout)}
                     onClick={this.props.logout}
@@ -160,6 +168,7 @@ Sidebar.propTypes = {
     // redux
     username: propTypes.string.isRequired,
     logout: propTypes.func.isRequired,
+    isMobileSidebarOpened: propTypes.bool.isRequired,
 
     users: propTypes.arrayOf(
         propTypes.shape({
