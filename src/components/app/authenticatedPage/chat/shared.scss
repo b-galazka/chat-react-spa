@@ -1,4 +1,4 @@
-@import 'config';
+@import 'variables';
 
 .message, .attachment {
     padding-top: 2px;
@@ -8,6 +8,10 @@
 
     &DataWrapper {
         max-width: 60%;
+
+        @media(max-width: $extraSmallWidth) {
+            max-width: 80%;
+        }
     }
 
     &Data {

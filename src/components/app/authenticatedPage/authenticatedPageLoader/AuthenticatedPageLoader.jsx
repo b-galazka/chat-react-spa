@@ -5,7 +5,7 @@ import { withNamespaces } from 'react-i18next';
 import { compose } from 'redux';
 import classNames from 'classnames';
 
-import LoadingAnimation from '../../loadingAnimation/LoadingAnimation';
+import LoadingAnimation from '@src/components/utils/loadingAnimation/LoadingAnimation';
 
 import sharedStyles from '@appComponent/shared.scss';
 import styles from './authenticatedPageLoader.scss';

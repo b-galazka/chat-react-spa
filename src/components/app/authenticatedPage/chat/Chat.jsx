@@ -6,7 +6,7 @@ import { withNamespaces } from 'react-i18next';
 
 import MessageForm from './messageForm/MessageForm';
 import Message from './message/Message';
-import LoadingAnimation from '../../loadingAnimation/LoadingAnimation';
+import LoadingAnimation from '@src/components/utils/loadingAnimation/LoadingAnimation';
 import AttachmentUpload from './attachmentUpload/AttachmentUpload';
 import Attachment from './attachment/Attachment';
 

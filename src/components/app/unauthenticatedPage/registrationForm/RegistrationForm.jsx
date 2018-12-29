@@ -6,7 +6,7 @@ import propTypes from 'prop-types';
 import { withNamespaces } from 'react-i18next';
 
 import FormComponent from '@src/components/abstracts/FormComponent';
-import LoadingAnimation from '../../loadingAnimation/LoadingAnimation';
+import LoadingAnimation from '@src/components/utils/loadingAnimation/LoadingAnimation';
 
 import axios from '@src/utils/axios';
 import { createUser } from '@src/actions/users';

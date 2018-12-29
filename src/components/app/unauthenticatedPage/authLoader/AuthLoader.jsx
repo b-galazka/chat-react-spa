@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 
-import LoadingAnimation from '../../loadingAnimation/LoadingAnimation';
+import LoadingAnimation from '@src/components/utils/loadingAnimation/LoadingAnimation';
 
 import sharedStyles from '@appComponent/shared.scss';
 import styles from './authLoader.scss';

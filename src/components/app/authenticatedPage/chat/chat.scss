@@ -1,4 +1,4 @@
-@import 'config';
+@import 'variables';
 
 .chat {
     display: flex;
@@ -17,6 +17,10 @@
 
         // Prevents stretching element to height of all its children.
         height: 0;
+
+        @media(max-width: $smallWidth) {
+            padding: 0 10px;
+        }
     }
 
     &NoMessages {

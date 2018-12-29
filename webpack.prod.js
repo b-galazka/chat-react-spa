@@ -42,7 +42,7 @@ module.exports = {
                             }
                         },
                         'postcss-loader',
-                        { loader: 'sass-loader', options: { includePaths: ['./src/components/app'] } }
+                        { loader: 'sass-loader', options: { includePaths: ['./src/scss'] } }
                     ]
                 })
             }

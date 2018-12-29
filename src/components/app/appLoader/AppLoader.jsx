@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { withNamespaces } from 'react-i18next';
 import { compose } from 'redux';
 
-import LoadingAnimation from '../loadingAnimation/LoadingAnimation';
+import LoadingAnimation from '@src/components/utils/loadingAnimation/LoadingAnimation';
 
 import sharedStyles from '@appComponent/shared.scss';
 
