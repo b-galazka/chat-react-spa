@@ -9,6 +9,7 @@ import Message from './message/Message';
 import LoadingAnimation from '@src/components/utils/loadingAnimation/LoadingAnimation';
 import AttachmentUpload from './attachmentUpload/AttachmentUpload';
 import Attachment from './attachment/Attachment';
+import Fading from '@src/components/utils/fading/Fading';
 
 import { fetchMoreMessages } from '@src/actions/messages';
 import datePropValidator from '@src/utils/datePropValidator';
@@ -28,6 +29,7 @@ function mapStateToProps(state) {
 
     const { username } = state.auth.user;
     const { typingUsers } = state.users;
+    const { isMobileSidebarOpened } = state.ui;
 
     return {
         sendingMessages: sending,
@@ -36,7 +38,8 @@ function mapStateToProps(state) {
         fetchingMoreMessages: fetchingMore,
         fetchingMoreMessagesError: fetchingMoreError,
         username,
-        typingUsers
+        typingUsers,
+        isMobileSidebarOpened
     };
 }
 
@@ -68,7 +71,8 @@ class Chat extends Component {
             sentMessages,
             fetchingMoreMessages,
             fetchingMoreMessagesError,
-            t
+            t,
+            isMobileSidebarOpened
         } = this.props;
 
         return (
@@ -107,6 +111,10 @@ class Chat extends Component {
                 {this.renderTypingUsers()}
 
                 <MessageForm />
+
+                <Fading showChildren={isMobileSidebarOpened} fadingDuration={500}>
+                    <div className={styles.chatCover}></div>
+                </Fading>
             </section>
         );
     }
@@ -117,6 +125,8 @@ class Chat extends Component {
     }
 
     componentDidUpdate() {
+
+        // TODO: fix scroll down bug
 
         if (this.areOlderMessagesBeingFetched()) {
 
@@ -339,6 +349,7 @@ Chat.propTypes = {
     fetchingMoreMessages: propTypes.bool.isRequired,
     username: propTypes.string.isRequired,
     typingUsers: propTypes.arrayOf(propTypes.string).isRequired,
+    isMobileSidebarOpened: propTypes.bool.isRequired,
     fetchingMoreMessagesError: propTypes.instanceOf(Error),
 
     // i18n
