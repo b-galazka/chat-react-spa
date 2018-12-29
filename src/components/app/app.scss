@@ -16,6 +16,14 @@ html {
     font-size: 15px;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+
+    @media (max-width: $smallWidth) {
+        font-size: 14px;
+    }
+
+    @media (max-width: $extraSmallWidth) {
+        font-size: 13px;
+    }
 }
 
 a {

@@ -5,6 +5,10 @@
     border-bottom: 1px solid $blue;
     text-align: center;
     position: relative;
+    min-height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     &Text {
         font-size: 1.2rem;
