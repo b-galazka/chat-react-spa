@@ -132,10 +132,10 @@ class RegistrationForm extends FormComponent {
         );
     }
 
-    componentWillReceiveProps(nextProps) {
+    componentDidUpdate(prevProps) {
 
-        this.onUserCreationError(nextProps);
-        this.onUserCreated(nextProps);
+        this.onUserCreationError(prevProps);
+        this.onUserCreated(prevProps);
     }
 
     bindMethodsToThis() {
@@ -386,8 +386,7 @@ class RegistrationForm extends FormComponent {
 
         this.setState({
             usernameAvailabilityChecking: false,
-            usernameAvailabilityCheckingError: null,
-            fieldsDisabled: false
+            usernameAvailabilityCheckingError: null
         });
     }
 
@@ -395,8 +394,7 @@ class RegistrationForm extends FormComponent {
 
         this.setState({
             usernameAvailabilityChecking: false,
-            usernameAvailabilityCheckingError: err,
-            fieldsDisabled: false
+            usernameAvailabilityCheckingError: err
         });
     }
 
@@ -416,9 +414,7 @@ class RegistrationForm extends FormComponent {
             errors.push(t('registrationForm.passwordCharactersErr'));
         }
 
-        this.setState({
-            passwordErrors: errors
-        });
+        this.setState({ passwordErrors: errors });
 
         return (errors.length === 0);
     }
@@ -446,9 +442,7 @@ class RegistrationForm extends FormComponent {
             errors.push(t('registrationForm.passwordsEqualityErr'));
         }
 
-        this.setState({
-            repeatedPasswordErrors: errors
-        });
+        this.setState({ repeatedPasswordErrors: errors });
 
         return (errors.length === 0);
     }
@@ -462,10 +456,12 @@ class RegistrationForm extends FormComponent {
             return;
         }
 
-        this.disableFormFields();
+        this.setState({ fieldsDisabled: true });
 
         const { username, password } = this.state;
         const usernameAvailability = await this.usernameAvailabilityCheckingPromise;
+
+        this.setState({ fieldsDisabled: false });
 
         if (usernameAvailability && !usernameAvailability.free) {
 
@@ -475,29 +471,18 @@ class RegistrationForm extends FormComponent {
         this.props.createUser({ username, password });
     }
 
-    disableFormFields() {
-
-        this.setState({
-            fieldsDisabled: true
-        });
-    }
-
     isFormValid() {
 
         const validUsername = this.validateUsername();
         const validPassword = this.validatePassword();
         const validRepeatedPassword = this.validateRepeatedPassword();
 
-        return (
-            validUsername &&
-            validPassword &&
-            validRepeatedPassword
-        );
+        return validUsername && validPassword && validRepeatedPassword;
     }
 
-    onUserCreationError(nextProps) {
+    onUserCreationError(prevProps) {
 
-        if (nextProps.userCreationError && !this.props.userCreationError) {
+        if (!prevProps.userCreationError && this.props.userCreationError) {
 
             this.setState({
                 password: '',
@@ -507,9 +492,9 @@ class RegistrationForm extends FormComponent {
         }
     }
 
-    onUserCreated(nextProps) {
+    onUserCreated(prevProps) {
 
-        if (nextProps.userCreated && !this.props.userCreated) {
+        if (!prevProps.userCreated && this.props.userCreated) {
 
             this.setState({
                 username: '',

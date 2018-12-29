@@ -79,9 +79,9 @@ class LoginForm extends FormComponent {
         );
     }
 
-    componentWillReceiveProps(nextProps) {
+    componentDidUpdate(prevProps) {
 
-        this.onAuthError(nextProps);
+        this.onAuthError(prevProps);
     }
 
     renderAuthError() {
@@ -142,13 +142,11 @@ class LoginForm extends FormComponent {
         );
     }
 
-    onAuthError(nextProps) {
+    onAuthError(prevProps) {
 
-        if (nextProps.authError && !this.props.authError) {
+        if (!prevProps.authError && this.props.authError) {
 
-            this.setState({
-                password: ''
-            });
+            this.setState({ password: '' });
         }
     }
 

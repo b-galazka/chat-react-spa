@@ -19,10 +19,4 @@ render(
 
 // TODO: add "keep me signed in"
 // TODO: fix fetching prev messages on big screens
-
-/* TODO: replace:
-    componentWillReceiveProps,
-    componentWillUpdate
-
-    with getSnapshotBeforeUpdate or componentDidUpdate
-*/
+// TODO: replace componentWillUpdate with getSnapshotBeforeUpdate or componentDidUpdate
