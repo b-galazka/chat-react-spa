@@ -287,7 +287,7 @@ class Chat extends Component {
         const typingUsersElemHeight = typingUsersElemRef ? typingUsersElemRef.clientHeight : 0;
         const scrollBottom = scrollHeight - scrollTop - clientHeight - typingUsersElemHeight;
 
-        const areNewMessages = prevProps.sentMessages.length !== this.props.sentMessages.length;
+        const areNewMessages = prevProps.sentMessages !== this.props.sentMessages;
         const typingUsersChange = prevProps.typingUsers !== this.props.typingUsers;
 
         return (scrollBottom <= 200 && areNewMessages || scrollBottom <= 55 && typingUsersChange);
@@ -334,12 +334,12 @@ class Chat extends Component {
 
     scrollToTheLastPosition() {
 
-        const { scrollableArea } = this;
-        const newScrollTop = scrollableArea.scrollHeight - this.scrollableAreaPrevScrollHeight;
+        const { scrollableAreaRef } = this;
+        const newScrollTop = scrollableAreaRef.scrollHeight - this.scrollableAreaPrevScrollHeight;
 
-        if (scrollableArea.scrollTop < newScrollTop) {
+        if (scrollableAreaRef.scrollTop < newScrollTop) {
 
-            scrollableArea.scrollTop = newScrollTop;
+            scrollableAreaRef.scrollTop = newScrollTop;
         }
     }
 }
