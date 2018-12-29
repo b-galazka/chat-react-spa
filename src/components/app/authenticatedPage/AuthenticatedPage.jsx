@@ -100,22 +100,22 @@ class AuthenticatedPage extends Component {
         this.props.initSocket();
     }
 
-    componentWillReceiveProps(nextProps) {
+    componentDidUpdate(prevProps) {
 
-        this.onUnreadMessage(nextProps);
+        this.onUnreadMessage(prevProps);
     }
 
-    onUnreadMessage(nextProps) {
+    onUnreadMessage(prevProps) {
 
-        if (nextProps.unreadMessages !== this.props.unreadMessages) {
+        if (prevProps.unreadMessages !== this.props.unreadMessages) {
 
-            this.updatePageTitle(nextProps);
+            this.updatePageTitle(prevProps);
         }
     }
 
-    updatePageTitle(props = this.props) {
+    updatePageTitle() {
 
-        const { unreadMessages, t } = props;
+        const { unreadMessages, t } = this.props;
         const title = (unreadMessages > 0) ? 'notificationSiteTitle' : 'siteTitle';
 
         document.title = t(title, { notification: unreadMessages });

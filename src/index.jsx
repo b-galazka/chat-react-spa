@@ -22,8 +22,7 @@ render(
 
 /* TODO: replace:
     componentWillReceiveProps,
-    componentWillUpdate,
-    componentWillMount
+    componentWillUpdate
 
     with getSnapshotBeforeUpdate or componentDidUpdate
 */
