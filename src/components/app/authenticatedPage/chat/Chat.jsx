@@ -124,9 +124,7 @@ class Chat extends Component {
         this.scrollDown();
     }
 
-    componentDidUpdate() {
-
-        // TODO: fix scroll down bug
+    componentDidUpdate(prevProps) {
 
         if (this.areOlderMessagesFetched()) {
 
@@ -136,7 +134,7 @@ class Chat extends Component {
             return;
         }
 
-        if (this.shouldScrollDown()) {
+        if (this.shouldScrollDown(prevProps)) {
 
             this.scrollDown();
         }
@@ -278,12 +276,13 @@ class Chat extends Component {
         scrollableArea.scrollTop = scrollableArea.scrollHeight;
     }
 
-    shouldScrollDown() {
+    shouldScrollDown(prevProps) {
 
         const { scrollHeight, scrollTop, clientHeight } = this.scrollableArea;
         const scrollBottom = scrollHeight - scrollTop - clientHeight;
+        const areNewMessages = prevProps.sentMessages.length !== this.props.sentMessages.length;
 
-        return (scrollBottom <= 200);
+        return (scrollBottom <= 200 && areNewMessages);
     }
 
     fetchMoreMessages() {
