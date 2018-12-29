@@ -60,6 +60,8 @@ class Chat extends Component {
 
         this.firstFetchedMessageID = sentMessages[0] && sentMessages[0].id;
         this.scrollableAreaPrevScrollHeight = 0;
+        this.scrollableAreaRef = null;
+        this.typingUsersElemRef = null;
 
         this.fetchMoreMessages = this.fetchMoreMessages.bind(this);
     }
@@ -79,7 +81,7 @@ class Chat extends Component {
             <section className={styles.chat}>
                 <section
                     className={styles.chatMessagesArea}
-                    ref={(ref) => { this.scrollableArea = ref; }}
+                    ref={(ref) => { this.scrollableAreaRef = ref; }}
                     onScroll={this.fetchMoreMessages}
                 >
 
@@ -106,9 +108,8 @@ class Chat extends Component {
 
                     {this.renderSentMessages()}
                     {this.renderSendingMessages()}
+                    {this.renderTypingUsers()}
                 </section>
-
-                {this.renderTypingUsers()}
 
                 <MessageForm />
 
@@ -131,10 +132,7 @@ class Chat extends Component {
             this.scrollToTheLastPosition();
             this.firstFetchedMessageID = this.props.sentMessages[0].id;
 
-            return;
-        }
-
-        if (this.shouldScrollDown(prevProps)) {
+        } else if (this.shouldScrollDown(prevProps)) {
 
             this.scrollDown();
         }
@@ -221,6 +219,8 @@ class Chat extends Component {
 
         if (typingUsers.length === 0) {
 
+            this.typingUsersElemRef = null;
+
             return null;
         }
 
@@ -233,7 +233,11 @@ class Chat extends Component {
                 lastUsername: typingUsers[typingUsers.length - 1]
             });
 
-        return <p className={styles.chatTypingUsers}>{text}</p>;
+        return (
+            <p ref={(ref) => { this.typingUsersElemRef = ref; }} className={styles.chatTypingUsers}>
+                {text}
+            </p>
+        );
     }
 
     shouldDisplayTimeHeader(messageIndex) {
@@ -271,18 +275,22 @@ class Chat extends Component {
 
     scrollDown() {
 
-        const { scrollableArea } = this;
+        const { scrollableAreaRef } = this;
 
-        scrollableArea.scrollTop = scrollableArea.scrollHeight;
+        scrollableAreaRef.scrollTop = scrollableAreaRef.scrollHeight;
     }
 
     shouldScrollDown(prevProps) {
 
-        const { scrollHeight, scrollTop, clientHeight } = this.scrollableArea;
-        const scrollBottom = scrollHeight - scrollTop - clientHeight;
-        const areNewMessages = prevProps.sentMessages.length !== this.props.sentMessages.length;
+        const { typingUsersElemRef } = this;
+        const { scrollHeight, scrollTop, clientHeight } = this.scrollableAreaRef;
+        const typingUsersElemHeight = typingUsersElemRef ? typingUsersElemRef.clientHeight : 0;
+        const scrollBottom = scrollHeight - scrollTop - clientHeight - typingUsersElemHeight;
 
-        return (scrollBottom <= 200 && areNewMessages);
+        const areNewMessages = prevProps.sentMessages.length !== this.props.sentMessages.length;
+        const typingUsersChange = prevProps.typingUsers !== this.props.typingUsers;
+
+        return (scrollBottom <= 200 && areNewMessages || scrollBottom <= 55 && typingUsersChange);
     }
 
     fetchMoreMessages() {
@@ -295,7 +303,7 @@ class Chat extends Component {
         } = this.props;
 
         if (
-            this.scrollableArea.scrollTop > 100 ||
+            this.scrollableAreaRef.scrollTop > 100 ||
             fetchingMoreMessages ||
             fetchingMoreMessagesError ||
             noMoreMessages ||
@@ -320,7 +328,7 @@ class Chat extends Component {
 
         if (this.areOlderMessagesFetched(nextProps)) {
 
-            this.scrollableAreaPrevScrollHeight = this.scrollableArea.scrollHeight;
+            this.scrollableAreaPrevScrollHeight = this.scrollableAreaRef.scrollHeight;
         }
     }
 
