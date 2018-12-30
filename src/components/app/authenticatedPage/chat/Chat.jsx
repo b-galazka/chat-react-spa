@@ -52,13 +52,10 @@ function mapDispatchToProps(dispatch) {
 
 class Chat extends Component {
 
-    constructor(props) {
+    constructor() {
 
         super();
 
-        const { sentMessages } = props;
-
-        this.firstFetchedMessageID = sentMessages[0] && sentMessages[0].id;
         this.scrollableAreaPrevScrollHeight = 0;
         this.scrollableAreaRef = null;
         this.typingUsersElemRef = null;
@@ -125,22 +122,28 @@ class Chat extends Component {
         this.scrollDown();
     }
 
-    componentDidUpdate(prevProps) {
+    getSnapshotBeforeUpdate(prevProps) {
 
-        if (this.areOlderMessagesFetched()) {
+        const areOlderMessagesFetched = this.areOlderMessagesFetched(prevProps);
+
+        if (areOlderMessagesFetched) {
+
+            this.handleOlderMessagesFetchingSuccess();
+        }
+
+        return { areOlderMessagesFetched };
+    }
+
+    componentDidUpdate(prevProps, prevState, { areOlderMessagesFetched }) {
+
+        if (areOlderMessagesFetched) {
 
             this.scrollToTheLastPosition();
-            this.firstFetchedMessageID = this.props.sentMessages[0].id;
 
         } else if (this.shouldScrollDown(prevProps)) {
 
             this.scrollDown();
         }
-    }
-
-    componentWillUpdate(nextProps) {
-
-        this.onOlderMessagesFetching(nextProps);
     }
 
     renderSentMessages() {
@@ -316,20 +319,17 @@ class Chat extends Component {
         this.props.fetchMoreMessages(sentMessages[0].id);
     }
 
-    areOlderMessagesFetched(props = this.props) {
+    areOlderMessagesFetched(prevProps) {
 
-        const firstMessage = props.sentMessages[0];
-        const { firstFetchedMessageID } = this;
+        const firstMessage = this.props.sentMessages[0];
+        const prevFirstMessage = prevProps.sentMessages[0];
 
-        return !!firstMessage && (firstMessage.id !== firstFetchedMessageID);
+        return !!firstMessage && !!prevFirstMessage && firstMessage.id !== prevFirstMessage.id;
     }
 
-    onOlderMessagesFetching(nextProps) {
+    handleOlderMessagesFetchingSuccess() {
 
-        if (this.areOlderMessagesFetched(nextProps)) {
-
-            this.scrollableAreaPrevScrollHeight = this.scrollableAreaRef.scrollHeight;
-        }
+        this.scrollableAreaPrevScrollHeight = this.scrollableAreaRef.scrollHeight;
     }
 
     scrollToTheLastPosition() {
