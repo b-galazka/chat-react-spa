@@ -313,10 +313,7 @@ class Chat extends Component {
         const { scrollableAreaRef } = this;
         const { noMoreMessages } = this.props;
 
-        if (
-            scrollableAreaRef.clientHeight >= scrollableAreaRef.scrollHeight &&
-            !noMoreMessages
-        ) {
+        if (scrollableAreaRef.clientHeight >= scrollableAreaRef.scrollHeight && !noMoreMessages) {
 
             this.setState({ isScreenTooBig: true });
         }
