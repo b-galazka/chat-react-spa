@@ -76,7 +76,8 @@
         "noMessages": "No messages",
         "fetchingMoreMessagesError": "Something went wrong when fetching older messages. Refresh the page and try again.",
         "singlePersonTyping": "{{ username }} is typing...",
-        "multiplePersonsTyping": "{{ usernames }} and {{ lastUsername }} are typing..."
+        "multiplePersonsTyping": "{{ usernames }} and {{ lastUsername }} are typing...",
+        "fetchMoreMessagesBtn": "Show more messages"
     },
 
     "messageForm": {

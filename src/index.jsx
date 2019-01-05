@@ -18,4 +18,3 @@ render(
 );
 
 // TODO: add "keep me signed in"
-// TODO: fix fetching prev messages on big screens

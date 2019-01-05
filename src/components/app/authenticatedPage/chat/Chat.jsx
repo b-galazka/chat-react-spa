@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators, compose } from 'redux';
 import propTypes from 'prop-types';
 import { withNamespaces } from 'react-i18next';
+import classNames from 'classnames';
 
 import MessageForm from './messageForm/MessageForm';
 import Message from './message/Message';
@@ -15,6 +16,7 @@ import { fetchMoreMessages } from '@src/actions/messages';
 import datePropValidator from '@src/utils/datePropValidator';
 import timeUnits from '@src/utils/timeUnitsInMs';
 
+import sharedStyles from '@appComponent/shared.scss';
 import styles from './chat.scss';
 
 function mapStateToProps(state) {
@@ -56,11 +58,14 @@ class Chat extends Component {
 
         super();
 
+        this.state = { isScreenTooBig: false };
+
         this.scrollableAreaPrevScrollHeight = 0;
         this.scrollableAreaRef = null;
         this.typingUsersElemRef = null;
 
         this.fetchMoreMessages = this.fetchMoreMessages.bind(this);
+        this.handleFetchMoreMsgsBtnClick = this.handleFetchMoreMsgsBtnClick.bind(this);
     }
 
     render() {
@@ -74,6 +79,8 @@ class Chat extends Component {
             isMobileSidebarOpened
         } = this.props;
 
+        const { isScreenTooBig } = this.state;
+
         return (
             <section className={styles.chat}>
                 <section
@@ -81,6 +88,22 @@ class Chat extends Component {
                     ref={(ref) => { this.scrollableAreaRef = ref; }}
                     onScroll={this.fetchMoreMessages}
                 >
+
+                    {
+                        (isScreenTooBig && !fetchingMoreMessages && !fetchingMoreMessagesError) &&
+
+                        <div className={styles.chatFetchMoreMsgsBtnWrapper}>
+                            <button
+                                onClick={this.handleFetchMoreMsgsBtnClick}
+                                className={classNames(
+                                    sharedStyles.button,
+                                    styles.chatFetchMoreMsgsBtn
+                                )}
+                            >
+                                {t('chat.fetchMoreMessagesBtn')}
+                            </button>
+                        </div>
+                    }
 
                     {
                         fetchingMoreMessages &&
@@ -120,6 +143,7 @@ class Chat extends Component {
     componentDidMount() {
 
         this.scrollDown();
+        this.detectTooBigScreen();
     }
 
     getSnapshotBeforeUpdate(prevProps) {
@@ -139,6 +163,7 @@ class Chat extends Component {
         if (areOlderMessagesFetched) {
 
             this.scrollToTheLastPosition();
+            this.detectTooBigScreen();
 
         } else if (this.shouldScrollDown(prevProps)) {
 
@@ -281,6 +306,27 @@ class Chat extends Component {
         const { scrollableAreaRef } = this;
 
         scrollableAreaRef.scrollTop = scrollableAreaRef.scrollHeight;
+    }
+
+    detectTooBigScreen() {
+
+        const { scrollableAreaRef } = this;
+        const { noMoreMessages } = this.props;
+
+        if (
+            scrollableAreaRef.clientHeight >= scrollableAreaRef.scrollHeight &&
+            !noMoreMessages
+        ) {
+
+            this.setState({ isScreenTooBig: true });
+        }
+    }
+
+    handleFetchMoreMsgsBtnClick() {
+
+        const { fetchMoreMessages, sentMessages } = this.props;
+
+        fetchMoreMessages(sentMessages[0].id);
     }
 
     shouldScrollDown(prevProps) {

@@ -53,4 +53,15 @@
         z-index: 10;
         background-color: rgba(#fff, 0.7);
     }
+
+    &FetchMoreMsgsBtn {
+        width: auto;
+        padding: 5px 10px;
+
+        &Wrapper {
+            display: flex;
+            justify-content: center;
+            padding-top: 20px;
+        }
+    }
 }
