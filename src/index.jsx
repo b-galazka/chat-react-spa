@@ -16,3 +16,5 @@ render(
 
     document.getElementById('root')
 );
+
+// TODO: fix uploaded images scrolling down bug

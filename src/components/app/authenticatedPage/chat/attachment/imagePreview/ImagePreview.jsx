@@ -16,9 +16,20 @@ function mapStateToProps(state) {
 
 class ImagePreview extends Component {
 
+    constructor() {
+
+        super();
+
+        this.state = { isFullscreen: false };
+
+        this.enableFullscreen = this.enableFullscreen.bind(this);
+        this.disableFullscreen = this.disableFullscreen.bind(this);
+    }
+
     render() {
 
         const { filename, previewUrl, t, author, username } = this.props;
+        const { isFullscreen } = this.state;
 
         return (
             <div
@@ -29,15 +40,39 @@ class ImagePreview extends Component {
                     })
                 }
             >
-                <div className={styles.imagePreviewWrapper}>
+                <div className={styles.imagePreviewWrapper} onClick={this.enableFullscreen}>
                     <img
                         className={styles.imagePreviewImage}
                         src={previewUrl}
                         alt={t('imagePreview.imgAlt', { filename })}
                     />
                 </div>
+
+                { isFullscreen && this.renderFullscreenPreview() }
             </div>
         );
+    }
+
+    renderFullscreenPreview() {
+
+        // TODO: show original image
+        // TODO: show footer with name and size of the original file
+        // TODO: render fullscreen outside of this component?
+        // TODO: add current fullscreen preview image to store?
+
+        return (
+            <div className={styles.imagePreviewFullscreen} onClick={this.disableFullscreen}></div>
+        );
+    }
+
+    enableFullscreen() {
+
+        this.setState({ isFullscreen: true });
+    }
+
+    disableFullscreen() {
+
+        this.setState({ isFullscreen: false });
     }
 }
 
