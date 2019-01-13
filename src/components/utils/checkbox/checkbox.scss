@@ -1,0 +1,43 @@
+@import 'variables';
+
+.wrapper {
+    display: block;
+    cursor: pointer;
+    user-select: none;
+    display: flex;
+    align-items: center;
+}
+
+.input {
+    display: none;
+}
+
+.checkbox {
+    width: 20px;
+    height: 20px;
+    flex: 0 0 auto;
+    border: 1px solid $blue;
+    border-radius: 3px;
+    background-color: #FFF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .input:checked + & {
+        background-color: $blue;
+
+        .checkMark {
+            display: block;
+        }
+    }
+}
+
+.checkMark {
+    display: none;
+    color: #FFF;
+}
+
+.label {
+    font-size: 1rem;
+    padding: 0 10px;
+}

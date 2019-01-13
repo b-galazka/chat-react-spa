@@ -109,6 +109,7 @@
         "usernameLabel": "Username",
         "passwordLabel": "Password",
         "loginButtonText": "Log in",
-        "invalidCredentials": "Wrong username or password."
+        "invalidCredentials": "Wrong username or password.",
+        "keepSignedInLabel": "Keep me signed in"
     }
 }

@@ -23,4 +23,14 @@ export default class FormComponent extends Component {
             });
         };
     }
+
+    updateCheckboxValue(inputName) {
+
+        return ({ target }) => {
+
+            this.setState({
+                [inputName]: target.checked
+            });
+        };
+    }
 }

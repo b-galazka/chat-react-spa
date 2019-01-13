@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators, compose } from 'redux';
 import classNames from 'classnames';
@@ -6,6 +6,7 @@ import propTypes from 'prop-types';
 import { withNamespaces } from 'react-i18next';
 
 import FormComponent from '@src/components/abstracts/FormComponent';
+import Checkbox from '@src/components/utils/checkbox/Checkbox';
 import { authenticate } from '@src/actions/auth';
 
 import sharedStyles from '@appComponent/shared.scss';
@@ -34,15 +35,14 @@ class LoginForm extends FormComponent {
 
         this.state = {
             username: '',
-            password: ''
+            password: '',
+            keepSignedIn: false
         };
 
         this.submitForm = this.submitForm.bind(this);
     }
 
     render() {
-
-        const { t } = this.props;
 
         return (
             <section className={classNames(unauthPageSharedStyles.authSection, styles.loginForm)}>
@@ -61,18 +61,9 @@ class LoginForm extends FormComponent {
                         </p>
                     }
 
-                    <label className={unauthPageSharedStyles.authInputLabel}>
-                        {t('loginForm.usernameLabel')}:
-                    </label>
-
                     {this.renderUsernameField()}
-
-                    <label className={unauthPageSharedStyles.authInputLabel}>
-                        {t('loginForm.passwordLabel')}:
-                    </label>
-
                     {this.renderPasswordField()}
-
+                    {this.renderKeepSignedInCheckbox()}
                     {this.renderSubmitButton()}
                 </form>
             </section>
@@ -99,26 +90,57 @@ class LoginForm extends FormComponent {
 
     renderUsernameField() {
 
+        const { t } = this.props;
+
         return (
-            <input
-                type="text"
-                className={unauthPageSharedStyles.authInput}
-                value={this.state.username}
-                onChange={this.updateInputValue('username')}
-                autoFocus
-            />
+            <Fragment>
+                <label className={unauthPageSharedStyles.authInputLabel}>
+                    {t('loginForm.usernameLabel')}:
+                </label>
+
+                <input
+                    type="text"
+                    className={unauthPageSharedStyles.authInput}
+                    value={this.state.username}
+                    onChange={this.updateInputValue('username')}
+                    autoFocus
+                />
+            </Fragment>
         );
     }
 
     renderPasswordField() {
 
+        const { t } = this.props;
+
         return (
-            <input
-                type="password"
-                className={unauthPageSharedStyles.authInput}
-                value={this.state.password}
-                onChange={this.updateInputValue('password')}
-            />
+            <Fragment>
+                <label className={unauthPageSharedStyles.authInputLabel}>
+                    {t('loginForm.passwordLabel')}:
+                </label>
+
+                <input
+                    type="password"
+                    className={unauthPageSharedStyles.authInput}
+                    value={this.state.password}
+                    onChange={this.updateInputValue('password')}
+                />
+            </Fragment>
+        );
+    }
+
+    renderKeepSignedInCheckbox() {
+
+        const { t } = this.props;
+
+        return (
+            <Checkbox
+                checked={this.state.keepSignedIn}
+                onChange={this.updateCheckboxValue('keepSignedIn', 'checkbox')}
+                className={styles.checkbox}
+            >
+                {t('loginForm.keepSignedInLabel')}
+            </Checkbox>
         );
     }
 
@@ -166,9 +188,9 @@ class LoginForm extends FormComponent {
             return;
         }
 
-        const { username, password } = this.state;
+        const { username, password, keepSignedIn } = this.state;
 
-        this.props.authenticate(username, password);
+        this.props.authenticate({ username, password, keepSignedIn });
     }
 }
 

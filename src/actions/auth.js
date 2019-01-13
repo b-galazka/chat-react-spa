@@ -9,12 +9,11 @@ import {
     LOGOUT_FAILED
 } from './types/auth';
 
-export function authenticate(username, password) {
+export function authenticate(payload) {
 
     return {
         type: AUTH_REQUESTED,
-        username,
-        password
+        payload
     };
 }
 
