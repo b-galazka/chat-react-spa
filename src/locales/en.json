@@ -111,5 +111,9 @@
         "loginButtonText": "Log in",
         "invalidCredentials": "Wrong username or password.",
         "keepSignedInLabel": "Keep me signed in"
+    },
+
+    "imagePreview": {
+        "imgAlt": "{{ filename }} attachment"
     }
 }

@@ -10,6 +10,8 @@ import datePropValidator from '@src/utils/datePropValidator';
 import ChatMessageComponent from '@src/components/abstracts/ChatMessageComponent';
 import config from '@src/config';
 
+import ImagePreview from './imagePreview/ImagePreview';
+
 import chatSharedStyles from '../shared.scss';
 import styles from './attachment.scss';
 
@@ -67,8 +69,8 @@ class Attachment extends ChatMessageComponent {
 
                             classNames({
                                 [chatSharedStyles.attachmentData]: true,
-                                [styles.attachmentData]: true
-                                // [styles.attachmentDataOpenableFile]: this.isOpenableFile()
+                                [styles.attachmentData]: true,
+                                [styles.attachmentDataOpenableFile]: this.isOpenableFile()
                             })
                         }
                     >
@@ -118,7 +120,7 @@ class Attachment extends ChatMessageComponent {
 
         if (this.isOpenableFile()) {
 
-            // TODO: display file
+            return this.renderOpenableFile();
         }
 
         const { urls, name, size } = this.props.message.attachment;
@@ -132,6 +134,27 @@ class Attachment extends ChatMessageComponent {
                 ({prettifyFileSize(size)})
             </p>
         );
+    }
+
+    renderOpenableFile() {
+
+        const { message } = this.props;
+        const { type, name, size, urls } = message.attachment;
+
+        if (type.startsWith('image/')) {
+
+            return (
+                <ImagePreview
+                    filename={name}
+                    size={size}
+                    previewUrl={config.filesHostingUrl + urls.preview}
+                    originalFileUrl={config.filesHostingUrl + urls.originalFile}
+                    author={message.author}
+                />
+            );
+        }
+
+        return null;
     }
 
     isOpenableFile() {
