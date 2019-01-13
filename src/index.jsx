@@ -16,5 +16,3 @@ render(
 
     document.getElementById('root')
 );
-
-// TODO: add "keep me signed in"
