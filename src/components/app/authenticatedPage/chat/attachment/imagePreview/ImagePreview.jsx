@@ -29,11 +29,13 @@ class ImagePreview extends Component {
                     })
                 }
             >
-                <img
-                    className={styles.imagePreviewImage}
-                    src={previewUrl}
-                    alt={t('imagePreview.imgAlt', { filename })}
-                />
+                <div className={styles.imagePreviewWrapper}>
+                    <img
+                        className={styles.imagePreviewImage}
+                        src={previewUrl}
+                        alt={t('imagePreview.imgAlt', { filename })}
+                    />
+                </div>
             </div>
         );
     }

@@ -1,16 +1,19 @@
 @import 'variables';
 
 .imagePreview {
-    border: 1px solid $lighterGrey;
+    border: 1px solid red $lighterGrey;
     border-radius: 0 15px 15px 0;
     overflow: hidden;
-    max-height: 70vh;
-    display: flex;
-    align-items: center;
     cursor: pointer;
 
     &My {
         border-radius: 15px 0 0 15px;
+    }
+
+    &Wrapper {
+        max-height: 70vh;
+        display: flex;
+        align-items: center;
     }
 
     &Image {
