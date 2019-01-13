@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import classNames from 'classnames';
 import { bindActionCreators, compose } from 'redux';
 import { connect } from 'react-redux';
@@ -58,12 +58,6 @@ class RegistrationForm extends FormComponent {
 
     render() {
 
-        const {
-            passwordErrors,
-            repeatedPasswordErrors,
-            usernameErrors
-        } = this.state;
-
         const { userCreationError, userCreated, t } = this.props;
 
         return (
@@ -96,36 +90,9 @@ class RegistrationForm extends FormComponent {
                         </p>
                     }
 
-                    <label className={unauthPageSharedStyles.authInputLabel}>
-                        {t('registrationForm.usernameLabel')}:
-                    </label>
-
                     {this.renderUsernameField()}
-
-                    {
-                        this.state.usernameAvailabilityCheckingError &&
-
-                        <p className={styles.authInputError}>
-                            {t('registrationForm.usernameAvailabilityUnknownErr')}
-                        </p>
-                    }
-
-                    {RegistrationForm.renderValidationErrors(usernameErrors)}
-
-                    <label className={unauthPageSharedStyles.authInputLabel}>
-                        {t('registrationForm.passwordLabel')}:
-                    </label>
-
                     {this.renderPasswordField()}
-                    {RegistrationForm.renderValidationErrors(passwordErrors)}
-
-                    <label className={unauthPageSharedStyles.authInputLabel}>
-                        {t('registrationForm.repeatedPasswordLabel')}:
-                    </label>
-
                     {this.renderRepeatedPasswordField()}
-                    {RegistrationForm.renderValidationErrors(repeatedPasswordErrors)}
-
                     {this.renderSubmitButton()}
                 </form>
             </section>
@@ -167,87 +134,128 @@ class RegistrationForm extends FormComponent {
 
     renderUsernameField() {
 
-        const { usernameErrors, usernameAvailabilityChecking } = this.state;
+        const {
+            usernameErrors,
+            usernameAvailabilityChecking,
+            usernameAvailabilityCheckingError
+        } = this.state;
+
+        const { t } = this.props;
+        const isInvalid = (usernameErrors.length !== 0);
 
         return (
-            <div className={styles.authInputWrapper}>
-                <input
-                    type="text"
-                    className={
+            <Fragment>
+                <label className={unauthPageSharedStyles.authInputLabel}>
+                    {t('registrationForm.usernameLabel')}:
+                </label>
 
-                        classNames({
-                            [unauthPageSharedStyles.authInput]: true,
-                            [unauthPageSharedStyles.authInputInvalid]: (usernameErrors.length !== 0)
-                        })
+                <div className={styles.authInputWrapper}>
+                    <input
+                        type="text"
+                        className={
+
+                            classNames({
+                                [unauthPageSharedStyles.authInput]: true,
+                                [unauthPageSharedStyles.authInputInvalid]: isInvalid
+                            })
+                        }
+
+                        disabled={usernameAvailabilityChecking}
+                        value={this.state.username}
+                        onChange={this.updateInputValue('username')}
+                        onBlur={this.validateUsername}
+                    />
+
+                    {
+                        usernameAvailabilityChecking &&
+
+                        <div className={styles.authInputLoadingAnimation}>
+                            <LoadingAnimation
+                                width="30px"
+                                height="30px"
+                                thickness={5}
+                            />
+                        </div>
                     }
-
-                    disabled={usernameAvailabilityChecking}
-                    value={this.state.username}
-                    onChange={this.updateInputValue('username')}
-                    onBlur={this.validateUsername}
-                />
+                </div>
 
                 {
-                    usernameAvailabilityChecking &&
+                    usernameAvailabilityCheckingError &&
 
-                    <div className={styles.authInputLoadingAnimation}>
-                        <LoadingAnimation
-                            width="30px"
-                            height="30px"
-                            thickness={5}
-                        />
-                    </div>
+                    <p className={styles.authInputError}>
+                        {t('registrationForm.usernameAvailabilityUnknownErr')}
+                    </p>
                 }
-            </div>
+
+                {RegistrationForm.renderValidationErrors(usernameErrors)}
+            </Fragment>
         );
     }
 
     renderPasswordField() {
 
         const { passwordErrors, fieldsDisabled } = this.state;
+        const { t } = this.props;
 
         return (
-            <input
-                type="password"
-                className={
+            <Fragment>
+                <label className={unauthPageSharedStyles.authInputLabel}>
+                    {t('registrationForm.passwordLabel')}:
+                </label>
 
-                    classNames({
-                        [unauthPageSharedStyles.authInput]: true,
-                        [unauthPageSharedStyles.authInputInvalid]: (passwordErrors.length !== 0)
-                    })
-                }
+                <input
+                    type="password"
+                    className={
 
-                disabled={fieldsDisabled}
-                value={this.state.password}
-                onChange={this.updateInputValue('password')}
-                onBlur={this.validatePassword}
-            />
+                        classNames({
+                            [unauthPageSharedStyles.authInput]: true,
+                            [unauthPageSharedStyles.authInputInvalid]: (passwordErrors.length !== 0)
+                        })
+                    }
+
+                    disabled={fieldsDisabled}
+                    value={this.state.password}
+                    onChange={this.updateInputValue('password')}
+                    onBlur={this.validatePassword}
+                />
+
+                {RegistrationForm.renderValidationErrors(passwordErrors)}
+            </Fragment>
         );
     }
 
     renderRepeatedPasswordField() {
 
         const { repeatedPasswordErrors, fieldsDisabled } = this.state;
+        const { t } = this.props;
 
         return (
-            <input
-                type="password"
-                className={
+            <Fragment>
+                <label className={unauthPageSharedStyles.authInputLabel}>
+                    {t('registrationForm.repeatedPasswordLabel')}:
+                </label>
 
-                    classNames({
-                        [unauthPageSharedStyles.authInput]: true,
+                <input
+                    type="password"
+                    className={
 
-                        [unauthPageSharedStyles.authInputInvalid]: (
-                            repeatedPasswordErrors.length !== 0
-                        )
-                    })
-                }
+                        classNames({
+                            [unauthPageSharedStyles.authInput]: true,
 
-                disabled={fieldsDisabled}
-                value={this.state.repeatedPassword}
-                onChange={this.updateInputValue('repeatedPassword')}
-                onBlur={this.validateRepeatedPassword}
-            />
+                            [unauthPageSharedStyles.authInputInvalid]: (
+                                repeatedPasswordErrors.length !== 0
+                            )
+                        })
+                    }
+
+                    disabled={fieldsDisabled}
+                    value={this.state.repeatedPassword}
+                    onChange={this.updateInputValue('repeatedPassword')}
+                    onBlur={this.validateRepeatedPassword}
+                />
+
+                {RegistrationForm.renderValidationErrors(repeatedPasswordErrors)}
+            </Fragment>
         );
     }
 
