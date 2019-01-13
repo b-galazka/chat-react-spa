@@ -17,4 +17,8 @@ render(
     document.getElementById('root')
 );
 
-// TODO: fix uploaded images scrolling down bug
+/*
+
+TODO: fix uploaded images scrolling down bug
+    get image/video dimesions from API and set temporary HTML elem dimensions
+*/
