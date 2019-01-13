@@ -1,7 +1,7 @@
 @import 'variables';
 
 .imagePreview {
-    border: 1px solid red $lighterGrey;
+    border: 1px solid $lighterGrey;
     border-radius: 0 15px 15px 0;
     overflow: hidden;
     cursor: pointer;
