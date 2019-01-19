@@ -62,7 +62,6 @@ class Chat extends Component {
 
         this.scrollableAreaPrevScrollHeight = 0;
         this.scrollableAreaRef = null;
-        this.typingUsersElemRef = null;
 
         this.fetchMoreMessages = this.fetchMoreMessages.bind(this);
         this.handleFetchMoreMsgsBtnClick = this.handleFetchMoreMsgsBtnClick.bind(this);
@@ -153,19 +152,21 @@ class Chat extends Component {
         if (areOlderMessagesFetched) {
 
             this.handleOlderMessagesFetchingSuccess();
+
+            return { areOlderMessagesFetched };
         }
 
-        return { areOlderMessagesFetched };
+        return { shouldScrollDown: this.shouldScrollDown(prevProps) };
     }
 
-    componentDidUpdate(prevProps, prevState, { areOlderMessagesFetched }) {
+    componentDidUpdate(prevProps, prevState, { areOlderMessagesFetched, shouldScrollDown }) {
 
         if (areOlderMessagesFetched) {
 
             this.scrollToTheLastPosition();
             this.detectTooBigScreen();
 
-        } else if (this.shouldScrollDown(prevProps)) {
+        } else if (shouldScrollDown) {
 
             this.scrollDown();
         }
@@ -247,8 +248,6 @@ class Chat extends Component {
 
         if (typingUsers.length === 0) {
 
-            this.typingUsersElemRef = null;
-
             return null;
         }
 
@@ -261,11 +260,7 @@ class Chat extends Component {
                 lastUsername: typingUsers[typingUsers.length - 1]
             });
 
-        return (
-            <p ref={(ref) => { this.typingUsersElemRef = ref; }} className={styles.chatTypingUsers}>
-                {text}
-            </p>
-        );
+        return <p className={styles.chatTypingUsers}>{text}</p>;
     }
 
     shouldDisplayTimeHeader(messageIndex) {
@@ -328,15 +323,18 @@ class Chat extends Component {
 
     shouldScrollDown(prevProps) {
 
-        const { typingUsersElemRef } = this;
         const { scrollHeight, scrollTop, clientHeight } = this.scrollableAreaRef;
-        const typingUsersElemHeight = typingUsersElemRef ? typingUsersElemRef.clientHeight : 0;
-        const scrollBottom = scrollHeight - scrollTop - clientHeight - typingUsersElemHeight;
+        const scrollBottom = scrollHeight - scrollTop - clientHeight;
 
         const areNewMessages = prevProps.sentMessages !== this.props.sentMessages;
         const typingUsersChange = prevProps.typingUsers !== this.props.typingUsers;
+        const didUserSendMsg = prevProps.sendingMessages.length < this.props.sendingMessages.length;
 
-        return (scrollBottom <= 200 && areNewMessages || scrollBottom <= 55 && typingUsersChange);
+        return (
+            didUserSendMsg ||
+            scrollBottom <= 200 && areNewMessages ||
+            scrollBottom <= 15 && typingUsersChange
+        );
     }
 
     fetchMoreMessages() {
