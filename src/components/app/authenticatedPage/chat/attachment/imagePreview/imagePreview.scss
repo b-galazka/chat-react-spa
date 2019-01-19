@@ -16,10 +16,18 @@
         align-items: center;
     }
 
-    &Image {
-        width: 100%;
-        display: block;
+    &Container {
+        max-width: 100%;
+        position: relative;
         flex: 0 0 auto;
+    }
+
+    &Image {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
     }
 
     &Fullscreen {

@@ -41,11 +41,16 @@ class ImagePreview extends Component {
                 }
             >
                 <div className={styles.imagePreviewWrapper} onClick={this.enableFullscreen}>
-                    <img
-                        className={styles.imagePreviewImage}
-                        src={attachment.urls.preview}
-                        alt={t('imagePreview.imgAlt', { filename: attachment.name })}
-                    />
+                    <figure
+                        className={styles.imagePreviewContainer}
+                        style={this.getImageWrapperDimensions()}
+                    >
+                        <img
+                            className={styles.imagePreviewImage}
+                            src={attachment.urls.preview}
+                            alt={t('imagePreview.imgAlt', { filename: attachment.name })}
+                        />
+                    </figure>
                 </div>
 
                 { isFullscreen && this.renderFullscreenPreview() }
@@ -63,6 +68,16 @@ class ImagePreview extends Component {
         return (
             <div className={styles.imagePreviewFullscreen} onClick={this.disableFullscreen}></div>
         );
+    }
+
+    getImageWrapperDimensions() {
+
+        const { width, height } = this.props.attachment.metadata.preview;
+
+        return {
+            width: `${width}px`,
+            paddingTop: `${height / width * 100}%`
+        };
     }
 
     enableFullscreen() {
