@@ -398,6 +398,7 @@ Chat.propTypes = {
     // i18n
     t: propTypes.func.isRequired,
 
+    // redux
     sendingMessages: propTypes.arrayOf(
         propTypes.shape({
             tempId: propTypes.string.isRequired,

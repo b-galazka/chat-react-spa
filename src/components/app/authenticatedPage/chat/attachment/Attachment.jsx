@@ -138,23 +138,27 @@ class Attachment extends ChatMessageComponent {
 
     renderOpenableFile() {
 
-        const { message } = this.props;
-        const { type, name, size, urls } = message.attachment;
+        const { attachment, author } = this.props.message;
+        const urls = Attachment.transformUrlsToAbsolute(attachment.urls);
 
-        if (type.startsWith('image/')) {
+        if (attachment.type.startsWith('image/')) {
 
-            return (
-                <ImagePreview
-                    filename={name}
-                    size={size}
-                    previewUrl={config.filesHostingUrl + urls.preview}
-                    originalFileUrl={config.filesHostingUrl + urls.originalFile}
-                    author={message.author}
-                />
-            );
+            return <ImagePreview attachment={{ ...attachment, urls, author }} />;
         }
 
         return null;
+    }
+
+    static transformUrlsToAbsolute(urls) {
+
+        return Object.keys(urls).reduce((absoluteUrls, urlKey) => {
+
+            return {
+                ...absoluteUrls,
+                [urlKey]: config.filesHostingUrl + urls[urlKey]
+            };
+
+        }, {});
     }
 
     isOpenableFile() {
@@ -190,7 +194,8 @@ Attachment.propTypes = {
 
             name: propTypes.string.isRequired,
             size: propTypes.number.isRequired,
-            type: propTypes.string.isRequired
+            type: propTypes.string.isRequired,
+            metadata: propTypes.object
         }).isRequired
 
     }).isRequired,

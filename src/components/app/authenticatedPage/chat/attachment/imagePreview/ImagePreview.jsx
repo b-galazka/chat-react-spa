@@ -28,7 +28,7 @@ class ImagePreview extends Component {
 
     render() {
 
-        const { filename, previewUrl, t, author, username } = this.props;
+        const { t, username, attachment } = this.props;
         const { isFullscreen } = this.state;
 
         return (
@@ -36,15 +36,15 @@ class ImagePreview extends Component {
                 className={
                     classNames({
                         [styles.imagePreview]: true,
-                        [styles.imagePreviewMy]: (author.username === username)
+                        [styles.imagePreviewMy]: (attachment.author.username === username)
                     })
                 }
             >
                 <div className={styles.imagePreviewWrapper} onClick={this.enableFullscreen}>
                     <img
                         className={styles.imagePreviewImage}
-                        src={previewUrl}
-                        alt={t('imagePreview.imgAlt', { filename })}
+                        src={attachment.urls.preview}
+                        alt={t('imagePreview.imgAlt', { filename: attachment.name })}
                     />
                 </div>
 
@@ -77,11 +77,29 @@ class ImagePreview extends Component {
 }
 
 ImagePreview.propTypes = {
-    previewUrl: propTypes.string.isRequired,
-    originalFileUrl: propTypes.string.isRequired,
-    filename: propTypes.string.isRequired,
-    size: propTypes.number.isRequired,
-    author: propTypes.shape({ username: propTypes.string.isRequired }).isRequired,
+    attachment: propTypes.shape({
+        urls: propTypes.shape({
+            originalFile: propTypes.string.isRequired,
+            preview: propTypes.string.isRequired
+        }).isRequired,
+
+        metadata: propTypes.shape({
+            originalFile: propTypes.shape({
+                width: propTypes.number.isRequired,
+                height: propTypes.number.isRequired
+            }).isRequired,
+
+            preview: propTypes.shape({
+                width: propTypes.number.isRequired,
+                height: propTypes.number.isRequired,
+                size: propTypes.number.isRequired
+            }).isRequired
+        }).isRequired,
+
+        author: propTypes.shape({ username: propTypes.string.isRequired }).isRequired,
+        name: propTypes.string.isRequired,
+        size: propTypes.number.isRequired
+    }).isRequired,
 
     // i18n
     t: propTypes.func.isRequired,
