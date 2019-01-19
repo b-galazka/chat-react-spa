@@ -16,20 +16,10 @@ export default class FormComponent extends Component {
 
         return ({ target }) => {
 
-            const { value } = target;
+            const value = (target.type === 'checkbox') ? target.checked : target.value;
 
             this.setState({
                 [inputName]: value
-            });
-        };
-    }
-
-    updateCheckboxValue(inputName) {
-
-        return ({ target }) => {
-
-            this.setState({
-                [inputName]: target.checked
             });
         };
     }

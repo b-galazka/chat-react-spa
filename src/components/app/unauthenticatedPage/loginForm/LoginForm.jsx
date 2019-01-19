@@ -136,7 +136,7 @@ class LoginForm extends FormComponent {
         return (
             <Checkbox
                 checked={this.state.keepSignedIn}
-                onChange={this.updateCheckboxValue('keepSignedIn', 'checkbox')}
+                onChange={this.updateInputValue('keepSignedIn')}
                 className={styles.checkbox}
             >
                 {t('loginForm.keepSignedInLabel')}
