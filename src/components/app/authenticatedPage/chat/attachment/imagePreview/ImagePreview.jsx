@@ -47,7 +47,7 @@ class ImagePreview extends Component {
                     >
                         <img
                             className={styles.imagePreviewImage}
-                            src={attachment.urls.preview}
+                            src={attachment.urls.preview || attachment.urls.originalFile}
                             alt={t('imagePreview.imgAlt', { filename: attachment.name })}
                         />
                     </figure>
@@ -72,7 +72,8 @@ class ImagePreview extends Component {
 
     getImageWrapperDimensions() {
 
-        const { width, height } = this.props.attachment.metadata.preview;
+        const { metadata } = this.props.attachment;
+        const { width, height } = metadata.preview || metadata.originalFile;
 
         return {
             width: `${width}px`,
@@ -95,7 +96,7 @@ ImagePreview.propTypes = {
     attachment: propTypes.shape({
         urls: propTypes.shape({
             originalFile: propTypes.string.isRequired,
-            preview: propTypes.string.isRequired
+            preview: propTypes.string
         }).isRequired,
 
         metadata: propTypes.shape({
@@ -108,7 +109,7 @@ ImagePreview.propTypes = {
                 width: propTypes.number.isRequired,
                 height: propTypes.number.isRequired,
                 size: propTypes.number.isRequired
-            }).isRequired
+            })
         }).isRequired,
 
         author: propTypes.shape({ username: propTypes.string.isRequired }).isRequired,
