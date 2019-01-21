@@ -4,6 +4,7 @@ import { withNamespaces } from 'react-i18next';
 import { connect } from 'react-redux';
 import { compose, bindActionCreators } from 'redux';
 import { closeGallery } from '@src/actions/ui';
+import datePropValidator from '@src/utils/datePropValidator';
 
 import styles from './gallery.scss';
 
@@ -35,14 +36,21 @@ class Gallery extends Component {
 }
 
 Gallery.propTypes = {
-    // TODO: add proptypes
-
-
     // i18n
     t: propTypes.func.isRequired,
 
     // redux
-    closeGallery: propTypes.func.isRequired
+    closeGallery: propTypes.func.isRequired,
+
+    image: propTypes.shape({
+        url: propTypes.string.isRequired,
+        width: propTypes.number.isRequired,
+        height: propTypes.number.isRequired,
+        size: propTypes.number.isRequired,
+        name: propTypes.string.isRequired,
+        author: propTypes.shape({ username: propTypes.string.isRequired }).isRequired,
+        date: datePropValidator('image.date validation error')
+    }).isRequired
 };
 
 export default compose(withNamespaces(), connect(mapStateToProps, mapDispatchToProps))(Gallery);

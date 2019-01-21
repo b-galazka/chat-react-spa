@@ -138,13 +138,15 @@ class Attachment extends ChatMessageComponent {
 
     renderOpenableFile() {
 
-        const { attachment, author } = this.props.message;
+        const { attachment, author, date } = this.props.message;
         const urls = Attachment.transformUrlsToAbsolute(attachment.urls);
 
         if (attachment.type.startsWith('image/')) {
 
-            return <ImagePreview attachment={{ ...attachment, urls, author }} />;
+            return <ImagePreview attachment={{ ...attachment, urls, author, date }} />;
         }
+
+        // TODO: add video and audio player
 
         return null;
     }

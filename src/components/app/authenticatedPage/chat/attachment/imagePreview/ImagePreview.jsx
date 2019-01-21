@@ -5,6 +5,7 @@ import classNames from 'classnames';
 import { connect } from 'react-redux';
 import { compose, bindActionCreators } from 'redux';
 import { openGallery } from '@src/actions/ui';
+import datePropValidator from '@src/utils/datePropValidator';
 
 import styles from './imagePreview.scss';
 
@@ -73,9 +74,15 @@ class ImagePreview extends Component {
 
     openGallery() {
 
-        // TODO: prepare image props
+        const { urls, metadata, ...attachment } = this.props.attachment;
+        const { width, height } = metadata.originalFile;
 
-        this.props.openGallery({});
+        this.props.openGallery({
+            ...attachment,
+            url: urls.originalFile,
+            width,
+            height
+        });
     }
 }
 
@@ -99,6 +106,7 @@ ImagePreview.propTypes = {
         }).isRequired,
 
         author: propTypes.shape({ username: propTypes.string.isRequired }).isRequired,
+        date: datePropValidator('attachment.date validation error'),
         name: propTypes.string.isRequired,
         size: propTypes.number.isRequired
     }).isRequired,
