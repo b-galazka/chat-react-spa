@@ -3,7 +3,8 @@ import propTypes from 'prop-types';
 import { withNamespaces } from 'react-i18next';
 import classNames from 'classnames';
 import { connect } from 'react-redux';
-import { compose } from 'redux';
+import { compose, bindActionCreators } from 'redux';
+import { openGallery } from '@src/actions/ui';
 
 import styles from './imagePreview.scss';
 
@@ -14,22 +15,25 @@ function mapStateToProps(state) {
     return { username };
 }
 
+function mapDispatchToProps(dispatch) {
+
+    return {
+        openGallery: bindActionCreators(openGallery, dispatch)
+    };
+}
+
 class ImagePreview extends Component {
 
     constructor() {
 
         super();
 
-        this.state = { isFullscreen: false };
-
-        this.enableFullscreen = this.enableFullscreen.bind(this);
-        this.disableFullscreen = this.disableFullscreen.bind(this);
+        this.openGallery = this.openGallery.bind(this);
     }
 
     render() {
 
         const { t, username, attachment } = this.props;
-        const { isFullscreen } = this.state;
 
         return (
             <div
@@ -40,7 +44,7 @@ class ImagePreview extends Component {
                     })
                 }
             >
-                <div className={styles.imagePreviewWrapper} onClick={this.enableFullscreen}>
+                <div className={styles.imagePreviewWrapper} onClick={this.openGallery}>
                     <figure
                         className={styles.imagePreviewContainer}
                         style={this.getImageWrapperDimensions()}
@@ -52,21 +56,7 @@ class ImagePreview extends Component {
                         />
                     </figure>
                 </div>
-
-                { isFullscreen && this.renderFullscreenPreview() }
             </div>
-        );
-    }
-
-    renderFullscreenPreview() {
-
-        // TODO: show original image
-        // TODO: show footer with name and size of the original file
-        // TODO: render fullscreen outside of this component?
-        // TODO: add current fullscreen preview image to store?
-
-        return (
-            <div className={styles.imagePreviewFullscreen} onClick={this.disableFullscreen}></div>
         );
     }
 
@@ -81,14 +71,11 @@ class ImagePreview extends Component {
         };
     }
 
-    enableFullscreen() {
+    openGallery() {
 
-        this.setState({ isFullscreen: true });
-    }
+        // TODO: prepare image props
 
-    disableFullscreen() {
-
-        this.setState({ isFullscreen: false });
+        this.props.openGallery({});
     }
 }
 
@@ -107,8 +94,7 @@ ImagePreview.propTypes = {
 
             preview: propTypes.shape({
                 width: propTypes.number.isRequired,
-                height: propTypes.number.isRequired,
-                size: propTypes.number.isRequired
+                height: propTypes.number.isRequired
             })
         }).isRequired,
 
@@ -121,7 +107,11 @@ ImagePreview.propTypes = {
     t: propTypes.func.isRequired,
 
     // redux
-    username: propTypes.string.isRequired
+    username: propTypes.string.isRequired,
+    openGallery: propTypes.func.isRequired
 };
 
-export default compose(withNamespaces(), connect(mapStateToProps))(ImagePreview);
+export default compose(
+    withNamespaces(),
+    connect(mapStateToProps, mapDispatchToProps)
+)(ImagePreview);

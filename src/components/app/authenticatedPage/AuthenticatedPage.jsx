@@ -9,6 +9,7 @@ import AuthenticatedPageLoader from './authenticatedPageLoader/AuthenticatedPage
 import AuthenticatedPageHeader from './authenticatedPageHeader/AuthenticatedPageHeader';
 import Sidebar from './sidebar/Sidebar';
 import Chat from './chat/Chat';
+import Gallery from './gallery/Gallery';
 
 import { fetchMessages, markMessagesAsRead } from '@src/actions/messages';
 import { initSocket } from '@src/actions/socket';
@@ -18,14 +19,15 @@ import styles from './authenticatedPage.scss';
 
 function mapStateToProps(state) {
 
-    const { users, messages, socket } = state;
+    const { users, messages, socket, ui } = state;
 
     return {
         usersFetched: users.fetched,
         messagesFetched: messages.fetched,
         socketConnected: socket.connected,
         socketConnectionError: socket.connectionError,
-        unreadMessages: messages.unreadMessages
+        unreadMessages: messages.unreadMessages,
+        isGalleryOpened: !!ui.galleryImage
     };
 }
 
@@ -54,6 +56,7 @@ class AuthenticatedPage extends Component {
             messagesFetched,
             socketConnected,
             socketConnectionError,
+            isGalleryOpened,
             t
         } = this.props;
 
@@ -89,6 +92,10 @@ class AuthenticatedPage extends Component {
                     <Sidebar />
                     <Chat />
                 </div>
+
+                {
+                    isGalleryOpened && <Gallery />
+                }
             </div>
         );
     }
@@ -140,6 +147,7 @@ AuthenticatedPage.propTypes = {
     socketConnected: propTypes.bool.isRequired,
     socketConnectionError: propTypes.bool.isRequired,
     unreadMessages: propTypes.number.isRequired,
+    isGalleryOpened: propTypes.bool.isRequired,
 
     // i18n
     t: propTypes.func.isRequired
