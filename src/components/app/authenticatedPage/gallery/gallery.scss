@@ -20,8 +20,11 @@
     &Header {
         display: flex;
         justify-content: flex-end;
-        visibility: hidden;
         flex: 0 0 auto;
+
+        @media (min-width: $smallWidth + 1px) {
+            visibility: hidden;
+        }
     }
 
     &:hover &Header {
