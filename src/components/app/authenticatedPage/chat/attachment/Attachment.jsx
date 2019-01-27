@@ -167,11 +167,14 @@ class Attachment extends ChatMessageComponent {
 
         const { type } = this.props.message.attachment;
 
-        return (
+        return type.startsWith('image/');
+
+        // TODO: uncomment when audio and video players are ready
+        /* return (
             type.startsWith('image/') ||
             type.startsWith('audio/') ||
             type.startsWith('video/')
-        );
+        ); */
     }
 }
 
