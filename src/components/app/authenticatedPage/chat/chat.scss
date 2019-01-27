@@ -19,7 +19,7 @@
         // Prevents stretching element to height of all its children.
         height: 0;
 
-        @media(max-width: $smallWidth) {
+        @media (max-width: $smallWidth) {
             padding: 0 10px;
         }
     }
@@ -52,6 +52,10 @@
         height: 100%;
         z-index: 10;
         background-color: rgba(#fff, 0.7);
+
+        @media (min-width: $smallWidth + 1px) {
+            display: none;
+        }
     }
 
     &FetchMoreMsgsBtn {
