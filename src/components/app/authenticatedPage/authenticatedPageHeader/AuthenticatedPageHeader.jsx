@@ -35,9 +35,9 @@ function AuthenticatedPageHeader({ currentUserName, toggleMobileSidebar, isMobil
 
                 className={
                     classNames({
-                        [sharedStyles.buttonMobileTrigger]: true,
+                        [sharedStyles.buttonHamburger]: true,
                         [styles.authenticatedPageHeaderMobileSidebarTrigger]: true,
-                        [sharedStyles.buttonMobileTriggerCloseable]: isMobileSidebarOpened
+                        [sharedStyles.buttonHamburgerCloseable]: isMobileSidebarOpened
                     })
                 }
             >

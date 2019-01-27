@@ -1,3 +1,5 @@
+@import 'variables';
+
 .gallery {
     position: fixed;
     width: 100%;
@@ -7,4 +9,35 @@
     z-index: 1100;
     background-color: rgba(#000, 0.85);
     cursor: default;
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+
+    @media (max-width: $smallWidth) {
+        padding: 10px;
+    }
+
+    &Header {
+        display: flex;
+        justify-content: flex-end;
+        visibility: hidden;
+    }
+
+    &:hover &Header {
+        visibility: visible;
+    }
+
+    &CloseButton {
+        width: 20px;
+        height: 20px;
+
+        @media (max-width: $smallWidth) {
+            width: 25px;
+            height: 25px;
+        }
+
+        &::after, &::before {
+            background-color: #FFF;
+        }
+    }
 }
