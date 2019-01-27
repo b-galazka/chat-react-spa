@@ -82,7 +82,8 @@
 
     "messageForm": {
         "submitButtonText": "Send",
-        "textareaPlaceholder": "Your message..."
+        "textareaPlaceholder": "Your message...",
+        "fileUploadBtnTooltip": "Upload file"
     },
 
     "unauthenticatedPage": {
@@ -119,6 +120,8 @@
 
     "gallery": {
         "imgAlt": "{{ filename }} image",
-        "imgLoadingError": "Something went wrong. Check your internet connection."
+        "imgLoadingError": "Something went wrong. Check your internet connection.",
+        "closeBtnTooltip": "Close gallery",
+        "saveImageBtnTooltip": "Save image"
     }
 }

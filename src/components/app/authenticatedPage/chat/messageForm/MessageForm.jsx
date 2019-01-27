@@ -82,6 +82,8 @@ class MessageForm extends FormComponent {
 
     renderFileUploadButton() {
 
+        const { t } = this.props;
+
         return (
             <div className={styles.fileUpload}>
                 <input
@@ -96,6 +98,7 @@ class MessageForm extends FormComponent {
                 <label
                     htmlFor="fileUpload"
                     className={styles.fileUploadButton}
+                    title={t('messageForm.fileUploadBtnTooltip')}
                 >
                     <figure className={styles.fileUploadIcon}></figure>
                 </label>

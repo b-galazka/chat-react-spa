@@ -66,11 +66,24 @@ class Gallery extends Component {
 
     renderHeader() {
 
+        const { t, closeGallery, image } = this.props;
+
         return (
             <header className={styles.galleryHeader}>
+                <a
+                    className={styles.gallerySaveImageButton}
+                    href={`${image.url}?action=download&name=${encodeURIComponent(image.name)}`}
+                    title={t('gallery.saveImageBtnTooltip')}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    <img src="/img/save-file-icon.png" alt="save file icon" />
+                </a>
+
                 <button
                     type="button"
-                    onClick={this.props.closeGallery}
+                    onClick={closeGallery}
+                    title={t('gallery.closeBtnTooltip')}
 
                     className={classNames(
                         styles.galleryCloseButton,
