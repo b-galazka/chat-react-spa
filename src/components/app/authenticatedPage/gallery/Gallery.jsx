@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { compose, bindActionCreators } from 'redux';
 import classNames from 'classnames';
 
+import LoadingAnimation from '@src/components/utils/loadingAnimation/LoadingAnimation';
 import { closeGallery } from '@src/actions/ui';
 import datePropValidator from '@src/utils/datePropValidator';
 
@@ -29,7 +30,14 @@ class Gallery extends Component {
 
         super();
 
+        this.state = {
+            isImageLoaded: false,
+            isImageLoadingError: false
+        };
+
         this.handleEscKey = this.handleEscKey.bind(this);
+        this.handleLoadedImage = this.handleLoadedImage.bind(this);
+        this.handleImageLoadingError = this.handleImageLoadingError.bind(this);
     }
 
     componentDidMount() {
@@ -39,12 +47,19 @@ class Gallery extends Component {
 
     render() {
 
-        // TODO: show original image
         // TODO: show footer with name and size of the original file
 
         return (
-            <section className={styles.gallery}>
+            <section
+                className={
+                    classNames({
+                        [styles.gallery]: true,
+                        [styles.galleryLoading]: !this.state.isImageLoaded
+                    })
+                }
+            >
                 {this.renderHeader()}
+                {this.renderImage()}
             </section>
         );
     }
@@ -68,19 +83,65 @@ class Gallery extends Component {
         );
     }
 
+    renderImage() {
+
+        const { t, image } = this.props;
+        const { isImageLoaded, isImageLoadingError } = this.state;
+
+        return (
+            <div className={styles.galleryContent}>
+
+                {
+                    !isImageLoadingError &&
+
+                    <img
+                        src={image.url}
+                        alt={t('gallery.imgAlt', { filename: image.name })}
+                        className={styles.galleryImage}
+                        onLoad={this.handleLoadedImage}
+                        onError={this.handleImageLoadingError}
+                    />
+                }
+
+                {
+                    !isImageLoaded && !isImageLoadingError &&
+
+                    <figure className={styles.galleryLoader}>
+                        <LoadingAnimation color="#FFF" />
+                    </figure>
+                }
+
+                {
+                    isImageLoadingError &&
+                    <p className={styles.galleryLoadingError}>{t('gallery.imgLoadingError')}</p>
+                }
+            </div>
+        );
+    }
+
     componentWillUnmount() {
 
         document.removeEventListener('keydown', this.handleEscKey);
     }
 
-    handleEscKey(event) {
+    handleEscKey({ key }) {
 
-        if (event.key !== 'Escape') {
+        if (key !== 'Escape' && key !== 'Esc') {
 
             return;
         }
 
         this.props.closeGallery();
+    }
+
+    handleLoadedImage() {
+
+        this.setState({ isImageLoaded: true });
+    }
+
+    handleImageLoadingError() {
+
+        this.setState({ isImageLoadingError: true });
     }
 }
 

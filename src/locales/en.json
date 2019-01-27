@@ -115,5 +115,10 @@
 
     "imagePreview": {
         "imgAlt": "{{ filename }} attachment"
+    },
+
+    "gallery": {
+        "imgAlt": "{{ filename }} image",
+        "imgLoadingError": "Something went wrong. Check your internet connection."
     }
 }

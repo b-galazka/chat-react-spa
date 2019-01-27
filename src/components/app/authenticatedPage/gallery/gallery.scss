@@ -7,7 +7,7 @@
     left: 0;
     top: 0;
     z-index: 1100;
-    background-color: rgba(#000, 0.85);
+    background-color: rgba(#000, 0.90);
     cursor: default;
     display: flex;
     flex-direction: column;
@@ -21,6 +21,7 @@
         display: flex;
         justify-content: flex-end;
         visibility: hidden;
+        flex: 0 0 auto;
     }
 
     &:hover &Header {
@@ -39,5 +40,43 @@
         &::after, &::before {
             background-color: #FFF;
         }
+    }
+
+    &Content {
+        flex: 1 1 auto;
+        padding: 15px 0;
+        display: flex;
+        height: 100vh;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+
+        @media (max-width: $smallWidth) {
+            padding: 10px 0;
+        }
+    }
+
+    &Image {
+        max-width: 100%;
+        max-height: 100%;
+        transform: scale(1);
+        transition: 200ms;
+    }
+
+    &Loading &Image {
+        visibility: hidden;
+        transform: scale(0.1);
+    }
+
+    &Loader {
+        left: 50%;
+        top: 50%;
+        position: absolute;
+        transform: translate(-50%, -50%);
+    }
+
+    &LoadingError {
+        color: #FFF;
+        text-align: center;
     }
 }
