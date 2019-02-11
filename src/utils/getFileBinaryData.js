@@ -4,13 +4,22 @@ export default function getFileBinaryData(file) {
 
         const fileReader = new FileReader();
 
-        fileReader.addEventListener('load', ({ target }) => {
+        const handleSuccess = ({ target }) => {
 
             resolve(target.result);
-        });
 
-        fileReader.addEventListener('error', err => reject(err));
+            fileReader.removeEventListener('load', handleSuccess);
+        };
 
+        const handleError = (err) => {
+
+            reject(err);
+
+            fileReader.removeEventListener('error', handleError);
+        };
+
+        fileReader.addEventListener('load', handleSuccess);
+        fileReader.addEventListener('error', handleError);
         fileReader.readAsArrayBuffer(file);
     });
 }
